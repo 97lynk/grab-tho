@@ -15,30 +15,28 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { Platform } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
-// import { CameraMock } from '@ionic-native-mocks/camera';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { Storage } from '@ionic/storage';
-import { CameraMock } from './mock/camera-mock';
 import { MapsAPILoader, AgmCoreModule } from '@agm/core';
-import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Network } from '@ionic-native/network/ngx';
+// import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDarfxy_9aCD-VqgyHXBz1t73qLbxpjlWk',
+      apiKey: 'AIzaSyBJJPAC0oOZpV6tXVNjyDXQeNj1Lw3u-UY',
       libraries: ['places']
     }),
     IonicStorageModule.forRoot(),
-    // MapsAPILoader,
     BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera, NgxImageCompressService,
-    File, Platform, WebView, FilePath,
+    File, Platform, WebView, FilePath, Geolocation, Network,
     // {provide: Camera, useClass: CameraMock},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
