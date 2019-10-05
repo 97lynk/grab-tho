@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()" routerLink="/tabs/tab1">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>Yêu cầu</ion-title>
+
+    <ion-buttons slot="end">
+      <a [routerLink]="['/requests/my-location']">Tiếp tục</a>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- <ion-card style="box-shadow: 0 !important;" class="ion-no-padding ion-no-margin"> -->
+  <ion-card-header class="ion-no-padding ion-no-margin">
+    <ion-card-title>Mô tả vấn đề</ion-card-title>
+    <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-text>
+    <h5>Mô tả bằng chữ</h5>
+    <ion-textarea autoGrow="true" rows="3"></ion-textarea>
+  </ion-text>
+
+  <ion-text>
+    <h5>Mô tả bằng hình ảnh</h5>
+    <small *ngIf="images.length == 0" class="ionic-text-center">
+      Chọn ảnh để mô tả chi tiết hơn
+    </small>
+  </ion-text>
+
+  <ion-grid>
+    <ion-row *ngFor="let row of images; let i = index">
+      <ion-col width-50 *ngFor="let col of row; let j = index" color="light">
+        <img src="{{ col?.path }}" />
+        <span>Hình {{ 2*i + j + 1 }}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="footer primary ion-no-padding">
+    <ion-button expand="full" class="ion-no-margin" (click)="selectImage()">
+      <ion-icon name="camera" class="ion-padding-horizontal"></ion-icon> Thêm hình ảnh
+    </ion-button>
+  </div>
+</ion-content>

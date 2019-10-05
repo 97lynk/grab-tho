@@ -1,20 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
-import { ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular';
+import { ActionSheetController, ToastController, Platform, LoadingController, NavController } from '@ionic/angular';
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { HttpClient } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PhotoService } from '../service/photo.service';
+import { PhotoService } from '../../service/photo.service';
 
 @Component({
-  selector: 'app-add-request',
-  templateUrl: './add-request.component.html',
-  styleUrls: ['./add-request.component.scss'],
+  selector: 'request-description',
+  templateUrl: './description-request.component.html',
+  styleUrls: ['./description-request.component.scss'],
 })
-export class AddRequestComponent implements OnInit {
+export class DescriptionRequestComponent implements OnInit {
 
   images: Array<Array<string>>;
   private win: any = window;
@@ -27,7 +27,8 @@ export class AddRequestComponent implements OnInit {
     private ref: ChangeDetectorRef, private filePath: FilePath,
     private imageCompress: NgxImageCompressService,
     private sanitizer: DomSanitizer,
-    private photoService: PhotoService) {
+    private photoService: PhotoService,
+    private navController: NavController) {
 
   }
 
@@ -116,14 +117,14 @@ export class AddRequestComponent implements OnInit {
     };
 
     // if (!this.platform.is('desktop')) {
-      this.camera.getPicture(options).then(imagePath => {
-        this.imageCompress.compressFile('data:image/jpeg;base64,' + imagePath, -1, 50, 1).then(result => {
-          this.photoService.addPhoto({
-            name: (new Date()).getTime() + '',
-            path: result
-          });
+    this.camera.getPicture(options).then(imagePath => {
+      this.imageCompress.compressFile('data:image/jpeg;base64,' + imagePath, -1, 50, 1).then(result => {
+        this.photoService.addPhoto({
+          name: (new Date()).getTime() + '',
+          path: result
         });
       });
+    });
     // } else {
     //   this.photoService.addPhoto({
     //     name: (new Date()).getTime() + '',
@@ -140,4 +141,7 @@ export class AddRequestComponent implements OnInit {
     }
   }
 
+  goBack() {
+    this.navController.pop();
+  }
 }

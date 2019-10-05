@@ -1,0 +1,48 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start" routerLink="/tabs/tab1">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>Chọn thợ</ion-title>
+
+    <!-- <ion-buttons slot="end">
+      <a [routerLink]="['/requests/find-repairer']">Tiếp tục</a>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card-header class="ion-no-padding ion-no-margin">
+    <ion-card-title>Tìm thợ</ion-card-title>
+    <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-segment value="1">
+    <ion-segment-button value="1">
+      <ion-label>Thợ nhận yêu cầu</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>Thợ báo giá</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list>
+    <ion-list-header>
+      Recent Conversations
+    </ion-list-header>
+
+    <ion-item *ngFor="let r of repairers">
+      <ion-avatar slot="start">
+        <img [src]="r.avatar">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ r.name }}</h2>
+        <h3>{{ r.position }}</h3>
+        <p><ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}</p>
+      </ion-label>
+
+      <ion-note slot="end">{{ r.time }}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

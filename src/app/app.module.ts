@@ -26,7 +26,7 @@ import { Network } from '@ionic-native/network/ngx';
   entryComponents: [],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBJJPAC0oOZpV6tXVNjyDXQeNj1Lw3u-UY',
+      apiKey: 'AIzaSyA2eUQ0bhJR1nKSn8HqJqFgobtPq5a6h-Y',
       libraries: ['places']
     }),
     IonicStorageModule.forRoot(),

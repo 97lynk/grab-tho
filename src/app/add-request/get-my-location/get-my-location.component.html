@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()" routerLink="/tabs/tab1">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>Yêu cầu</ion-title>
+
+    <ion-buttons slot="end">
+      <a [routerLink]="['/requests/find-repairer']">Tiếp tục</a>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" fullscreen>
+  <ion-card-header class="ion-no-padding ion-no-margin">
+    <ion-card-title>Chọn địa chỉ</ion-card-title>
+    <ion-card-subtitle>Xác định vị trí của bạn</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-searchbar animated inputmode="search" showCancelButton="focus" placeholder="Tìm kiếm địa chỉ"
+    [(ngModel)]="searchInput" (ionInput)="updateListPlace()" (ionClear)="searchInput = ''; autocompleteItems = []"
+    (ionCancel)="hideSearchBox = true; autocompleteItems = []">
+  </ion-searchbar>
+
+  <ion-list [hidden]="autocompleteItems.length == 0" color="light">
+    <ion-item *ngFor="let item of autocompleteItems" lines="full" tappable (click)="selectSearchResult(item)">
+      <ion-text>
+        <strong> {{ item.main_text }}</strong> <small> {{ item.secondary_text }}</small>
+      </ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div style="height: 100%">
+    <agm-map [zoomControlOptions]="zoomConfig" scaleControl="true" [latitude]="lat" streetViewControl="false"
+      [longitude]="lng" [minZoom]="15" [maxZoom]="18" [zoom]="17" [tilt]="45">
+      <agm-marker [animation]="'BOUNCE'" [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
+
+  <div class="footer primary ion-no-padding">
+    <ion-button expand="full" class="ion-no-margin" (click)="getUserPosition()">
+      <ion-icon name="md-locate" class="ion-padding-horizontal"></ion-icon>Vị trí hiện tại
+    </ion-button>
+  </div>
+
+</ion-content>
