@@ -5,10 +5,6 @@
     </ion-buttons>
 
     <ion-title>Chọn thợ</ion-title>
-
-    <!-- <ion-buttons slot="end">
-      <a [routerLink]="['/requests/find-repairer']">Tiếp tục</a>
-    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +14,7 @@
     <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-segment value="1">
+  <ion-segment [value]="selectedTab" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="1">
       <ion-label>Thợ nhận yêu cầu</ion-label>
     </ion-segment-button>
@@ -31,18 +27,23 @@
     <ion-list-header>
       Recent Conversations
     </ion-list-header>
+    <ng-container *ngFor="let r of repairers">
+      <ion-item *ngIf="(selectedTab == '2' && r.ok == true) || selectedTab == '1'"
+        [routerLink]="['/requests/repairer', r.id]">
+        <ion-avatar slot="start">
+          <img [src]="r.avatar">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ r.name }}</h2>
+          <h3>{{ r.position }}</h3>
+          <p>
+            <ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}
+          </p>
+        </ion-label>
 
-    <ion-item *ngFor="let r of repairers">
-      <ion-avatar slot="start">
-        <img [src]="r.avatar">
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ r.name }}</h2>
-        <h3>{{ r.position }}</h3>
-        <p><ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}</p>
-      </ion-label>
+        <ion-note slot="end">{{ r.time }}</ion-note>
+      </ion-item>
 
-      <ion-note slot="end">{{ r.time }}</ion-note>
-    </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>

@@ -7,6 +7,9 @@ import { AgmCoreModule } from '@agm/core';
 import { DescriptionRequestComponent } from './description-request/description-request.component';
 import { GetMyLocationComponent } from './get-my-location/get-my-location.component';
 import { FindRepairerComponent } from './find-repairer/find-repairer.component';
+import { ChooseRepairerComponent } from './choose-repairer/choose-repairer.component';
+import { RepairerPage } from './repairer-modal/repairer.page';
+import { RatingModule } from 'ng-starrating';
 
 @NgModule({
   imports: [
@@ -14,16 +17,21 @@ import { FindRepairerComponent } from './find-repairer/find-repairer.component';
     CommonModule,
     FormsModule,
     AgmCoreModule,
+    RatingModule,
     RouterModule.forChild([
       { path: 'description', component: DescriptionRequestComponent },
       { path: 'my-location', component: GetMyLocationComponent },
-      { path: 'find-repairer', component: FindRepairerComponent }
+      { path: 'find-repairer', component: FindRepairerComponent },
+      { path: 'repairer/:id', component: ChooseRepairerComponent }
     ])
   ],
   declarations: [
     DescriptionRequestComponent,
     GetMyLocationComponent,
-    FindRepairerComponent
-  ]
+    FindRepairerComponent,
+    ChooseRepairerComponent,
+    RepairerPage
+  ],
+  entryComponents: [RepairerPage]
 })
 export class AddRequestModule { }

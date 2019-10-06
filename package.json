@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "@ionic-native-mocks/camera": "^2.0.12",
     "@ionic-native/camera": "^5.14.0",
     "@ionic-native/core": "^5.1.0",
     "@ionic-native/file": "^5.14.0",
@@ -44,6 +43,7 @@
     "cordova-plugin-network-information": "^2.0.2",
     "cordova-sqlite-storage": "^3.4.0",
     "core-js": "^2.5.4",
+    "ng-starrating": "^1.0.7",
     "ngx-image-compress": "^8.0.3",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
@@ -103,9 +103,9 @@
       "cordova-plugin-network-information": {}
     },
     "platforms": [
-      "android",
       "ios",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

@@ -19,7 +19,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { MapsAPILoader, AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Network } from '@ionic-native/network/ngx';
-// import { GoogleMaps } from '@ionic-native/google-maps';
+import { RatingModule } from 'ng-starrating';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +29,7 @@ import { Network } from '@ionic-native/network/ngx';
       apiKey: 'AIzaSyA2eUQ0bhJR1nKSn8HqJqFgobtPq5a6h-Y',
       libraries: ['places']
     }),
+    
     IonicStorageModule.forRoot(),
     BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   ],

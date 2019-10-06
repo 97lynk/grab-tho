@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-find-repairer',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FindRepairerComponent implements OnInit {
 
+  selectedTab = '1';
+
   repairers = [
     {
+      id: 1,
       name: 'Anh Nguyễn Văn Thanh',
       position: 'Thợ sửa chữa nước',
       time: '2 phút trước',
@@ -17,6 +21,7 @@ export class FindRepairerComponent implements OnInit {
       ok: true
     },
     {
+      id: 2,
       name: 'Anh Trần Bình Trọng',
       position: 'Thợ sửa chữa nước',
       time: '4 phút trước',
@@ -25,6 +30,7 @@ export class FindRepairerComponent implements OnInit {
       ok: false
     },
     {
+      id: 3,
       name: 'Anh Lê Văn Chí',
       position: 'Thợ sửa chữa nước',
       time: '23 phút trước',
@@ -35,8 +41,13 @@ export class FindRepairerComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() { }
 
+  segmentChanged(event) {
+    this.selectedTab = event.target.value;
+    console.log(event.target.value);
+  }
 }

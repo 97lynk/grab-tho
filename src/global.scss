@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "custom-variable.scss";
+
+.repaier-info-modal .modal-wrapper {
+  width: 100%;
+  top: 0;
+  height: calc(100% - $offet-top-repairer-panel);
+  position: absolute;
+  display: block;
+  border-radius: 15px 15px 0 0;
+}
