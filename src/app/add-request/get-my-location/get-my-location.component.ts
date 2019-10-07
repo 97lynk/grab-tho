@@ -15,8 +15,9 @@ import { ControlPosition, ZoomControlOptions, ZoomControlStyle } from '@agm/core
 })
 export class GetMyLocationComponent implements OnInit {
 
-  lat = 51.678418;
-  lng = 7.809007;
+  // hcmc
+  myLocation = { lat: 10.8230989, lng: 106.6296638 };
+
   options: GeolocationOptions;
   currentPos: Geoposition;
   service: any;
@@ -66,10 +67,10 @@ export class GetMyLocationComponent implements OnInit {
           this.ngZone.run(() => {
             predictions.forEach((p) => {
               this.autocompleteItems.push({
-                'description': p['description'],
-                'main_text': p['structured_formatting']['main_text'],
-                'secondary_text': p['structured_formatting']['secondary_text'],
-                'place_id': p['place_id']
+                description: p['description'],
+                main_text: p['structured_formatting']['main_text'],
+                secondary_text: p['structured_formatting']['secondary_text'],
+                place_id: p['place_id']
               });
             });
 
@@ -88,9 +89,11 @@ export class GetMyLocationComponent implements OnInit {
     this.geocoder.geocode({ 'placeId': item.place_id }, (results, status) => {
       this.ngZone.run(() => {
         if (status === 'OK' && results[0]) {
-          // let position = {
-          this.lat = results[0].geometry.location.lat();
-          this.lng = results[0].geometry.location.lng();
+          this.myLocation = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          };
+          console.log('decode place id ', this.myLocation);
         }
       });
     });
@@ -104,8 +107,12 @@ export class GetMyLocationComponent implements OnInit {
     this.geolocation.getCurrentPosition(this.options).then((pos: Geoposition) => {
 
       this.currentPos = pos;
-      this.lat = pos.coords.latitude;
-      this.lng = pos.coords.longitude;
+
+      this.myLocation = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+      };
+
       console.log(pos);
 
     }, (err: PositionError) => {

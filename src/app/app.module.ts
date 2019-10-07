@@ -26,10 +26,10 @@ import { RatingModule } from 'ng-starrating';
   entryComponents: [],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA2eUQ0bhJR1nKSn8HqJqFgobtPq5a6h-Y',
+      apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0',
       libraries: ['places']
     }),
-    
+
     IonicStorageModule.forRoot(),
     BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   ],

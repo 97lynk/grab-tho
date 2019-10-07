@@ -1,32 +1,27 @@
 <ion-content fullscreen>
-  <agm-map [zoomControl]="false" [latitude]="lat" streetViewControl="false" [longitude]="lng" [minZoom]="15"
-    [maxZoom]="18" [zoom]="17" [tilt]="45">
-    <agm-marker [animation]="'BOUNCE'" [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map [latitude]="hcmc.lat" [longitude]="hcmc.lng" streetViewControl="false" [zoomControlOptions]="zoomConfig">
+    <agm-direction *ngIf="destination != null" [origin]="origin" [destination]="destination"
+      [markerOptions]="markerOptions">
+    </agm-direction>
   </agm-map>
 
   <div class="ion-padding">
     <ion-card-header class="ion-no-padding ion-no-margin">
-      <ion-card-title>Anh Nguyễn Văn Thanh</ion-card-title>
+      <ion-card-title>Anh Nguyễn Văn Thanh <ion-icon class="" name="arrow-up"></ion-icon></ion-card-title>
       <ion-card-subtitle>Thợ sửa chữa nước</ion-card-subtitle>
     </ion-card-header>
     <star-rating value="4.0" checkedcolor="gold" uncheckedcolor="gray" size="12px" readonly="true"></star-rating>
 
-    <!-- <ion-segment color="primary" mode="ios"> -->
-    <!-- <ion-segment-button>
-        <ion-label>Gọi ngay</ion-label>
-        <ion-icon name="call"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button checked>
-        <ion-label>Nhắn tin</ion-label>
-        <ion-icon name="chatbubbles"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button>
-        <ion-label>Vị trí</ion-label>
-        <ion-icon name="pin"></ion-icon>
-      </ion-segment-button>
-    </ion-segment> -->
+    <!-- <ion-item lines="none" class="ion-no-padding ion-no-margin">
+      <ion-label class="ion-no-padding ion-no-margin">
+        <ion-card-title>Anh Nguyễn Văn Thanh</ion-card-title>
+        <ion-card-subtitle>Thợ sửa chữa nước</ion-card-subtitle>
+        <star-rating value="4.0" checkedcolor="gold" uncheckedcolor="gray" size="12px" readonly="true"></star-rating>
+      </ion-label>
+      <ion-icon name="arrow-up" slot="end"></ion-icon>
+    </ion-item> -->
 
-    <ion-item lines="none">
+    <ion-item lines="none" class="ion-no-padding">
       <ion-label slot="start">Đã báo giá</ion-label>
       <ion-text slot="end">
         <h4>250 điểm</h4>

@@ -10,13 +10,14 @@ import { FindRepairerComponent } from './find-repairer/find-repairer.component';
 import { ChooseRepairerComponent } from './choose-repairer/choose-repairer.component';
 import { RepairerPage } from './repairer-modal/repairer.page';
 import { RatingModule } from 'ng-starrating';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    AgmCoreModule,
+    AgmCoreModule, AgmDirectionModule,
     RatingModule,
     RouterModule.forChild([
       { path: 'description', component: DescriptionRequestComponent },

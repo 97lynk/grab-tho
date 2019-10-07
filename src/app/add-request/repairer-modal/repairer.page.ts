@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core/services/google-maps-types';
+import { ModalController } from '@ionic/angular';
 
 @Component({
     selector: 'repairer',
@@ -7,8 +8,15 @@ import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core
 })
 export class RepairerPage implements OnInit {
 
-    constructor() { }
+    constructor(public modalController: ModalController) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
+
+    dismiss() {
+        this.modalController.dismiss(
+            { lat: 10.7605046, lng: 106.6749102 }
+        );
+    }
 }
