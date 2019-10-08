@@ -19,7 +19,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { MapsAPILoader, AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Network } from '@ionic-native/network/ngx';
-import { RatingModule } from 'ng-starrating';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { RatingModule } from 'ng-starrating';
     }),
 
     IonicStorageModule.forRoot(),
-    BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+    BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, 
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,

@@ -32,9 +32,9 @@
   </ion-list>
 
   <div style="height: 100%">
-    <agm-map [zoomControlOptions]="zoomConfig" scaleControl="true" [latitude]="lat" streetViewControl="false"
-      [longitude]="lng" [minZoom]="15" [maxZoom]="18" [zoom]="17" [tilt]="45">
-      <agm-marker [animation]="'BOUNCE'" [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-map [zoomControlOptions]="zoomConfig" scaleControl="true" [latitude]="myLocation.lat" streetViewControl="false"
+      [longitude]="myLocation.lng" [minZoom]="15" [maxZoom]="18" [zoom]="17" [tilt]="45">
+      <agm-marker [animation]="'BOUNCE'" [latitude]="myLocation.lat" [longitude]="myLocation.lng"></agm-marker>
     </agm-map>
   </div>
 
