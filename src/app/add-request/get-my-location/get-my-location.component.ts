@@ -1,12 +1,13 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NavController, IonSearchbar, Platform } from '@ionic/angular';
 import { MapsAPILoader } from '@agm/core';
+import { ControlPosition, ZoomControlOptions, ZoomControlStyle } from '@agm/core/services/google-maps-types';
+import { Plugins, GeolocationPosition } from '@capacitor/core';
+const { Geolocation } = Plugins;
 declare var google;
 import PlaceResult = google.maps.places.PlaceResult;
 import AutocompleteOptions = google.maps.places.AutocompleteOptions;
-import { ControlPosition, ZoomControlOptions, ZoomControlStyle } from '@agm/core/services/google-maps-types';
+
 
 @Component({
   selector: 'app-get-my-location',
@@ -18,8 +19,7 @@ export class GetMyLocationComponent implements OnInit {
   // hcmc
   myLocation = { lat: 10.8230989, lng: 106.6296638 };
 
-  options: GeolocationOptions;
-  currentPos: Geoposition;
+  currentPos: GeolocationPosition;
   service: any;
   geocoder: any;
   hideSearchBox = true;
@@ -37,7 +37,7 @@ export class GetMyLocationComponent implements OnInit {
   @ViewChild('input2', { static: false })
   ip: ElementRef;
 
-  constructor(public navController: NavController, private geolocation: Geolocation,
+  constructor(public navController: NavController,
     private apiLoader: MapsAPILoader, private ngZone: NgZone, private platform: Platform) {
   }
 
@@ -100,11 +100,8 @@ export class GetMyLocationComponent implements OnInit {
   }
 
   getUserPosition() {
-    this.options = {
-      enableHighAccuracy: true
-    };
 
-    this.geolocation.getCurrentPosition(this.options).then((pos: Geoposition) => {
+    Geolocation.getCurrentPosition().then((pos: GeolocationPosition) => {
 
       this.currentPos = pos;
 

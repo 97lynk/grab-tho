@@ -3,9 +3,8 @@ import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core
 import { ModalController } from '@ionic/angular';
 import { RepairerPage } from '../repairer-modal/repairer.page';
 import { scaleUpLeave, scaleUpEnter } from './custom-animation';
-import { Geolocation } from '@ionic-native/geolocation/ngx'
-import { GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
-import { ViewController } from '@ionic/core';
+import { Plugins, GeolocationPosition } from '@capacitor/core';
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-choose-repairer',
@@ -36,7 +35,7 @@ export class ChooseRepairerComponent implements OnInit {
     style: ZoomControlStyle.SMALL
   };
 
-  constructor(public modalController: ModalController, private geolocation: Geolocation) { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
     this.presentModal();
@@ -45,8 +44,7 @@ export class ChooseRepairerComponent implements OnInit {
 
   getMyLocation() {
 
-    this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos: Geoposition) => {
-
+    Geolocation.getCurrentPosition().then((pos: GeolocationPosition) => {
       this.origin = {
         lat: pos.coords.latitude,
         lng: pos.coords.longitude

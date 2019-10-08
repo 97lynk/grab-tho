@@ -12,12 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { Camera } from '@ionic-native/Camera/ngx';
 import { Platform } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { MapsAPILoader, AgmCoreModule } from '@agm/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -38,8 +36,8 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
-    Camera, NgxImageCompressService,
-    File, Platform, WebView, FilePath, Geolocation, Network,
+    NgxImageCompressService,
+    File, Platform, WebView, FilePath, Network,
     // {provide: Camera, useClass: CameraMock},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

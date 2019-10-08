@@ -1,7 +1,8 @@
 {
   "name": "grab-tho-ionic",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
