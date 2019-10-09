@@ -33,15 +33,16 @@
         <ion-avatar slot="start">
           <img [src]="r.avatar">
         </ion-avatar>
+
         <ion-label>
           <h2>{{ r.name }}</h2>
           <h3>{{ r.position }}</h3>
-          <p>
+          <span>
             <ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}
-          </p>
+          </span>
+          - <small>{{ r.time }}</small>
         </ion-label>
 
-        <ion-note slot="end">{{ r.time }}</ion-note>
       </ion-item>
 
     </ng-container>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core/services/google-maps-types';
 import { ModalController } from '@ionic/angular';
 import { RepairerPage } from '../repairer-modal/repairer.page';
-import { scaleUpLeave, scaleUpEnter } from './custom-animation';
+import { scaleUpLeave, scaleUpEnter, showEnter, slideDownLeave } from './custom-animation';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
 const { Geolocation } = Plugins;
 
@@ -61,8 +61,9 @@ export class ChooseRepairerComponent implements OnInit {
       component: RepairerPage,
       cssClass: 'repaier-info-modal',
       backdropDismiss: true,
-      enterAnimation: scaleUpEnter,
-      leaveAnimation: scaleUpLeave
+      showBackdrop: true,
+      enterAnimation: showEnter,
+      leaveAnimation: slideDownLeave
     });
 
     modal.onDidDismiss().then(modalData => {

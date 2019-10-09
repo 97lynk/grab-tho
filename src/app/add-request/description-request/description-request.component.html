@@ -20,23 +20,20 @@
     <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-text>
-    <h5>Mô tả bằng chữ</h5>
-    <ion-textarea autoGrow="true" rows="3"></ion-textarea>
-  </ion-text>
+  <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd;"></ion-textarea>
 
   <ion-text>
     <h5>Mô tả bằng hình ảnh</h5>
-    <small *ngIf="images.length == 0" class="ionic-text-center">
+    <div *ngIf="images.length == 0" class="ion-text-center">
       Chọn ảnh để mô tả chi tiết hơn
-    </small>
+    </div>
   </ion-text>
 
   <ion-grid>
     <ion-row *ngFor="let row of images; let i = index">
       <ion-col width-50 *ngFor="let col of row; let j = index" color="light">
-        <img src="{{ col?.path }}" />
-        <span>Hình {{ 2*i + j + 1 }}</span>
+        <img [src]="col.src" alt="">
+        <small>Hình {{ 2*i + j + 1 }}</small>
       </ion-col>
     </ion-row>
   </ion-grid>

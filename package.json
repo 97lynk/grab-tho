@@ -38,6 +38,7 @@
     "@ionic/storage": "^2.2.0",
     "@types/googlemaps": "^3.37.7",
     "agm-direction": "^0.7.8",
+    "capacitor-data-storage-sqlite": "^1.2.1-8",
     "cordova-android": "^8.1.0",
     "cordova-browser": "6.0.0",
     "cordova-ios": "^5.0.1",

@@ -150,8 +150,6 @@ export class DescriptionRequestComponent implements OnInit {
     this.navController.pop();
   }
 
-  url = '';
-
   async takePicture2(sourceType: CameraSource) {
     console.log(sourceType);
     await Camera.getPhoto({
@@ -160,12 +158,11 @@ export class DescriptionRequestComponent implements OnInit {
       resultType: CameraResultType.Uri,
       source: sourceType
     }).then(image => {
-      console.log(image, this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath));
-      this.url = image.webPath;
+      console.log(image);
 
       this.photoService.addPhoto({
         name: (new Date()).getTime() + '',
-        path: this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath)
+        src: this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath)
       });
     });
 
