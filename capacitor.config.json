@@ -1,13 +1,22 @@
 {
   "appId": "vn.edu.hcmute",
   "appName": "grab-tho",
-  "bundledWebRuntime": false,
+  "bundledWebRuntime": true,
   "npmClient": "npm",
   "webDir": "www",
   "cordova": {
     "preferences": {
       "DisableDeploy": "true",
       "CameraUsesGeolocation": "true"
+    }
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
     }
   }
 }

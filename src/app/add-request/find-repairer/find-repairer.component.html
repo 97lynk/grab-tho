@@ -1,10 +1,10 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-buttons slot="start" routerLink="/tabs/tab1">
-      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-icon slot="icon-only" (click)="goBack()" name="arrow-back"></ion-icon>
     </ion-buttons>
 
-    <ion-title>Chọn thợ</ion-title>
+    <ion-title>Yêu cầu</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
     <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-segment [value]="selectedTab" (ionChange)="segmentChanged($event)">
+  <ion-segment class="ion-padding-vertical" [value]="selectedTab" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="1">
       <ion-label>Thợ nhận yêu cầu</ion-label>
     </ion-segment-button>
@@ -24,9 +24,9 @@
   </ion-segment>
 
   <ion-list>
-    <ion-list-header>
+    <!-- <ion-list-header>
       Recent Conversations
-    </ion-list-header>
+    </ion-list-header> -->
     <ng-container *ngFor="let r of repairers">
       <ion-item *ngIf="(selectedTab == '2' && r.ok == true) || selectedTab == '1'"
         [routerLink]="['/requests/repairer', r.id]">

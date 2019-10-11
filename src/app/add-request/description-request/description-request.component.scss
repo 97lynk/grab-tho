@@ -1,1 +1,29 @@
-@import '../add-request.scss';
+@import "../add-request.scss";
+
+.upload-button-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  padding: 1em;
+  background: rgba(220, 220, 200, 1);
+  border-radius: 10px;
+  display: inline-block;
+
+  small {
+    font-size: 1em;
+    padding: 0.1em 0 0 1em;
+    font-family: Verdana, Helvetica, sans-serif;
+  }
+
+  .file-upload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 1em;
+    font-size: 1.2em;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0); // Play nice with older version of Internet Explorer :)
+  }
+}

@@ -37,8 +37,8 @@ export class GetMyLocationComponent implements OnInit {
   @ViewChild('input2', { static: false })
   ip: ElementRef;
 
-  constructor(public navController: NavController,
-    private apiLoader: MapsAPILoader, private ngZone: NgZone, private platform: Platform) {
+  constructor(private navController: NavController, private apiLoader: MapsAPILoader,
+    private ngZone: NgZone, private platform: Platform) {
   }
 
   ngOnInit(): void {
@@ -117,8 +117,12 @@ export class GetMyLocationComponent implements OnInit {
     });
   }
 
+  continute() {
+    this.navController.navigateForward('/requests/find-repairer');
+  }
+
   goBack() {
-    this.navController.pop();
+    this.navController.navigateBack('/requests/description');
   }
 
 }

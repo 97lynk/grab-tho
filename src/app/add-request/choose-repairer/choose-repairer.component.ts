@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core/services/google-maps-types';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform, NavController } from '@ionic/angular';
 import { RepairerPage } from '../repairer-modal/repairer.page';
-import { scaleUpLeave, scaleUpEnter, showEnter, slideDownLeave } from './custom-animation';
+import { showEnter, slideDownLeave } from './custom-animation';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
+import { GoogleMapsAPIWrapper } from '@agm/core';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -14,9 +15,9 @@ const { Geolocation } = Plugins;
 export class ChooseRepairerComponent implements OnInit {
 
   hcmc = { lat: 10.8230989, lng: 106.6296638 };
-
   origin = { lat: 10.8734763, lng: 106.7357881 };
   destination = null;
+  agmHeight = window.innerHeight - 200;
 
   markerOptions = {
     origin: {
@@ -35,11 +36,20 @@ export class ChooseRepairerComponent implements OnInit {
     style: ZoomControlStyle.SMALL
   };
 
-  constructor(public modalController: ModalController) { }
+
+  constructor(
+    private modalController: ModalController,
+    private navController: NavController,
+    private platform: Platform) {
+  }
 
   ngOnInit() {
     this.presentModal();
     this.getMyLocation();
+    // this.platform.ready().then((readySource) => {
+    //   alert('Width: ' + this.platform.width() + ' Height: ' + this.platform.height() + '  '
+    //   + screen.height + ' ' + screen.availHeight);
+    // });
   }
 
   getMyLocation() {
@@ -78,6 +88,14 @@ export class ChooseRepairerComponent implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  continute() {
+    this.navController.navigateForward('/requests/find-repairer');
+  }
+
+  goBack() {
+    this.navController.navigateBack('/requests/description');
   }
 
 }

@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" (click)="goBack()" routerLink="/tabs/tab1">
-      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="secondary">
+      <ion-icon slot="icon-only" (click)="goBack()" name="arrow-back"></ion-icon>
     </ion-buttons>
 
     <ion-title>Yêu cầu</ion-title>
 
-    <ion-buttons slot="end">
-      <a [routerLink]="['/requests/find-repairer']">Tiếp tục</a>
+    <ion-buttons slot="primary">
+      <ion-button  (click)="continute()">Tiếp tục</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
     <ion-card-subtitle>Xác định vị trí của bạn</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-searchbar animated inputmode="search" showCancelButton="focus" placeholder="Tìm kiếm địa chỉ"
+  <ion-searchbar mode="ios" animated inputmode="search" showCancelButton="focus" placeholder="Tìm kiếm địa chỉ"
     [(ngModel)]="searchInput" (ionInput)="updateListPlace()" (ionClear)="searchInput = ''; autocompleteItems = []"
     (ionCancel)="hideSearchBox = true; autocompleteItems = []">
   </ion-searchbar>

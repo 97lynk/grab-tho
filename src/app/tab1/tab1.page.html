@@ -31,10 +31,13 @@
 
 <ion-content class="ion-padding-horizontal">
   <ion-row style="height: 76px"></ion-row>
+  <pre>{{ info }}</pre>
+  <div>Cap {{ platform }}</div>
+  <div>Platform {{ platforms }}</div>
   <ion-text>
     <h6>Bạn cần sửa chữa</h6>
   </ion-text>
-  <ion-button expand="full" (click)="createRequestPage()">
+  <ion-button expand="block" (click)="createRequestPage()">
       <ion-icon name="add"></ion-icon> Yêu cầu ngay
   </ion-button>
 

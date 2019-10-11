@@ -1,109 +1,66 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { NavController, IonSearchbar, Platform } from '@ionic/angular';
-import { MapsAPILoader } from '@agm/core';
-declare var google;
-import PlaceResult = google.maps.places.PlaceResult;
-import AutocompleteOptions = google.maps.places.AutocompleteOptions;
-
+import { Component } from '@angular/core';
+import {
+  Plugins,
+  PushNotification,
+  PushNotificationToken,
+  PushNotificationActionPerformed
+} from '@capacitor/core';
+const { LocalNotifications, PushNotifications } = Plugins;
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page  {
+export class Tab2Page {
 
-  // lat = 51.678418;
-  // lng = 7.809007;
-  // options: GeolocationOptions;
-  // currentPos: Geoposition;
-  // service: any;
-  // geocoder: any;
-  // hideSearchBox = true;
-  // autocompleteItems = [];
-  // searchInput = '';
+  notify() {
+    alert('hello');
+    console.log('Initializing HomePage');
 
+    // Register with Apple / Google to receive push via APNS/FCM
+    PushNotifications.register();
 
-  // @ViewChild(IonSearchbar, { static: true })
-  // searchBar: IonSearchbar;
+    // On success, we should be able to receive notifications
+    PushNotifications.addListener('registration',
+      (token: PushNotificationToken) => {
+        alert('Push registration success, token: ' + token.value);
+      }
+    );
 
-  // @ViewChild('input2', { static: false })
-  // ip: ElementRef;
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError',
+      (error: any) => {
+        alert('Error on registration: ' + JSON.stringify(error));
+      }
+    );
 
-  // constructor(public navCtrl: NavController, private geolocation: Geolocation,
-  //   private apiLoader: MapsAPILoader, private ngZone: NgZone, private platform: Platform) {
-  // }
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotification) => {
+        alert('Push received: ' + JSON.stringify(notification));
+      }
+    );
 
-  // ngOnInit(): void {
-  //   this.platform.ready()
-  //     .then(() => {
-  //     });
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification: PushNotificationActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
 
-  //   console.log(this.searchBar);
-  //   this.apiLoader.load()
-  //     .then(() => {
-  //       this.service = new google.maps.places.AutocompleteService();
-  //       this.geocoder = new google.maps.Geocoder();
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
-  // updateListPlace() {
-  //   console.log('input ', this.searchInput);
-
-  //   this.autocompleteItems = [];
-  //   if (this.searchInput === '') { return; }
-
-  //   this.service.getPlacePredictions({ input: this.searchInput, componentRestrictions: { country: 'vn' } },
-  //     (predictions, status) => {
-  //       if (status === 'OK' && predictions !== 'undefined') {
-  //         this.ngZone.run(() => {
-  //           predictions.forEach((p) => {
-  //             this.autocompleteItems.push({
-  //               'description': p['description'],
-  //               'main_text': p['structured_formatting']['main_text'],
-  //               'secondary_text': p['structured_formatting']['secondary_text'],
-  //               'place_id': p['place_id']
-  //             });
-  //           });
-
-  //           console.log(this.autocompleteItems);
-  //         });
-  //       }
-  //     });
-
-  // }
-
-  // selectSearchResult(item) {
-  //   // this.clearMarkers();
-  //   this.searchInput = item.description;
-  //   this.autocompleteItems = [];
-  //   console.log('click ', item);
-  //   this.geocoder.geocode({ 'placeId': item.place_id }, (results, status) => {
-  //     this.ngZone.run(() => {
-  //       if (status === 'OK' && results[0]) {
-  //         // let position = {
-  //         this.lat = results[0].geometry.location.lat();
-  //         this.lng = results[0].geometry.location.lng();
-  //       }
-  //     });
-  //   });
-  // }
-
-  // getUserPosition() {
-  //   this.options = {
-  //     enableHighAccuracy: true
-  //   };
-
-  //   this.geolocation.getCurrentPosition(this.options).then((pos: Geoposition) => {
-
-  //     this.currentPos = pos;
-  //     this.lat = pos.coords.latitude;
-  //     this.lng = pos.coords.longitude;
-  //     console.log(pos);
-
-  //   }, (err: PositionError) => {
-  //     console.log('error : ' + err.message);
-  //   });
-  // }
-
+    LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'Title',
+          body: 'Body',
+          id: 1,
+          schedule: { at: new Date(Date.now() + 1000 * 5) },
+          sound: null,
+          attachments: null,
+          actionTypeId: '',
+          extra: null
+        }
+      ]
+    });
+  }
 }

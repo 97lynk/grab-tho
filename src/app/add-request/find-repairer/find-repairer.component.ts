@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-find-repairer',
@@ -41,13 +41,17 @@ export class FindRepairerComponent implements OnInit {
   ];
 
 
-  constructor() {
-   }
+  constructor(private navController: NavController) {
+  }
 
   ngOnInit() { }
 
   segmentChanged(event) {
     this.selectedTab = event.target.value;
     console.log(event.target.value);
+  }
+
+  goBack() {
+    this.navController.navigateBack('/requests/my-location');
   }
 }

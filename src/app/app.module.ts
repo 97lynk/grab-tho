@@ -10,12 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Platform } from '@ionic/angular';
-import { FilePath } from '@ionic-native/file-path/ngx';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { MapsAPILoader, AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { Network } from '@ionic-native/network/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -24,20 +22,23 @@ import { environment } from '../environments/environment';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    AppRoutingModule, HttpClientModule, BrowserModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0',
       libraries: ['places']
     }),
 
     IonicStorageModule.forRoot(),
-    BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, 
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NgxImageCompressService,
-    File, Platform, WebView, FilePath, Network,
+    Platform, WebView, Network,
     // {provide: Camera, useClass: CameraMock},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
