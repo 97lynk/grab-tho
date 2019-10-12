@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-icon slot="icon-only" name="arrow-back" (click)="goBack()"></ion-icon>
+    <ion-buttons slot="secondary" (click)="goBack()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
     </ion-buttons>
 
     <ion-title>Yêu cầu</ion-title>
@@ -19,26 +19,30 @@
     <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd;"></ion-textarea>
+  <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
 
   <ion-text>
-    <h5>Mô tả bằng hình ảnh</h5>
-    <!-- <input type="file" (change)="upfile($event)"  accept="image/*" capture="camera" > -->
-    <div *ngIf="images.length == 0" class="ion-text-center">
-      Chọn ảnh để mô tả chi tiết hơn
+    <h6>Mô tả bằng hình ảnh</h6>
+    <div class="ion-text-center">
+      <small *ngIf="images.length == 0">
+        Nhấn <b>Thêm hình ảnh</b> để tải lên từ camera hoặc thư viện
+      </small>
     </div>
   </ion-text>
 
-  <ion-grid>
+  <ion-grid class="ion-margin-bottom ion-padding-bottom">
     <ion-row *ngFor="let row of images; let i = index">
-      <ion-col width-50 *ngFor="let col of row; let j = index" color="light">
-        <img [src]="col.src" alt="">
-        <small>Hình {{ 2*i + j + 1 }}</small>
+      <ion-col *ngFor="let col of row; let j = index">
+        <div style="background: var(--ion-color-light); padding: 5px">
+          <img [src]="col.src" alt="Hình {{ 2*i + j + 1 }}">
+          <small>Hình {{ 2*i + j + 1 }}</small>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <input [hidden]="true" class="file-upload-button" type="file" (change)="selectImage($event)" #inputPhoto>
+  <input [hidden]="true" class="file-upload-button" type="file" accept="image/*" (change)="selectImage($event)"
+    #inputPhoto>
 
   <div class="footer primary ion-no-padding">
     <ion-button expand="full" class="ion-no-margin" (click)="captureImage()">

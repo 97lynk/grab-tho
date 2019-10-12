@@ -27,7 +27,7 @@ export class GetMyLocationComponent implements OnInit {
   searchInput = '';
 
   zoomConfig: ZoomControlOptions = {
-    position: ControlPosition.TOP_LEFT,
+    position: ControlPosition.TOP_RIGHT,
     style: ZoomControlStyle.SMALL
   };
 

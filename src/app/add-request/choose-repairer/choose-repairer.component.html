@@ -1,5 +1,9 @@
 <ion-content>
-  <agm-map [style.height.px]="agmHeight" [latitude]="hcmc.lat" [longitude]="hcmc.lng" streetViewControl="false"
+  <ion-button size="small" color="light" class="float-button" (click)="goBack()">
+    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  </ion-button>
+
+  <agm-map [style.height.px]="agmHeight" [latitude]="hcmc.lat" [longitude]="hcmc.lng" [streetViewControl]="false"
     [zoomControlOptions]="zoomConfig">
     <agm-direction *ngIf="destination != null" [origin]="origin" [destination]="destination"
       [markerOptions]="markerOptions">
@@ -10,7 +14,7 @@
   <div class="ion-padding" style="height: 200px; padding-top: 0;">
     <div (click)="presentModal()" class="ion-text-center">
       <ion-icon color="primary" name="arrow-up"></ion-icon>
-  </div>
+    </div>
 
     <h5 class="ion-no-padding ion-no-margin">Anh Nguyễn Văn Thanh</h5>
     <ion-card-subtitle>Thợ sửa chữa nước</ion-card-subtitle>

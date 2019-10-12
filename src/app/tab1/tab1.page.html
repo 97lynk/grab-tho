@@ -1,16 +1,14 @@
-<ion-header no-border style="height: 170px; padding-bottom: 30px; background: url('/assets/bg-home-2.jpg')">
+<ion-header no-border>
   <ion-toolbar color="light">
-    <ion-searchbar style="--background: rgba(255, 255, 255, 0.3); --color: #fff"></ion-searchbar>
     <ion-buttons slot="end" style="font-size: 24px;">
       <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
       <ion-icon class="ion-margin-end" name="power"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-card style="--background: white">
-    <!-- <ion-card-header *ngIf="false"></ion-card-header> -->
+  <!-- <ion-card style="--background: white">
     <ion-card-content>
-      <ion-item  lines="none">
+      <ion-item lines="none">
         <ion-avatar slot="start">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
@@ -22,92 +20,107 @@
           <h2>Số điểm trong ví</h2>
         </ion-label>
         <ion-note slot="end">
-          1,403
+          
         </ion-note>
       </ion-item>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
+
 </ion-header>
 
-<ion-content class="ion-padding-horizontal">
-  <ion-row style="height: 76px"></ion-row>
-  <pre>{{ info }}</pre>
-  <div>Cap {{ platform }}</div>
-  <div>Platform {{ platforms }}</div>
-  <ion-text>
-    <h6>Bạn cần sửa chữa</h6>
-  </ion-text>
-  <ion-button expand="block" (click)="createRequestPage()">
+<ion-content>
+
+  <div style="background: white" class="ion-padding-vertical">
+
+    <ion-item>
+      <ion-thumbnail slot="start" style="--border-radius: 3px">
+        <img src="https://avatars0.githubusercontent.com/u/32217548?s=460&v=4">
+      </ion-thumbnail>
+      <ion-label>
+        <ion-text>
+          <h1>Nguyễn Anh Tuấn</h1>
+          <p>Số điểm trong ví: 1,403
+            <ion-icon style="color: gold" name="star"></ion-icon>
+          </p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <ion-text>
+      <h6>Bạn cần sửa chữa</h6>
+    </ion-text>
+    <ion-button expand="block" (click)="createRequestPage()">
       <ion-icon name="add"></ion-icon> Yêu cầu ngay
-  </ion-button>
+    </ion-button>
 
-  <ion-text>
-    <h6>Dịch vụ sửa chữa</h6>
-  </ion-text>
-  <ion-grid>
-    <ion-row>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-      <ion-col> ion-col </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-text>
+      <h6>Dịch vụ sửa chữa</h6>
+    </ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+        <ion-col> ion-col </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-text>
-    <h6>Tin tức</h6>
-  </ion-text>
-  <ion-slides>
+    <ion-text>
+      <h6>Tin tức</h6>
+    </ion-text>
+    <ion-slides>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img
-            src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img
-            src="https://www.w3schools.com/w3css/img_lights.jpg">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="https://www.w3schools.com/w3css/img_lights.jpg">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img
-            src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
-  </ion-slides>
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+    </ion-slides>
 
-  <!-- <ion-list lines="none">
+    <!-- <ion-list lines="none">
     <ion-list-header>
       <ion-label>Resources</ion-label>
     </ion-list-header>
@@ -129,5 +142,6 @@
     </ion-item>
   </ion-list> -->
 
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </div>
 </ion-content>

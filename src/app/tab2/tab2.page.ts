@@ -1,17 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  Plugins,
+  Plugins, Capacitor,
   PushNotification,
   PushNotificationToken,
   PushNotificationActionPerformed
 } from '@capacitor/core';
-const { LocalNotifications, PushNotifications } = Plugins;
+import { Platform } from '@ionic/angular';
+const { LocalNotifications, PushNotifications, Device } = Plugins;
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
+  info: any;
+  platform: any;
+  platforms: any;
+
+  ngOnInit(): void {
+    this.getInfoPlatform();
+  }
+
+  async getInfoPlatform() {
+    this.info = await Device.getInfo();
+    this.info = JSON.stringify(this.info, null, 2);
+    this.platform = Capacitor.platform;
+    this.platforms = this.plt.platforms();
+  }
+
+
+  constructor(private plt: Platform) {
+  }
 
   notify() {
     alert('hello');
