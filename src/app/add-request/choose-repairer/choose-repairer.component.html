@@ -1,6 +1,7 @@
 <ion-content>
-  <ion-button size="small" color="light" class="float-button" (click)="goBack()">
-    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-button (click)="goBack()" color="light" class="float-button" size="small">
+    <ion-icon name="arrow-back" color="primary"></ion-icon>
+    <span style="color: var(--ion-color-primary);"> Trở lại</span>
   </ion-button>
 
   <agm-map [style.height.px]="agmHeight" [latitude]="hcmc.lat" [longitude]="hcmc.lng" [streetViewControl]="false"

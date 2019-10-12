@@ -1,8 +1,12 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { ConnectivityService } from '../service/connectivity.service';
-
-declare var google;
+import { Component } from '@angular/core';
+import {
+  Plugins, Capacitor,
+  PushNotification,
+  PushNotificationToken,
+  PushNotificationActionPerformed
+} from '@capacitor/core';
+import { Platform } from '@ionic/angular';
+const { LocalNotifications, PushNotifications, Device } = Plugins;
 
 @Component({
   selector: 'app-tab3',
@@ -11,120 +15,74 @@ declare var google;
 })
 export class Tab3Page {
 
+  info: any;
+  platform: any;
+  platforms: any;
 
-  // @ViewChild('map', { static: false }) mapElement: ElementRef;
+  ngOnInit(): void {
+    this.getInfoPlatform();
+  }
 
-  // map: any;
-  // mapInitialised = false;
-  // apiKey: any;
+  async getInfoPlatform() {
+    this.info = await Device.getInfo();
+    this.info = JSON.stringify(this.info, null, 2);
+    this.platform = Capacitor.platform;
+    this.platforms = this.plt.platforms();
+  }
 
-  // constructor(public nav: NavController, private geolocation: Geolocation,
-  //   public connectivityService: ConnectivityService) {
-  //   this.apiKey = 'AIzaSyBJJPAC0oOZpV6tXVNjyDXQeNj1Lw3u-UY';
-  //   this.loadGoogleMaps();
-  // }
 
-  // loadGoogleMaps() {
+  constructor(private plt: Platform) {
+  }
 
-  //   this.addConnectivityListeners();
+  notify() {
+    alert('hello');
+    console.log('Initializing HomePage');
 
-  //   if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+    // Register with Apple / Google to receive push via APNS/FCM
+    PushNotifications.register();
 
-  //     console.log('Google maps JavaScript needs to be loaded.');
-  //     this.disableMap();
+    // On success, we should be able to receive notifications
+    PushNotifications.addListener('registration',
+      (token: PushNotificationToken) => {
+        alert('Push registration success, token: ' + token.value);
+      }
+    );
 
-  //     if (this.connectivityService.isOnline()) {
-  //       console.log('online, loading map');
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError',
+      (error: any) => {
+        alert('Error on registration: ' + JSON.stringify(error));
+      }
+    );
 
-  //       // Load the SDK
-  //       window['mapInit'] = () => {
-  //         this.initMap();
-  //         this.enableMap();
-  //       };
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotification) => {
+        alert('Push received: ' + JSON.stringify(notification));
+      }
+    );
 
-  //       const script = document.createElement('script');
-  //       script.id = 'googleMaps';
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification: PushNotificationActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
 
-  //       if (this.apiKey) {
-  //         script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
-  //       } else {
-  //         script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
-  //       }
-
-  //       document.body.appendChild(script);
-
-  //     }
-  //   } else {
-
-  //     if (this.connectivityService.isOnline()) {
-  //       console.log('showing map');
-  //       this.initMap();
-  //       this.enableMap();
-  //     } else {
-  //       console.log('disabling map');
-  //       this.disableMap();
-  //     }
-
-  //   }
-
-  // }
-
-  // initMap() {
-
-  //   this.mapInitialised = true;
-
-  //   this.geolocation.getCurrentPosition().then((position) => {
-
-  //     const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-  //     const mapOptions = {
-  //       center: latLng,
-  //       zoom: 15,
-  //       mapTypeId: google.maps.MapTypeId.ROADMAP
-  //     };
-
-  //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-  //   });
-
-  // }
-
-  // disableMap() {
-  //   console.log('disable map');
-  // }
-
-  // enableMap() {
-  //   console.log('enable map');
-  // }
-
-  // addConnectivityListeners() {
-
-  //   const onOnline = () => {
-
-  //     setTimeout(() => {
-  //       if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-
-  //         this.loadGoogleMaps();
-
-  //       } else {
-
-  //         if (!this.mapInitialised) {
-  //           this.initMap();
-  //         }
-
-  //         this.enableMap();
-  //       }
-  //     }, 2000);
-
-  //   };
-
-  //   const onOffline = () => {
-  //     this.disableMap();
-  //   };
-
-  //   document.addEventListener('online', onOnline, false);
-  //   document.addEventListener('offline', onOffline, false);
-
-  // }
+    LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'Title',
+          body: 'Body',
+          id: 1,
+          schedule: { at: new Date(Date.now() + 1000 * 5) },
+          sound: null,
+          attachments: null,
+          actionTypeId: '',
+          extra: null
+        }
+      ]
+    });
+  }
 
 }

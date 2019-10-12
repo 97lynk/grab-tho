@@ -1,7 +1,9 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-buttons slot="start" (click)="goBack()">
-      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" color="primary">
+        <ion-icon name="arrow-back"></ion-icon> Trở lại
+      </ion-button>
     </ion-buttons>
 
     <ion-title>Yêu cầu</ion-title>
@@ -9,10 +11,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card-header class="ion-no-padding ion-no-margin">
-    <ion-card-title>Tìm thợ</ion-card-title>
-    <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
-  </ion-card-header>
+  <h3 class="ion-no-margin">Tìm thợ</h3>
+  <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
 
   <ion-segment class="ion-padding-vertical" [value]="selectedTab" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="1">
@@ -24,9 +24,6 @@
   </ion-segment>
 
   <ion-list>
-    <!-- <ion-list-header>
-      Recent Conversations
-    </ion-list-header> -->
     <ng-container *ngFor="let r of repairers">
       <ion-item *ngIf="(selectedTab == '2' && r.ok == true) || selectedTab == '1'"
         [routerLink]="['/requests/repairer', r.id]">
@@ -37,9 +34,9 @@
         <ion-label>
           <h2>{{ r.name }}</h2>
           <h3>{{ r.position }}</h3>
-          <span>
+          <small>
             <ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}
-          </span>
+          </small>
           - <small>{{ r.time }}</small>
         </ion-label>
 

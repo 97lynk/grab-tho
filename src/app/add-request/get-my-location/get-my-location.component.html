@@ -1,13 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary" (click)="goBack()">
-      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()" color="primary">
+        <ion-icon name="arrow-back"></ion-icon> Trở lại
+      </ion-button>
     </ion-buttons>
 
     <ion-title>Yêu cầu</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="continute()">Tiếp tục</ion-button>
+      <ion-button (click)="continute()" color="primary">Tiếp tục</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

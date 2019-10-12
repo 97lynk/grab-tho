@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import { RequestManagementPage } from './request-management.page';
 import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
@@ -12,8 +12,8 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     AgmCoreModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }])
+    RouterModule.forChild([{ path: '', component: RequestManagementPage }])
   ],
-  declarations: [Tab2Page]
+  declarations: [RequestManagementPage]
 })
-export class Tab2PageModule {}
+export class RequestManagementModule { }

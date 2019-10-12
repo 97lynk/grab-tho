@@ -1,9 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Map</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <!-- <div #map id="map"></div>   -->
-</ion-content>
+    <ion-toolbar>
+      <ion-title>Demo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-button (click)="notify()">Notification</ion-button>
+  
+    <pre>{{ info }}</pre>
+    <div>Cap {{ platform }}</div>
+    <div>Platform {{ platforms }}</div>
+  </ion-content>

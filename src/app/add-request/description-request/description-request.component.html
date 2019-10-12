@@ -1,23 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary" (click)="goBack()">
-      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()" color="primary">
+        <ion-icon name="arrow-back"></ion-icon> Trở lại
+      </ion-button>
     </ion-buttons>
 
     <ion-title>Yêu cầu</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="continute()">Tiếp tục</ion-button>
+      <ion-button (click)="continute()" color="primary">Tiếp tục</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class=" ion-padding">
-
-  <ion-card-header class="ion-no-padding ion-no-margin">
-    <ion-card-title>Mô tả vấn đề</ion-card-title>
-    <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
-  </ion-card-header>
+  <h3 class="ion-no-margin">Mô tả vấn đề</h3>
+  <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
 
   <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
 

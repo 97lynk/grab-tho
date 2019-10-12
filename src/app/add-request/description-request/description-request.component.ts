@@ -158,6 +158,6 @@ export class DescriptionRequestComponent implements OnInit {
   }
 
   goBack() {
-    this.navController.navigateBack('/tabs/tab1');
+    this.navController.navigateBack('/tabs/home');
   }
 }

@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePage } from './home.page';
 
 
 @NgModule({
@@ -14,12 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     RouterModule.forChild([
-      { path: '', component: Tab1Page },
+      { path: '', component: HomePage },
     ])
   ],
-  declarations: [Tab1Page],
-  providers: [
-    // {provide: Camera, useClass: CameraMock},
-  ]
+  declarations: [HomePage],
+  providers: []
 })
-export class Tab1PageModule { }
+export class HomeModule { }
