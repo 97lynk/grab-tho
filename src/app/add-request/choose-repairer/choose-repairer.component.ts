@@ -32,7 +32,7 @@ export class ChooseRepairerComponent implements OnInit {
   };
 
   zoomConfig: ZoomControlOptions = {
-    position: ControlPosition.TOP_LEFT,
+    position: ControlPosition.TOP_RIGHT,
     style: ZoomControlStyle.SMALL
   };
 
@@ -90,12 +90,8 @@ export class ChooseRepairerComponent implements OnInit {
     return await modal.present();
   }
 
-  continute() {
-    this.navController.navigateForward('/requests/find-repairer');
-  }
-
   goBack() {
-    this.navController.navigateBack('/requests/description');
+    this.navController.navigateBack('/requests/find-repairer');
   }
 
 }
