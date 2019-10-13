@@ -1,13 +1,52 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Demo</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-button (click)="notify()">Notification</ion-button>
-  
-    <pre>{{ info }}</pre>
-    <div>Cap {{ platform }}</div>
-    <div>Platform {{ platforms }}</div>
-  </ion-content>
+  <ion-toolbar>
+    <ion-title>Demo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="notify()">Notification</ion-button>
+
+  <pre>{{ info }}</pre>
+  <div>Cap {{ platform }}</div>
+  <div>Platform {{ platforms }}</div>
+
+  <ion-button (click)="openDatePicker()">Select date</ion-button>
+
+  <button (click)="init()" ion-button>
+    Init
+  </button>
+  <br /><br />
+  <button (click)="scheduleNow()" ion-button>
+    Schedule Now - Icon from config (or default)
+  </button>
+  <button (click)="scheduleNowWithIcon()" ion-button>
+    Schedule Now - Icon parameter
+  </button>
+  <br /><br />
+  <button (click)="scheduleOnce()" ion-button>
+    Schedule in 10 seconds
+  </button>
+  <br /><br />
+  <button (click)="scheduleRepeatingEvery()" ion-button>
+    Schedule every minute
+  </button>
+  <br /><br />
+  <button (click)="scheduleRepeatingOn()" ion-button>
+    Schedule when clock matches next minute
+  </button>
+  <br /><br />
+  <button (click)="cancelNotification()" ion-button>
+    Cancel Local Notifications
+  </button>
+  <br /><br />
+  <button (click)="getPending()" ion-button>
+    Get Pending
+  </button>
+  <br /><br />
+  <div *ngIf="pendingNotifs">
+    <div *ngFor="let notif of pendingNotifs.notifications">
+      {{toJson(notif)}}
+    </div>
+  </div>
+</ion-content>
