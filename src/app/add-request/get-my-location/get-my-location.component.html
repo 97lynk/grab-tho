@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-buttons slot="secondary">
       <ion-button (click)="goBack()" color="primary">
@@ -14,33 +14,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" fullscreen>
-  <h3 class="ion-no-margin">Chọn địa chỉ</h3>
-  <ion-card-subtitle>Xác định vị trí của bạn</ion-card-subtitle>
+<ion-content class="ion-padding-vertical" fullscreen>
 
-  <ion-searchbar mode="ios" animated inputmode="search" showCancelButton="focus" placeholder="Tìm kiếm địa chỉ"
-    cancelButtonText="Hủy" [(ngModel)]="searchInput" (ionInput)="updateListPlace()"
-    (ionClear)="searchInput = ''; autocompleteItems = []" (ionCancel)="hideSearchBox = true; autocompleteItems = []">
-  </ion-searchbar>
+  <h3 class="title ion-padding-horizontal">Chọn địa chỉ</h3>
 
-  <ion-list [hidden]="autocompleteItems.length == 0" color="light">
-    <ion-item *ngFor="let item of autocompleteItems" lines="full" tappable (click)="selectSearchResult(item)">
-      <ion-text>
-        <strong> {{ item.main_text }}</strong> <small> {{ item.secondary_text }}</small>
-      </ion-text>
-    </ion-item>
-  </ion-list>
+  <ion-item class="hint" lines="none">
+    <ion-icon size="small" slot="start" color="primary" name="information-circle-outline"></ion-icon>
+    <small>Xác định vị trí của bạn bằng cách tìm kiếm hoặc sử dụng bản đồ với GPS</small>
+  </ion-item>
 
-  <div style="height: 100%; margin-bottom: 56px;">
+  <div class="ion-padding-horizontal" style="height: 100%;">
+    <ion-searchbar style="padding-left: 0!important; padding-right: 0!important;" mode="ios" animated inputmode="search"
+      showCancelButton="focus" placeholder="Tìm kiếm địa chỉ" cancelButtonText="Hủy" [(ngModel)]="searchInput"
+      (ionInput)="updateListPlace()" (ionClear)="searchInput = ''; autocompleteItems = []"
+      (ionCancel)="hideSearchBox = true; autocompleteItems = []">
+    </ion-searchbar>
+
+    <ion-list [hidden]="autocompleteItems.length == 0" color="light">
+      <ion-item *ngFor="let item of autocompleteItems" lines="full" tappable (click)="selectSearchResult(item)">
+        <ion-text>
+          <strong> {{ item.main_text }}</strong> <small> {{ item.secondary_text }}</small>
+        </ion-text>
+      </ion-item>
+    </ion-list>
+
     <agm-map [zoomControlOptions]="zoomConfig" scaleControl="true" [latitude]="myLocation.lat"
       [streetViewControl]="false" [longitude]="myLocation.lng" [minZoom]="15" [maxZoom]="18" [zoom]="17" [tilt]="45">
       <agm-marker [animation]="'BOUNCE'" [latitude]="myLocation.lat" [longitude]="myLocation.lng"></agm-marker>
     </agm-map>
+
   </div>
 
   <div class="footer primary ion-no-padding">
     <ion-button expand="full" class="ion-no-margin" (click)="getUserPosition()">
-      <ion-icon name="md-locate" class="ion-padding-horizontal"></ion-icon>Vị trí hiện tại
+      <ion-icon name="md-locate" class="ion-padding-end"></ion-icon>Vị trí hiện tại
     </ion-button>
   </div>
 

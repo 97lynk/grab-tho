@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-buttons slot="secondary">
       <ion-button (click)="goBack()" color="primary">
@@ -14,38 +14,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class=" ion-padding">
-  <h3 class="ion-no-margin">Mô tả vấn đề</h3>
-  <ion-card-subtitle>Mô tả vấn đề bạn gặp phải</ion-card-subtitle>
+<ion-content class="ion-padding-vertical">
 
-  <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
+  <h2 class="title ion-padding-horizontal">Mô tả vấn đề</h2>
 
-  <ion-text>
-    <h6>Mô tả bằng hình ảnh</h6>
+  <ion-item class="hint" lines="none">
+    <ion-icon size="small" slot="start" color="primary" name="information-circle-outline"></ion-icon>
+    <small>Mô tả vấn đề bạn gặp phải bằng chữ hoặc hình ảnh để giúp thợ có thêm nhiều thông tin về vấn đề của bạn</small>
+  </ion-item>
+
+  <div class="ion-padding-horizontal">
+
+    <h3 class="subtitle">Tóm tắt</h3>
+    <ion-textarea autoGrow="true" rows="3" style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
+
+    <h3 class="subtitle">Hình ảnh</h3>
     <div class="ion-text-center">
       <small *ngIf="images.length == 0">
         Nhấn <b>Thêm hình ảnh</b> để tải lên từ camera hoặc thư viện
       </small>
     </div>
-  </ion-text>
 
-  <ion-grid class="ion-margin-bottom ion-padding-bottom">
-    <ion-row *ngFor="let row of images; let i = index">
-      <ion-col *ngFor="let col of row; let j = index">
-        <div style="background: var(--ion-color-light); padding: 5px">
-          <img [src]="col.src" alt="Hình {{ 2*i + j + 1 }}">
-          <small>Hình {{ 2*i + j + 1 }}</small>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid class="ion-margin-bottom ion-padding-bottom">
+      <ion-row *ngFor="let row of images; let i = index">
+        <ion-col *ngFor="let col of row; let j = index">
+          <div style="background: var(--ion-color-light); padding: 5px">
+            <img [src]="col.src" alt="Hình {{ 2*i + j + 1 }}">
+            <small>Hình {{ 2*i + j + 1 }}</small>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <input [hidden]="true" class="file-upload-button" type="file" accept="image/*" (change)="selectImage($event)"
     #inputPhoto>
 
   <div class="footer primary ion-no-padding">
     <ion-button expand="full" class="ion-no-margin" (click)="captureImage()">
-      <ion-icon name="camera" class="ion-padding-horizontal"></ion-icon> Thêm hình ảnh
+      <ion-icon name="camera" class="ion-padding-end"></ion-icon> Thêm hình ảnh
     </ion-button>
   </div>
 </ion-content>

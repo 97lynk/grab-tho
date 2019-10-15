@@ -34,3 +34,31 @@
   display: block;
   border-radius: 15px 15px 0 0;
 }
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+ion-item.hint {
+  --background: var(--ion-color-light);
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+
+  small {
+    color: var(--ion-color-medium);
+    padding-right: 8px;
+  }
+}
+
+.bg-light {
+  --background: var(--ion-color-light);
+}

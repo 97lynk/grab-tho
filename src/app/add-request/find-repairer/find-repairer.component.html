@@ -1,4 +1,4 @@
-<ion-header translucent>
+<ion-header no-border translucent>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="goBack()" color="primary">
@@ -11,10 +11,10 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h3 class="ion-no-margin">Tìm thợ</h3>
-  <ion-card-subtitle>Danh sách các thợ</ion-card-subtitle>
 
-  <ion-segment class="ion-padding-vertical" [value]="selectedTab" (ionChange)="segmentChanged($event)">
+  <h3 class="title">Danh sách thợ</h3>
+
+  <ion-segment class="ion-padding-bottom" [value]="selectedTab" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="1">
       <ion-label>Thợ nhận yêu cầu</ion-label>
     </ion-segment-button>

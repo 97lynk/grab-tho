@@ -1,181 +1,183 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header translucent>
+  <ion-toolbar translucent style="height: 30px;">
     <ion-title>Quản lý yêu cầu</ion-title>
+  </ion-toolbar>
+  <ion-toolbar translucent>
+    <ion-segment #tabRequest class="ion-padding" style="padding: 5px;" value="1">
+      <ion-segment-button value="1">
+        <ion-label>Gần đây</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label>Đã xác nhận</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        <ion-label>Đã hoàn thành</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding-vertical">
+<ion-content class="ion-padding-vertical" fullscreen>
 
-  <div class="ion-padding-vertical ion-padding-horizontal">
-    <h3 class="ion-no-margin">Gần đây</h3>
-    <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle>
-  </div>
+  <ng-container *ngIf="tabRequest.value == '1'">
+    <ion-list>
+      <ion-list-header class="bg-light">
+        Vừa đăng
+      </ion-list-header>
+      <div class="ion-padding-horizontal"></div>
+      <ion-list-header class="bg-light">
+        Đã có thợ báo giá
+      </ion-list-header>
 
-  <ng-container>
+      <ion-item lines="none">
+        <ion-label>
+          <p>
+            <small>
+              <ion-icon name="pin"></ion-icon>
+            </small> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
+          </p>
+          <p>
+            <small>
+              <ion-icon name="time"></ion-icon>
+            </small> 14:20 23/09/2019
+          </p>
+          <p class="ion-text-wrap">
+            <b>1</b> thợ báo giá - <b>4</b> thợ nhận yêu cầu
+          </p>
+        </ion-label>
+      </ion-item>
 
-    <ion-slides pager="true">
+      <ion-item lines="none">
+        <ion-thumbnail>
+          <img src="/assets/repair/repairer-1.png">
+        </ion-thumbnail>
+        <ion-thumbnail>
+          <img src="/assets/repair/repairer-1.png">
+        </ion-thumbnail>
+        <ion-thumbnail>
+          <img src="/assets/repair/repairer-1.png">
+        </ion-thumbnail>
+      </ion-item>
 
-      <ion-slide>
-        <ion-card class="recently-request">
-          <img class="img-request"
-            src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/card/madison.jpg" />
-          <ion-card-header>
-            <ion-card-subtitle>
-              <ion-icon name="cash"></ion-icon> 250 điểm - <ion-icon name="time"></ion-icon> 14:20
-            </ion-card-subtitle>
-            <ion-card-subtitle>
-              <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-            </ion-card-subtitle>
-          </ion-card-header>
+      <ion-item lines="full">
+        <ion-label>
+          <ion-text class="ion-text-wrap">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
+            recusandae!
+          </ion-text>
+        </ion-label>
+      </ion-item>
 
-          <div class="ion-padding-horizontal">
-            <ion-chip color="primary">
-              <ion-label><b>2</b> thợ báo giá</ion-label>
-            </ion-chip>
-            <ion-chip color="secondary">
-              <ion-label><b>2</b> thợ nhận yêu cầu</ion-label>
-            </ion-chip>
-          </div>
 
-          <ion-card-content>
-            Lavabo của tôi bị nghẹt, có thể cần phải thay. Vòi nước cũng bị rỉ...
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
 
-      <ion-slide>
-        <ion-card class="recently-request">
-          <img class="img-request"
-            src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/card/madison.jpg" />
-          <ion-card-header>
-            <ion-card-subtitle>
-              <ion-icon name="cash"></ion-icon> 125 điểm - <ion-icon name="time"></ion-icon> 14:20
-            </ion-card-subtitle>
-            <ion-card-subtitle>
-              <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-            </ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-chip color="primary">
-            <ion-label><b>1</b> thợ báo giá</ion-label>
-          </ion-chip>
-          <ion-chip color="secondary">
-            <ion-label><b>4</b> thợ nhận yêu cầu</ion-label>
-          </ion-chip>
-
-          <ion-card-content>
-            Lavabo của tôi bị nghẹt, có thể cần phải thay. Vòi nước cũng bị rỉ...
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-
-    </ion-slides>
-
+    </ion-list>
   </ng-container>
-
-  <div class="ion-padding-horizontal">
-    <h3 class="ion-no-margin">Lịch sử</h3>
-    <ion-card-subtitle>Yêu cầu đã xác nhận và hoàn thành</ion-card-subtitle>
-  </div>
-  <ion-segment #tabRequest class="ion-padding" value="2">
-    <!-- <ion-segment-button value="1">
-      <ion-label>Gần đây</ion-label>
-    </ion-segment-button> -->
-    <ion-segment-button value="2">
-      <ion-label>Đã xác nhận</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="3">
-      <ion-label>Đã hoàn thành</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
-  <!-- 
-  <ion-card>
-    <ion-item>
-      <ion-icon name="pin" slot="start"></ion-icon>
-      <ion-label>ion-item in a card, icon left, button right</ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
-    </ion-item>
-
-    <ion-card-content>
-      This is content, without any paragraph or header tags,
-      within an ion-card-content element.
-    </ion-card-content>
-  </ion-card> -->
 
   <ng-container *ngIf="tabRequest.value == '2'">
     <ion-list>
-      <ion-list-header>
-        Yêu cầu đã được bạn đồng ý chờ đến thời gian thực hiện
+      <ion-list-header class="bg-light">
+        Yêu cầu chờ đến thời gian thực hiện
       </ion-list-header>
       <ion-item>
+        <ion-chip color="secondary" slot="start">
+          <ion-label></ion-label>
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <ion-label></ion-label>
+        </ion-chip>
+        <ion-label>
+          <h2>a. Trần Bình Trọng</h2>
+        </ion-label>
+        <ion-button color="secondary" fill="outline" slot="end">Chi tiết</ion-button>
+      </ion-item>
+      <ion-item lines="full">
         <ion-thumbnail slot="start">
           <img src="/assets/repair/repairer-1.png">
         </ion-thumbnail>
         <ion-label>
-          <h2>Anh Trần Bình Trọng</h2>
-          <h3>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-          </h3>
           <p>
-            <ion-icon name="time"></ion-icon> 14:20
+            <ion-icon name="cash"></ion-icon> 250 điểm
+            <ion-icon name="time"></ion-icon> 2 ngày trước
           </p>
           <p>
             <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
           </p>
+          <ion-text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
+            recusandae!
+          </ion-text>
         </ion-label>
       </ion-item>
     </ion-list>
   </ng-container>
 
   <ng-container *ngIf="tabRequest.value == '3'">
+
     <ion-list>
-      <ion-list-header>
+      <ion-list-header class="bg-light">
         Yêu cầu chờ được phản hồi ý kiến
       </ion-list-header>
       <ion-item>
+        <ion-chip color="warning" slot="start">
+          <ion-label></ion-label>
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <ion-label></ion-label>
+        </ion-chip>
+        <ion-label>
+          <h2>a. Trần Bình Trọng</h2>
+        </ion-label>
+        <ion-button color="warning" fill="outline" slot="end">Đánh giá</ion-button>
+      </ion-item>
+      <ion-item lines="full">
         <ion-thumbnail slot="start">
           <img src="/assets/repair/repairer-10.png">
         </ion-thumbnail>
         <ion-label>
-          <h2>Anh Trần Bình Trọng</h2>
-          <h3>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-          </h3>
           <p>
-            <ion-icon name="time"></ion-icon> 14:20
+            <ion-icon name="cash"></ion-icon> 250 điểm
+            <ion-icon name="time"></ion-icon> 2 ngày trước
           </p>
           <p>
             <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
           </p>
+          <ion-text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
+            recusandae!
+          </ion-text>
         </ion-label>
       </ion-item>
 
-      <ion-list-header>
+      <div class="ion-padding-bottom"></div>
+
+      <ion-list-header class="bg-light">
         Yêu cầu đã đóng
       </ion-list-header>
       <ion-item>
+        <ion-chip color="medium" slot="start">
+          <ion-label></ion-label>
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <ion-label></ion-label>
+        </ion-chip>
+        <ion-label>
+          <h2>a. Trần Bình Trọng</h2>
+        </ion-label>
+        <ion-button color="medium" fill="outline" slot="end">Xem lại</ion-button>
+      </ion-item>
+      <ion-item lines="full">
         <ion-thumbnail slot="start">
           <img src="/assets/repair/repairer-2.png">
         </ion-thumbnail>
         <ion-label>
-          <h2>Anh Trần Bình Trọng</h2>
-          <h3>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-          </h3>
           <p>
-            <ion-icon name="time"></ion-icon> 14:20
+            <ion-icon name="cash"></ion-icon> 250 điểm
+            <ion-icon name="time"></ion-icon> 2 ngày trước
           </p>
           <p>
             <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
           </p>
           <p>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            Thợ chuyên nghiệp, cẩn thận
+            <ion-icon name="star"></ion-icon> 4.5
+            <ion-icon name="quote"></ion-icon> Thợ chuyên nghiệp, cẩn thận
           </p>
         </ion-label>
       </ion-item>

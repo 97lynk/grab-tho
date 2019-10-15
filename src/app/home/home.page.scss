@@ -16,3 +16,31 @@ ion-slide > img {
   max-width: 60%;
   margin: 36px 0;
 }
+
+ion-card.recently-request {
+  text-align: left;
+  margin-top: 0;
+  img {
+    height: 100px;
+    width: 100%;
+  }
+
+  ion-card-header {
+    padding-bottom: 0;
+    padding-top: 10px;
+
+    ion-card-subtitle {
+      color: #000;
+    }
+  }
+
+  ion-card-content {
+    padding-top: 0;
+    padding-bottom: 10px;
+  }
+
+  ion-chip {
+    font-size: 12px;
+    // margin-right: 0;
+  }
+}
