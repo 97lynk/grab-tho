@@ -26,17 +26,17 @@
     <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle>
   </div>
 
-  <ion-slides pager="true">
+  <ion-slides pager="true" [options]="options">
+
     <ion-slide>
-      <ion-card class="recently-request">
-        <img class="img-request"
-          src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/card/madison.jpg" />
+      <ion-card routerLink="/requests/1" class="recently-request">
+        <img class="img-request" src="https://thietbivesinhvn.com.vn/Image/Upload/Aqualem-FT954.jpg" />
         <ion-card-header>
           <ion-label>
             <p>
               <small>
                 <ion-icon name="pin"></ion-icon>
-              </small> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
+              </small> 23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
             </p>
             <p>
               <small>
@@ -48,10 +48,10 @@
 
         <div class="ion-padding-horizontal">
           <ion-chip color="primary">
-            <ion-label><b>2</b> thợ báo giá</ion-label>
+            <ion-label><b>0</b> thợ báo giá</ion-label>
           </ion-chip>
           <ion-chip color="secondary">
-            <ion-label><b>2</b> thợ nhận yêu cầu</ion-label>
+            <ion-label><b>0</b> thợ nhận yêu cầu</ion-label>
           </ion-chip>
         </div>
 
@@ -62,20 +62,19 @@
     </ion-slide>
 
     <ion-slide>
-      <ion-card class="recently-request">
-        <img class="img-request"
-          src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/card/madison.jpg" />
+      <ion-card routerLink="/requests/1" class="recently-request">
+        <img class="img-request" src="/assets/problem-1.jpg" />
         <ion-card-header>
           <ion-label>
             <p>
               <small>
-                <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-              </small>
+                <ion-icon name="pin"></ion-icon>
+              </small> 23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
             </p>
             <p>
               <small>
-                <ion-icon name="time"></ion-icon> 16:20 21/09/2019
-              </small>
+                <ion-icon name="time"></ion-icon>
+              </small> 16:22 21/09/2019
             </p>
           </ion-label>
         </ion-card-header>
@@ -85,12 +84,12 @@
             <ion-label><b>1</b> thợ báo giá</ion-label>
           </ion-chip>
           <ion-chip color="secondary">
-            <ion-label><b>4</b> thợ nhận yêu cầu</ion-label>
+            <ion-label><b>3</b> thợ nhận yêu cầu</ion-label>
           </ion-chip>
         </div>
 
         <ion-card-content>
-          Lavabo của tôi bị nghẹt, có thể cần phải thay. Vòi nước cũng bị rỉ...
+          La phông bị hư khoảng 10 đến 12 tấm, la phông thạch cao...
         </ion-card-content>
       </ion-card>
     </ion-slide>

@@ -1,0 +1,31 @@
+<ion-header>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-slides [options]="options" pager="true">
+    <ion-slide *ngFor="let src of recentRequest.desImages">
+      <img [src]="src" alt="">
+    </ion-slide>
+  </ion-slides>
+
+  <h2 class="title ion-padding-horizontal">Mô tả</h2>
+
+  <div class="ion-padding-horizontal">
+    <ion-item class="ion-no-margin ion-no-padding" lines="none">
+      <p class="ion-no-margin">{{ recentRequest.desText }}</p>
+    </ion-item>
+    <div class="ion-text-end">
+      <small>{{ recentRequest.createAt | vdatetime }}</small>
+    </div>
+  </div>
+
+  <ion-item lines="none" color="light">
+    <ion-icon name="pin" slot="start" color="primary"></ion-icon>
+    <ion-label>
+      <h2 class="ion-text-wrap">{{ recentRequest.address }}</h2>
+    </ion-label>
+  </ion-item>
+
+  <repairer-list></repairer-list>
+
+</ion-content>

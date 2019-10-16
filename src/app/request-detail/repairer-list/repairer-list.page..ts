@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-find-repairer',
-  templateUrl: './find-repairer.component.html',
-  styleUrls: ['./find-repairer.component.scss'],
+  selector: 'repairer-list',
+  templateUrl: './repairer-list.page.html',
+  styleUrls: ['./repairer-list.page.scss'],
 })
-export class FindRepairerComponent implements OnInit {
+export class RepairerList implements OnInit {
 
   selectedTab = '1';
 
@@ -52,6 +52,6 @@ export class FindRepairerComponent implements OnInit {
   }
 
   goBack() {
-    this.navController.navigateBack('/requests/my-location');
+    this.navController.navigateBack('/tabs/request-management');
   }
 }

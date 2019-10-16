@@ -17,11 +17,14 @@ import { AgmCoreModule } from '@agm/core';
 import { Network } from '@ionic-native/network/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { VDateTimePipe } from './pipe/vdate-time.pipe';
+import { PipeModule } from './pipe/pipe.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    PipeModule,
     AppRoutingModule, HttpClientModule, BrowserModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0',

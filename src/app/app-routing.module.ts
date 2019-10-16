@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { VDateTimePipe } from './pipe/vdate-time.pipe';
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
   {
     path: 'requests',
     loadChildren: () => import('./add-request/add-request.module').then(m => m.AddRequestModule)
+  },
+  {
+    path: 'requests/:requestId',
+    loadChildren: () => import('./request-detail/request-detail.module').then(m => m.RequestDetailModule)
   }
 ];
 @NgModule({

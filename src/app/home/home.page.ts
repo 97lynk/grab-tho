@@ -8,6 +8,16 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
+  options = {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 1000,
+    },
+    fadeEffect: {
+      crossFade: true
+    }
+  };
 
   ngOnInit(): void {
   }

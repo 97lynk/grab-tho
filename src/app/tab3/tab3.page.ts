@@ -6,16 +6,17 @@ import {
   PushNotificationActionPerformed,
   LocalNotificationEnabledResult,
   LocalNotificationScheduleResult,
-  LocalNotificationsPluginWeb
+  LocalNotificationsPluginWeb,
+  registerWebPlugin
 } from '@capacitor/core';
 import { Platform, ModalController, NavController } from '@ionic/angular';
 import { Ionic4DatepickerModalComponent } from '@logisticinfotech/ionic4-datepicker';
-const { LocalNotifications, PushNotifications, Device } = Plugins;
+const { LocalNotifications, PushNotifications, Device, OAuth2Client } = Plugins;
 
 import { firebase } from '@firebase/app';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from '../service/notification.servie';
-
+import { OAuth2Client as OAuth2 } from '@byteowls/capacitor-oauth2';
 
 @Component({
   selector: 'app-tab3',
@@ -36,6 +37,9 @@ export class Tab3Page implements OnInit, AfterViewInit {
   }
 
   async ngOnInit() {
+    console.log('Register custom capacitor plugins');
+    registerWebPlugin(OAuth2);
+
     firebase.initializeApp(environment.firebase);
     await this.notificationsService.init();
 
@@ -62,8 +66,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
       closeLabel: 'C', // default 'Close'
       disabledDates: disabledDates, // default []
       titleLabel: 'Select a Date', // default null
-      monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
-      weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+      monthsList: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+      weeksList: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       dateFormat: 'YYYY-MM-DD', // default DD MMM YYYY
       clearButton: false, // default true
       momentLocale: 'pt-BR', // Default 'en-US'
@@ -260,7 +264,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
         title: 'Get 10% off!',
         body: 'Swipe now to learn more',
         // Android-only: set a custom statusbar icon 
-        smallIcon: "res://ic_stat_icon_sample",
+        smallIcon: 'res://ic_stat_icon_sample',
         // Get random id to test cancel
         id: Math.floor(Math.random() * 10),
         sound: 'beep.aiff',
@@ -341,4 +345,27 @@ export class Tab3Page implements OnInit, AfterViewInit {
     return JSON.stringify(o, null, 2);
   }
 
+  facebookLogin() {
+    const fbApiVersion = '2.11';
+    OAuth2Client.authenticate({
+      appId: '532319540915931',
+      authorizationBaseUrl: `https://www.facebook.com/v${fbApiVersion}/dialog/oauth`,
+      accessTokenEndpoint: `https://graph.facebook.com/v${fbApiVersion}/oauth/access_token`,
+      resourceUrl: `https://graph.facebook.com/v${fbApiVersion}/me`,
+      web: {
+        redirectUrl: 'http://localhost:8100',
+        windowOptions: 'height=600,left=0,top=0'
+      },
+      android: {
+        customHandlerClass: 'com.companyname.appname.YourAndroidFacebookOAuth2Handler',
+      },
+      ios: {
+        customHandlerClass: 'App.YourIOsFacebookOAuth2Handler',
+      }
+    }).then(resourceUrlResponse => {
+      console.error('FB OAuth complete', resourceUrlResponse);
+    }).catch(reason => {
+      console.error('FB OAuth rejected', reason);
+    });
+  }
 }

@@ -118,7 +118,7 @@ export class GetMyLocationComponent implements OnInit {
   }
 
   continute() {
-    this.navController.navigateForward('/requests/find-repairer');
+    this.navController.navigateForward('/requests/done');
   }
 
   goBack() {

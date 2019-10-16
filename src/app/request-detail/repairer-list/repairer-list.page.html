@@ -1,4 +1,4 @@
-<ion-header no-border translucent>
+<!-- <ion-header no-border translucent>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="goBack()" color="primary">
@@ -8,9 +8,9 @@
 
     <ion-title>Yêu cầu</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content class="ion-padding">
+<div class="ion-padding">
 
   <h3 class="title">Danh sách thợ</h3>
 
@@ -26,7 +26,7 @@
   <ion-list>
     <ng-container *ngFor="let r of repairers">
       <ion-item *ngIf="(selectedTab == '2' && r.ok == true) || selectedTab == '1'"
-        [routerLink]="['/requests/repairer', r.id]">
+        [routerLink]="['repairers', r.id]">
         <ion-avatar slot="start">
           <img [src]="r.avatar">
         </ion-avatar>
@@ -44,4 +44,4 @@
 
     </ng-container>
   </ion-list>
-</ion-content>
+</div>

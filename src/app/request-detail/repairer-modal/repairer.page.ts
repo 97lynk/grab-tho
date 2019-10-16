@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
     selector: 'repairer',
     templateUrl: './repairer.page.html',
 })
-export class RepairerPage implements OnInit {
+export class RepairerModal implements OnInit {
 
     constructor(public modalController: ModalController) { }
 

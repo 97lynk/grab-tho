@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core/services/google-maps-types';
 import { ModalController, Platform, NavController } from '@ionic/angular';
-import { RepairerPage } from '../repairer-modal/repairer.page';
-import { showEnter, slideDownLeave } from './custom-animation';
+import { showEnter, slideDownLeave } from '../custom-animation';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
+import { RepairerModal } from '../repairer-modal/repairer.page';
 const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-choose-repairer',
-  templateUrl: './choose-repairer.component.html',
-  styleUrls: ['./choose-repairer.component.scss']
+  templateUrl: './repairer-info.page.html',
+  styleUrls: ['./repairer-info.page.scss']
 })
-export class ChooseRepairerComponent implements OnInit {
+export class RepairerInfo implements OnInit {
 
   hcmc = { lat: 10.8230989, lng: 106.6296638 };
   origin = { lat: 10.8734763, lng: 106.7357881 };
@@ -68,7 +68,7 @@ export class ChooseRepairerComponent implements OnInit {
 
   async presentModal() {
     const modal: HTMLIonModalElement = await this.modalController.create({
-      component: RepairerPage,
+      component: RepairerModal,
       cssClass: 'repaier-info-modal',
       backdropDismiss: true,
       showBackdrop: true,
@@ -91,7 +91,7 @@ export class ChooseRepairerComponent implements OnInit {
   }
 
   goBack() {
-    this.navController.navigateBack('/requests/find-repairer');
+    this.navController.back();
   }
 
 }

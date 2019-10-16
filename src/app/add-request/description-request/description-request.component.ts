@@ -107,16 +107,16 @@ export class DescriptionRequestComponent implements OnInit {
 
   async launchActionSheet() {
     const action = await this.actionSheetController.create({
-      header: 'Select your preferred image source',
+      header: 'Chọn hình ảnh từ',
       buttons: [
         {
-          text: 'Camera',
+          text: 'Máy ảnh',
           handler: () => {
             this.parseImage('camera');
           }
         },
         {
-          text: 'Photolibrary',
+          text: 'Bộ sư tập',
           handler: () => {
             this.parseImage('library');
           }

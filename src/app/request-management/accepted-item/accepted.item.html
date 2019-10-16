@@ -1,0 +1,31 @@
+<ion-item lines="none">
+  <ion-chip [color]="config.color" slot="start">
+    <ion-label></ion-label>
+    <ion-icon [name]="config.iconName"></ion-icon>
+    <ion-label></ion-label>
+  </ion-chip>
+  <ion-label color="primary">
+    <h2>{{ data?.repairerName }}</h2>
+  </ion-label>
+</ion-item>
+<ion-item lines="none">
+  <ion-thumbnail slot="start">
+    <img [src]="data?.desImages[0]">
+  </ion-thumbnail>
+  <ion-label>
+    <p>
+      <ion-icon name="cash"></ion-icon> {{ data?.coin }} điểm
+    </p>
+    <p>
+      <ion-icon name="pin"></ion-icon> {{ data?.address }}
+    </p>
+    <ion-text>{{ data?.desText }}</ion-text>
+  </ion-label>
+</ion-item>
+
+<ion-item lines="full" style="--min-height: 20px">
+  <ion-label></ion-label>
+  <ion-note slot="end">
+    <small>{{ data?.createAt | vdatetime }}</small>
+  </ion-note>
+</ion-item>

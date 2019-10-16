@@ -25,51 +25,15 @@
       <ion-list-header class="bg-light">
         Vừa đăng
       </ion-list-header>
-      <div class="ion-padding-horizontal"></div>
+      <item-recent routerLink="/requests/1" [data]="recentRequest2"></item-recent>
+
+      <div class="ion-padding-bottom"></div>
+
       <ion-list-header class="bg-light">
         Đã có thợ báo giá
       </ion-list-header>
 
-      <ion-item lines="none">
-        <ion-label>
-          <p>
-            <small>
-              <ion-icon name="pin"></ion-icon>
-            </small> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-          </p>
-          <p>
-            <small>
-              <ion-icon name="time"></ion-icon>
-            </small> 14:20 23/09/2019
-          </p>
-          <p class="ion-text-wrap">
-            <b>1</b> thợ báo giá - <b>4</b> thợ nhận yêu cầu
-          </p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-thumbnail>
-          <img src="/assets/repair/repairer-1.png">
-        </ion-thumbnail>
-        <ion-thumbnail>
-          <img src="/assets/repair/repairer-1.png">
-        </ion-thumbnail>
-        <ion-thumbnail>
-          <img src="/assets/repair/repairer-1.png">
-        </ion-thumbnail>
-      </ion-item>
-
-      <ion-item lines="full">
-        <ion-label>
-          <ion-text class="ion-text-wrap">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
-            recusandae!
-          </ion-text>
-        </ion-label>
-      </ion-item>
-
-
+      <item-recent routerLink="/requests/1" [data]="recentRequest"></item-recent>
 
     </ion-list>
   </ng-container>
@@ -79,35 +43,9 @@
       <ion-list-header class="bg-light">
         Yêu cầu chờ đến thời gian thực hiện
       </ion-list-header>
-      <ion-item>
-        <ion-chip color="secondary" slot="start">
-          <ion-label></ion-label>
-          <ion-icon name="checkmark-circle-outline"></ion-icon>
-          <ion-label></ion-label>
-        </ion-chip>
-        <ion-label>
-          <h2>a. Trần Bình Trọng</h2>
-        </ion-label>
-        <ion-button color="secondary" fill="outline" slot="end">Chi tiết</ion-button>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-thumbnail slot="start">
-          <img src="/assets/repair/repairer-1.png">
-        </ion-thumbnail>
-        <ion-label>
-          <p>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-            <ion-icon name="time"></ion-icon> 2 ngày trước
-          </p>
-          <p>
-            <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-          </p>
-          <ion-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
-            recusandae!
-          </ion-text>
-        </ion-label>
-      </ion-item>
+
+      <item-accepted routerLink="/requests/1" [data]="acceptedRequest" [config]="acceptedItemConfig"></item-accepted>
+
     </ion-list>
   </ng-container>
 
@@ -117,70 +55,15 @@
       <ion-list-header class="bg-light">
         Yêu cầu chờ được phản hồi ý kiến
       </ion-list-header>
-      <ion-item>
-        <ion-chip color="warning" slot="start">
-          <ion-label></ion-label>
-          <ion-icon name="checkbox-outline"></ion-icon>
-          <ion-label></ion-label>
-        </ion-chip>
-        <ion-label>
-          <h2>a. Trần Bình Trọng</h2>
-        </ion-label>
-        <ion-button color="warning" fill="outline" slot="end">Đánh giá</ion-button>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-thumbnail slot="start">
-          <img src="/assets/repair/repairer-10.png">
-        </ion-thumbnail>
-        <ion-label>
-          <p>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-            <ion-icon name="time"></ion-icon> 2 ngày trước
-          </p>
-          <p>
-            <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-          </p>
-          <ion-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta accusantium minima tenetur omnis quaerat cum
-            recusandae!
-          </ion-text>
-        </ion-label>
-      </ion-item>
+
+      <item-complete routerLink="/requests/1" [data]="completedRequest" [config]="completedItemConfig"></item-complete>
 
       <div class="ion-padding-bottom"></div>
 
       <ion-list-header class="bg-light">
         Yêu cầu đã đóng
       </ion-list-header>
-      <ion-item>
-        <ion-chip color="medium" slot="start">
-          <ion-label></ion-label>
-          <ion-icon name="checkbox-outline"></ion-icon>
-          <ion-label></ion-label>
-        </ion-chip>
-        <ion-label>
-          <h2>a. Trần Bình Trọng</h2>
-        </ion-label>
-        <ion-button color="medium" fill="outline" slot="end">Xem lại</ion-button>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-thumbnail slot="start">
-          <img src="/assets/repair/repairer-2.png">
-        </ion-thumbnail>
-        <ion-label>
-          <p>
-            <ion-icon name="cash"></ion-icon> 250 điểm
-            <ion-icon name="time"></ion-icon> 2 ngày trước
-          </p>
-          <p>
-            <ion-icon name="pin"></ion-icon> 73/1a Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-          </p>
-          <p>
-            <ion-icon name="star"></ion-icon> 4.5
-            <ion-icon name="quote"></ion-icon> Thợ chuyên nghiệp, cẩn thận
-          </p>
-        </ion-label>
-      </ion-item>
+      <item-closed routerLink="/requests/1" [data]="closedRequest" [config]="closedItemConfig"></item-closed>
     </ion-list>
   </ng-container>
 
