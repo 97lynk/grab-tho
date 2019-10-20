@@ -3,6 +3,9 @@ import { NavController } from '@ionic/angular';
 import { Profile } from 'selenium-webdriver/firefox';
 import { AuthService } from '../util/auth.service';
 import { Router } from '@angular/router';
+import { RequestService } from '../service/request.service';
+import { Page } from '../dto/page';
+import { RecentRequest } from '../dto/request';
 
 @Component({
   selector: 'grabtho-home',
@@ -10,6 +13,8 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
+
+  recentRequest: RecentRequest[] = [];
 
   options = {
     speed: 400,
@@ -27,7 +32,8 @@ export class HomePage implements OnInit {
   constructor(
     private navController: NavController,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private requestService: RequestService) {
   }
 
   ngOnInit(): void {
@@ -36,8 +42,12 @@ export class HomePage implements OnInit {
       this.profile = profile;
     }, error => console.log('Header: receive profile fail'));
     this.authService.loadProfile();
-  }
 
+    this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
+      .subscribe((data: Page<RecentRequest>) => {
+        this.recentRequest = data.content;
+      });
+  }
 
   logout() {
     this.authService.logout();

@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActionSheetController, Platform, NavController, AlertController } from '@ionic/angular';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { PhotoService } from '../../service/photo.service';
-
-import { Capacitor, Plugins } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 import { ImageProvider } from 'src/app/service/image.service';
+import { StorageService } from 'src/app/service/storage.service';
+
 
 @Component({
   selector: 'request-description',
@@ -17,6 +17,7 @@ export class DescriptionRequestComponent implements OnInit {
   images: Array<Array<string>>;
   win: any = window;
   platformIs = '';
+  textDescription = '';
 
   @ViewChild('inputPhoto', { static: false }) inputPhoto: ElementRef;
 
@@ -27,14 +28,11 @@ export class DescriptionRequestComponent implements OnInit {
     private platform: Platform,
     private imageProvider: ImageProvider,
     public navController: NavController,
-    private photoService: PhotoService) {
+    private storageService: StorageService) {
     console.log('available ', Capacitor.isPluginAvailable('Camera'));
   }
 
   ngOnInit() {
-    console.log(this.webview);
-    console.log(this.actionSheetController);
-    console.log(this.platform);
 
     this.images = new Array(0);
 
@@ -74,7 +72,7 @@ export class DescriptionRequestComponent implements OnInit {
         this.imageProvider
           .takePicture()
           .then((url: string) => {
-            console.log('image form camera', url);
+            console.log('image form camera');
             this.makeGrid(url);
           })
           .catch((error) => {
@@ -116,7 +114,7 @@ export class DescriptionRequestComponent implements OnInit {
           }
         },
         {
-          text: 'Bộ sư tập',
+          text: 'Bộ sưu tập',
           handler: () => {
             this.parseImage('library');
           }
@@ -154,6 +152,9 @@ export class DescriptionRequestComponent implements OnInit {
   }
 
   continute() {
+    this.storageService.save('imagesDescription', this.sources);
+    this.storageService.save('textDescription', this.textDescription);
+
     this.navController.navigateForward('/requests/my-location');
   }
 

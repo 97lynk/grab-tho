@@ -1,7 +1,7 @@
 <ion-item lines="none">
   <ion-label>
     <h2 class="ion-text-wrap" style="color: var(--ion-color-primary);"><b>{{ (data?.noQuote == 0) ? 'không' : data?.noQuote }}</b> thợ báo giá -
-      <b>{{ (data?.noReceive == 0) ? 'không' : data?.noReceive}}</b> thợ nhận yêu cầu</h2>
+      <b>{{ (data?.noReceiver == 0) ? 'không' : data?.noReceiver}}</b> thợ nhận yêu cầu</h2>
     <p>
       <ion-icon name="pin"></ion-icon>
       {{ data?.address }}
@@ -10,7 +10,7 @@
 </ion-item>
 
 <ion-item lines="none">
-  <ion-thumbnail *ngFor="let src of data.desImages" style="margin-right: 5px;">
+  <ion-thumbnail *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
     <img src="{{ src }}">
   </ion-thumbnail>
 </ion-item>
@@ -18,7 +18,7 @@
 <ion-item lines="none">
   <ion-label>
     <ion-text class="ion-text-wrap">
-      {{ data?.desText}}
+      {{ data?.textDescription}}
     </ion-text>
   </ion-label>
 </ion-item>

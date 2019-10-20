@@ -5,10 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './home.page';
+import { PipeModule } from '../pipe/pipe.module';
 
 
 @NgModule({
   imports: [
+    PipeModule,
     IonicModule,
     CommonModule,
     FormsModule,

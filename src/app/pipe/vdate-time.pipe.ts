@@ -15,6 +15,8 @@ export class VDateTimePipe implements PipeTransform {
     if (value == null) { return ''; }
     if (typeof value === 'number') {
       data = new Date(value);
+    } else if (typeof value === 'string') {
+      data = new Date(value);
     } else {
       data = value;
     }

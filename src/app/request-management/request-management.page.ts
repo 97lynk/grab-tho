@@ -5,6 +5,9 @@ import {
   CompletedRequest, CompletedItemConfig,
   ClosedRequest, ClosedItemConfig
 } from '../dto/request';
+import { AuthService } from '../util/auth.service';
+import { RequestService } from '../service/request.service';
+import { Page } from '../dto/page';
 
 @Component({
   selector: 'grabtho-request-management',
@@ -13,29 +16,9 @@ import {
 })
 export class RequestManagementPage implements OnInit {
 
-  recentRequest: RecentRequest = {
-    noQuote: 1,
-    noReceive: 4,
-    address: '23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam',
-    desImages: [
-      '/assets/problem-1.jpg',
-      '/assets/problem-2.jpg',
-      '/assets/problem-3.jpg'
-    ],
-    desText: 'La phông bị hư khoảng 10 đến 12 tấm, la phông thạch cao...',
-    createAt: new Date(2019, 8, 23, 14, 20)
-  };
+  recentRequest: RecentRequest[] = [];
 
-  recentRequest2: RecentRequest = {
-    noQuote: 0,
-    noReceive: 0,
-    address: '23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam',
-    desImages: [
-      'https://thietbivesinhvn.com.vn/Image/Upload/Aqualem-FT954.jpg'
-    ],
-    desText: 'Lavabo của tôi bị nghẹt, có thể cần phải thay. Vòi nước cũng bị rỉ...',
-    createAt: new Date(2019, 8, 23, 14, 20)
-  };
+  quotedRequest: RecentRequest[] = [];
 
   acceptedRequest: AcceptedRequest = {
     repairerName: 'a. Trần Bình Trọng',
@@ -86,7 +69,18 @@ export class RequestManagementPage implements OnInit {
     iconName: 'checkbox-outline',
   };
 
+  constructor(
+    private requestService: RequestService
+  ) { }
+
   ngOnInit(): void {
+    this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
+      .subscribe((data: Page<RecentRequest>) => {
+        data.content.forEach(req => {
+          if (req.status === 'QUOTED') { this.quotedRequest.push(req); }
+          else { this.recentRequest.push(req); }
+        });
+      });
   }
 
 }

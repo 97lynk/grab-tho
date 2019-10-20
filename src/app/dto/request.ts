@@ -1,10 +1,12 @@
 export interface RecentRequest {
+    id: number;
+    noReceiver: number;
     noQuote: number;
-    noReceive: number;
     address: string;
-    desImages: string[];
-    desText: string;
+    imagesDescription: string[];
+    textDescription: string;
     createAt: Date;
+    status: string;
 }
 
 export interface AcceptedRequest {

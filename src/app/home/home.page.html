@@ -29,69 +29,34 @@
 
   <ion-slides pager="true" [options]="options">
 
-    <ion-slide>
-      <ion-card routerLink="/requests/1" class="recently-request">
-        <img class="img-request" src="https://thietbivesinhvn.com.vn/Image/Upload/Aqualem-FT954.jpg" />
+    <ion-slide *ngFor="let req of recentRequest">
+      <ion-card [routerLink]="['requests', req.id]" class="recently-request">
+        <img class="img-request" [src]="req.imagesDescription[0]" />
         <ion-card-header>
           <ion-label>
             <p>
               <small>
                 <ion-icon name="pin"></ion-icon>
-              </small> 23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
+              </small> {{ req.address }}
             </p>
             <p>
               <small>
                 <ion-icon name="time"></ion-icon>
-              </small> 14:20 23/09/2019
+              </small> {{ req.createAt | vdatetime }}
             </p>
           </ion-label>
         </ion-card-header>
 
         <div class="ion-padding-horizontal">
           <ion-chip color="primary">
-            <ion-label><b>0</b> thợ báo giá</ion-label>
+            <ion-label><b>{{ req.noQuote }}</b> thợ báo giá</ion-label>
           </ion-chip>
           <ion-chip color="secondary">
-            <ion-label><b>0</b> thợ nhận yêu cầu</ion-label>
+            <ion-label><b>{{ req.noReceiver }}</b> thợ nhận yêu cầu</ion-label>
           </ion-chip>
         </div>
 
-        <ion-card-content>
-          Lavabo của tôi bị nghẹt, có thể cần phải thay. Vòi nước cũng bị rỉ...
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
-
-    <ion-slide>
-      <ion-card routerLink="/requests/1" class="recently-request">
-        <img class="img-request" src="/assets/problem-1.jpg" />
-        <ion-card-header>
-          <ion-label>
-            <p>
-              <small>
-                <ion-icon name="pin"></ion-icon>
-              </small> 23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam
-            </p>
-            <p>
-              <small>
-                <ion-icon name="time"></ion-icon>
-              </small> 16:22 21/09/2019
-            </p>
-          </ion-label>
-        </ion-card-header>
-
-        <div class="ion-padding-horizontal">
-          <ion-chip color="primary">
-            <ion-label><b>1</b> thợ báo giá</ion-label>
-          </ion-chip>
-          <ion-chip color="secondary">
-            <ion-label><b>3</b> thợ nhận yêu cầu</ion-label>
-          </ion-chip>
-        </div>
-
-        <ion-card-content>
-          La phông bị hư khoảng 10 đến 12 tấm, la phông thạch cao...
-        </ion-card-content>
+        <ion-card-content>{{ req.textDescription }}</ion-card-content>
       </ion-card>
     </ion-slide>
 

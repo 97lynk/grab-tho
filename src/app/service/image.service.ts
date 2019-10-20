@@ -61,7 +61,7 @@ export class ImageProvider {
         const image = await Camera.getPhoto({
             quality: 90,
             allowEditing: true,
-            resultType: CameraResultType.Uri,
+            resultType: CameraResultType.DataUrl,
             source: CameraSource.Camera
         });
 
@@ -70,8 +70,8 @@ export class ImageProvider {
         /* We need to run the returned Image URL through Angular's DomSanitizer to 'trust'
            this for use within the application (I.e. so that Angular knows this isn't an
            XSS attempt or similarly malicious code) */
-        this._IMAGE = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath));
-        // this._IMAGE = image.webPath;
+        // this._IMAGE = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+        this._IMAGE = image.dataUrl;
         return this._IMAGE;
     }
 

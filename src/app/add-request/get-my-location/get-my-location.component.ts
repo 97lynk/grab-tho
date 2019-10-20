@@ -7,6 +7,8 @@ const { Geolocation } = Plugins;
 declare var google;
 import PlaceResult = google.maps.places.PlaceResult;
 import AutocompleteOptions = google.maps.places.AutocompleteOptions;
+import { StorageService } from 'src/app/service/storage.service';
+import { RequestService } from 'src/app/service/request.service';
 
 
 @Component({
@@ -37,8 +39,13 @@ export class GetMyLocationComponent implements OnInit {
   @ViewChild('input2', { static: false })
   ip: ElementRef;
 
-  constructor(private navController: NavController, private apiLoader: MapsAPILoader,
-    private ngZone: NgZone, private platform: Platform) {
+  constructor(
+    private navController: NavController,
+    private apiLoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private platform: Platform,
+    private storageService: StorageService,
+    private requestService: RequestService) {
   }
 
   ngOnInit(): void {
@@ -46,7 +53,6 @@ export class GetMyLocationComponent implements OnInit {
       .then(() => {
       });
 
-    console.log(this.searchBar);
     this.apiLoader.load()
       .then(() => {
         this.service = new google.maps.places.AutocompleteService();
@@ -56,7 +62,6 @@ export class GetMyLocationComponent implements OnInit {
   }
 
   updateListPlace() {
-    console.log('input ', this.searchInput);
 
     this.autocompleteItems = [];
     if (this.searchInput === '') { return; }
@@ -74,7 +79,6 @@ export class GetMyLocationComponent implements OnInit {
               });
             });
 
-            console.log(this.autocompleteItems);
           });
         }
       });
@@ -85,7 +89,6 @@ export class GetMyLocationComponent implements OnInit {
     // this.clearMarkers();
     this.searchInput = item.description;
     this.autocompleteItems = [];
-    console.log('click ', item);
     this.geocoder.geocode({ 'placeId': item.place_id }, (results, status) => {
       this.ngZone.run(() => {
         if (status === 'OK' && results[0]) {
@@ -110,7 +113,11 @@ export class GetMyLocationComponent implements OnInit {
         lng: pos.coords.longitude
       };
 
-      console.log(pos);
+      this.geocoder.geocode({ 'location': this.myLocation }, (results, status) => {
+        if (status === 'OK' && results[0]) {
+          this.searchInput = results[0].formatted_address;
+        }
+      });
 
     }, (err: PositionError) => {
       console.log('error : ' + err.message);
@@ -118,6 +125,11 @@ export class GetMyLocationComponent implements OnInit {
   }
 
   continute() {
+    this.storageService.save('address', this.searchInput);
+    this.storageService.save('lat', this.myLocation.lat);
+    this.storageService.save('lng', this.myLocation.lng);
+
+    this.re
     this.navController.navigateForward('/requests/done');
   }
 

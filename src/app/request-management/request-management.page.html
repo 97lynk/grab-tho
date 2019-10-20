@@ -25,7 +25,8 @@
       <ion-list-header class="bg-light">
         Vừa đăng
       </ion-list-header>
-      <item-recent routerLink="/requests/1" [data]="recentRequest2"></item-recent>
+     
+      <item-recent *ngFor="let req of recentRequest" [routerLink]="['requests', '1']" [data]="req"></item-recent>
 
       <div class="ion-padding-bottom"></div>
 
@@ -33,7 +34,7 @@
         Đã có thợ báo giá
       </ion-list-header>
 
-      <item-recent routerLink="/requests/1" [data]="recentRequest"></item-recent>
+      <item-recent *ngFor="let req of quotedRequest" [routerLink]="['requests', '1']" [data]="req"></item-recent>
 
     </ion-list>
   </ng-container>
