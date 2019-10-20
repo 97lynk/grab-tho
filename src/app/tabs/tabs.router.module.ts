@@ -4,7 +4,7 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -36,13 +36,13 @@ const routes: Routes = [
               import('../tab3/tab3.module').then(m => m.Tab3PageModule)
           }
         ]
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/home',
+        pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/home',
-    pathMatch: 'full'
   }
 ];
 
@@ -50,4 +50,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

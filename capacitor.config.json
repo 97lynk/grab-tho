@@ -17,6 +17,11 @@
         "sound",
         "alert"
       ]
+    },
+    "SplashScreen": {
+      "showSpinner": true,
+      "backgroundColor": "#03befc",
+      "launchShowDuration": 5000
     }
   }
 }

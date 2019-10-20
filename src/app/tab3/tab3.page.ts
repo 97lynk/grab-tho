@@ -17,6 +17,8 @@ import { firebase } from '@firebase/app';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from '../service/notification.servie';
 import { OAuth2Client as OAuth2 } from '@byteowls/capacitor-oauth2';
+import { AuthService } from '../util/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab3',
@@ -32,11 +34,18 @@ export class Tab3Page implements OnInit, AfterViewInit {
   myDate: any;
   datePickerObj: any;
 
-  constructor(private plt: Platform, public modalCtrl: ModalController,
-    public navCtrl: NavController, private notificationsService: NotificationsService) {
+  constructor(private authService: AuthService, private plt: Platform, public modalCtrl: ModalController,
+    public navCtrl: NavController, private notificationsService: NotificationsService,
+    private http: HttpClient) {
   }
 
   async ngOnInit() {
+    // subscribe profile
+    this.authService.registerSubscriber().subscribe(profile => {
+      console.log('OAuth2: authenticated, receive profile ', profile);
+    }, error => console.log('Header: receive profile fail'));
+
+
     console.log('Register custom capacitor plugins');
     registerWebPlugin(OAuth2);
 
@@ -348,12 +357,12 @@ export class Tab3Page implements OnInit, AfterViewInit {
   facebookLogin() {
     const fbApiVersion = '2.11';
     OAuth2Client.authenticate({
-      appId: '532319540915931',
+      appId: environment.fbAppId,
       authorizationBaseUrl: `https://www.facebook.com/v${fbApiVersion}/dialog/oauth`,
       accessTokenEndpoint: `https://graph.facebook.com/v${fbApiVersion}/oauth/access_token`,
       resourceUrl: `https://graph.facebook.com/v${fbApiVersion}/me`,
       web: {
-        redirectUrl: 'http://localhost:8100',
+        redirectUrl: `${environment.redirectUri}`,
         windowOptions: 'height=600,left=0,top=0'
       },
       android: {
@@ -363,9 +372,24 @@ export class Tab3Page implements OnInit, AfterViewInit {
         customHandlerClass: 'App.YourIOsFacebookOAuth2Handler',
       }
     }).then(resourceUrlResponse => {
-      console.error('FB OAuth complete', resourceUrlResponse);
+      console.log('FB OAuth complete', resourceUrlResponse);
+      this.http.post(`${environment.serviceUrl}/login/facebook?token=${resourceUrlResponse.access_token}`, {}).subscribe(data => {
+        console.log('data ', data);
+      });
     }).catch(reason => {
       console.error('FB OAuth rejected', reason);
     });
   }
+
+  oauth2Login() {
+    this.authService.loginWithUsernameAndPassword('572338133504702', 'tuan')
+      .then(value => {
+        console.log('login sucess ', value);
+        this.authService.loadProfile();
+      })
+      .catch(error => {
+        console.log('OAuth2: login failed');
+      });
+  }
+
 }

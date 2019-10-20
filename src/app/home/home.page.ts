@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Profile } from 'selenium-webdriver/firefox';
+import { AuthService } from '../util/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'grabtho-home',
@@ -19,12 +22,26 @@ export class HomePage implements OnInit {
     }
   };
 
+  profile: Profile = null;
+
+  constructor(
+    private navController: NavController,
+    private authService: AuthService,
+    private router: Router) {
+  }
+
   ngOnInit(): void {
+    this.authService.registerSubscriber().subscribe((profile: Profile) => {
+      console.log('OAuth2: authenticated, receive profile ', profile);
+      this.profile = profile;
+    }, error => console.log('Header: receive profile fail'));
+    this.authService.loadProfile();
   }
 
 
-  constructor(
-    private navController: NavController) {
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
   }
 
   createRequestPage() {

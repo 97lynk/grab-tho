@@ -1,0 +1,40 @@
+<ion-content class="ion-padding">
+  <ion-row class="ion-align-items-center" style="height: 100%; max-width: 400px; margin: auto;">
+    <ion-col>
+      <h1 class="ion-text-center" color="secondary">Đăng nhập GrabThợ</h1>
+      <div style="height: 3px;">
+        <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+      </div>
+      <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+        <ion-item style="--padding-start: 8px">
+          <ion-label color="primary" position="floating">Tài khoản</ion-label>
+          <ion-input name="username" id="loginField" type="text" required [(ngModel)]="username"></ion-input>
+        </ion-item>
+
+        <ion-item style="--padding-start: 8px">
+          <ion-label color="primary" position="floating">Mật khẩu</ion-label>
+          <ion-input name="password" id="passwordField" type="password" required [(ngModel)]="password"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" style="--padding-start: 8px">
+          <ion-text *ngIf="error" color="danger">
+            <small>{{error}}</small>
+          </ion-text>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid || loading">
+          Đăng nhập
+        </ion-button>
+      </form>
+
+      <ion-button expand="full" type="submit" class="btn-google" [disabled]="loading">
+        <ion-icon name="logo-google" class="ion-margin-end"></ion-icon> Đăng nhập với Google
+      </ion-button>
+
+      <ion-button expand="full" type="submit" (click)="loginWithFacebook()"
+       class="btn-facebook" [disabled]="loading">
+        <ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon> Đăng nhập với Facebook
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

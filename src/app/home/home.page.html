@@ -1,11 +1,12 @@
 <ion-header translucent>
   <ion-toolbar translucent>
     <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
-      <img src="https://avatars0.githubusercontent.com/u/32217548?s=230&v=4">
+      <img [src]="profile?.avatar">
     </ion-avatar>
+    <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
     <ion-buttons slot="end" style="font-size: 24px;">
       <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
-      <ion-icon class="ion-margin-end" name="power"></ion-icon>
+      <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 

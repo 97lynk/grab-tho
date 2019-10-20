@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cap": "ionic build && npx cap copy web && npx cap serve",
-    "deploy-prod": "ionic build --prod && firebase deploy --only hosting:grabtho"
+    "deploy-prod": "ionic build --prod && firebase deploy --only hosting:grabtho",
+    "deploy-stag": "ionic build --prod && firebase deploy --only hosting:motel-242404"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@angular/pwa": "^0.803.8",
     "@angular/router": "~8.1.2",
     "@angular/service-worker": "~8.1.2",
+    "@byteowls/capacitor-oauth2": "1.0.1",
     "@capacitor/android": "^1.2.1",
     "@capacitor/core": "1.2.1",
     "@capacitor/ios": "^1.2.1",
@@ -41,6 +43,7 @@
     "@logisticinfotech/ionic4-datepicker": "^1.4.3",
     "@types/googlemaps": "^3.37.7",
     "agm-direction": "^0.7.8",
+    "angular-oauth2-oidc": "^5.0.2",
     "capacitor-data-storage-sqlite": "^1.2.1-8",
     "cordova-android": "^8.1.0",
     "cordova-browser": "6.0.0",

@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+  redirectUri: 'http://localhost:8100',
+  serviceUrl: 'http://localhost:8080',
+  fbAppId: '1153417668380667',
   firebase: {
     apiKey: 'AIzaSyBDc2yRxjlk0RyAp2utPQU5pv3eEmSEntE',
     authDomain: 'motel-242404.firebaseapp.com',
