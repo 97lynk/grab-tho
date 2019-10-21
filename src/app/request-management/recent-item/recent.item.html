@@ -11,7 +11,7 @@
 
 <ion-item lines="none">
   <ion-thumbnail *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
-    <img src="{{ src }}">
+  <img [src]="imageHost + '' + src">
   </ion-thumbnail>
 </ion-item>
 

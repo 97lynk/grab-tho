@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
         console.log('OAuth2: login sucess ', value);
         this.loading = false;
         this.error = null;
+        this.router.navigateByUrl('/tabs');
       })
       .catch(error => {
         console.log('OAuth2: login failed ', error);

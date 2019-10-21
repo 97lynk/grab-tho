@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecentRequest } from 'src/app/dto/request';
+import { imageHost } from 'src/app/util/file.util';
 
 @Component({
   selector: 'item-recent',
@@ -7,6 +8,8 @@ import { RecentRequest } from 'src/app/dto/request';
   styleUrls: ['./recent.item.scss'],
 })
 export class RecentItem implements OnInit {
+
+  imageHost = imageHost;
 
   @Input() data: RecentRequest;
 

@@ -129,8 +129,12 @@ export class GetMyLocationComponent implements OnInit {
     this.storageService.save('lat', this.myLocation.lat);
     this.storageService.save('lng', this.myLocation.lng);
 
-    this.re
-    this.navController.navigateForward('/requests/done');
+    this.requestService.postRequest()
+      .then(data => {
+        this.navController.navigateForward('/requests/done');
+      }).catch(error => {
+        console.log('Failed to post request');
+      });
   }
 
   goBack() {

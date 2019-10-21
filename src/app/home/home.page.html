@@ -15,23 +15,23 @@
 <ion-content fullscreen class="ion-padding-vertical">
 
   <div class="ion-padding-horizontal ion-padding-bottom">
-    <h3 class="ion-no-margin">Yêu cầu ngay & luôn</h3>
-    <ion-card-subtitle>Bạn cần sửa chữa</ion-card-subtitle>
+    <h3 class="ion-no-margin title">Yêu cầu ngay & luôn</h3>
+    <!-- <ion-card-subtitle>Bạn cần sửa chữa</ion-card-subtitle> -->
     <ion-button class="ion-padding-vertical" expand="block" (click)="createRequestPage()">
       <ion-icon name="add"></ion-icon> Yêu cầu ngay
     </ion-button>
   </div>
 
   <div class="ion-padding-horizontal ion-padding-bottom">
-    <h3 class="ion-no-margin">Gần đây</h3>
-    <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle>
+    <h3 class="ion-no-margin title">Gần đây</h3>
+    <!-- <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle> -->
   </div>
 
   <ion-slides pager="true" [options]="options">
 
     <ion-slide *ngFor="let req of recentRequest">
-      <ion-card [routerLink]="['requests', req.id]" class="recently-request">
-        <img class="img-request" [src]="req.imagesDescription[0]" />
+      <ion-card [routerLink]="['/requests', req.id]" class="recently-request">
+        <img class="img-request" [src]="imageHost + '' + req.imagesDescription[0]" />
         <ion-card-header>
           <ion-label>
             <p>
@@ -64,10 +64,10 @@
 
 
   <div class="ion-padding-horizontal">
-    <div class="ion-padding-bottom">
-      <h3 class="ion-no-margin">Dịch vụ sửa chữa</h3>
-      <ion-card-subtitle>Yêu cầu theo loại dịch vụ</ion-card-subtitle>
-    </div>
+    <ion-text class="ion-padding-bottom">
+      <h3 class="ion-no-margin title">Dịch vụ sửa chữa</h3>
+      <!-- <ion-card-subtitle>Yêu cầu theo loại dịch vụ</ion-card-subtitle> -->
+    </ion-text>
 
     <ion-grid>
       <ion-slides>
@@ -161,7 +161,7 @@
     </ion-grid>
 
     <ion-text>
-      <h6>Tin tức</h6>
+      <h3 class="title">Tin tức</h3>
     </ion-text>
     <ion-slides>
 

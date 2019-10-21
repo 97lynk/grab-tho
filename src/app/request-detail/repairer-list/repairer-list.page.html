@@ -25,19 +25,18 @@
 
   <ion-list>
     <ng-container *ngFor="let r of repairers">
-      <ion-item *ngIf="(selectedTab == '2' && r.ok == true) || selectedTab == '1'"
-        [routerLink]="['repairers', r.id]">
+      <ion-item *ngIf="(selectedTab === '1' &&  r.status === 'RECEIVE') 
+      || (selectedTab === '2' &&  r.status === 'QUOTE')" [routerLink]="['repairers', r.id]">
         <ion-avatar slot="start">
           <img [src]="r.avatar">
         </ion-avatar>
 
         <ion-label>
-          <h2>{{ r.name }}</h2>
-          <h3>{{ r.position }}</h3>
+          <h2>{{ r.fullName }}</h2>
+          <h3 *ngIf="r.status === 'QUOTE'"> <ion-icon name="cash"></ion-icon> {{ r.point }} điểm</h3>
           <small>
-            <ion-icon name="pin" color="primary"></ion-icon> {{ r.distance }}
+            <ion-icon name="time"></ion-icon> {{ r.createAt | vdatetime }}
           </small>
-          - <small>{{ r.time }}</small>
         </ion-label>
 
       </ion-item>

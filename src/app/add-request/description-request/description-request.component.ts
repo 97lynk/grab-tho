@@ -152,7 +152,7 @@ export class DescriptionRequestComponent implements OnInit {
   }
 
   continute() {
-    this.storageService.save('imagesDescription', this.sources);
+    this.storageService.save('imagesDescription', this.sources.map(i => i.src));
     this.storageService.save('textDescription', this.textDescription);
 
     this.navController.navigateForward('/requests/my-location');

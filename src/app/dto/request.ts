@@ -1,4 +1,4 @@
-export interface RecentRequest {
+export interface Request {
     id: number;
     noReceiver: number;
     noQuote: number;
@@ -7,15 +7,41 @@ export interface RecentRequest {
     textDescription: string;
     createAt: Date;
     status: string;
+    latitude: number;
+    longitude: number;
+    feedBack: boolean;
+    rate: number;
+    comment: string;
+    userId: number;
+}
+
+
+export interface RecentRequest {
+    id: number;
+    noReceiver: number;
+    noQuote: number;
+    address: string;
+    imagesDescription: string[];
+    textDescription: string;
+    latitude: number;
+    longitude: number;
+    createAt: Date;
+    status: string;
 }
 
 export interface AcceptedRequest {
-    repairerName: string;
+    id: number;
+    noReceiver: number;
+    noQuote: number;
     address: string;
-    coin: number;
-    desImages: string[];
-    desText: string;
+    imagesDescription: string[];
+    textDescription: string;
+    latitude: number;
+    longitude: number;
     createAt: Date;
+    status: string;
+    point: number;
+    repairerName: string;
 }
 
 export interface AcceptedItemConfig {

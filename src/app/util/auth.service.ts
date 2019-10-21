@@ -92,8 +92,7 @@ export class AuthService {
 
     async loginWithUsernameAndPassword(username: string, password) {
         console.log('OAuth2: request login');
-        await this.oauthService.fetchTokenUsingPasswordFlow(username, password);
-        this.loadProfile();
+        await this.oauthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password);
     }
 
     async loginWithFacebook() {

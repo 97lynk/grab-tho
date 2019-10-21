@@ -10,7 +10,7 @@ export class VDateTimePipe implements PipeTransform {
     day: 'numeric', month: 'numeric', year: 'numeric'
   };
 
-  transform(value: number | Date): string {
+  transform(value: number | Date | string): string {
     let data: Date;
     if (value == null) { return ''; }
     if (typeof value === 'number') {

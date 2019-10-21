@@ -5,7 +5,9 @@ import { AuthService } from '../util/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../service/request.service';
 import { Page } from '../dto/page';
-import { RecentRequest } from '../dto/request';
+import { RecentRequest, AcceptedRequest } from '../dto/request';
+import { imageHost } from '../util/file.util';
+
 
 @Component({
   selector: 'grabtho-home',
@@ -13,6 +15,8 @@ import { RecentRequest } from '../dto/request';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
+
+  imageHost = imageHost;
 
   recentRequest: RecentRequest[] = [];
 

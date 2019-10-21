@@ -20,16 +20,7 @@ export class RequestManagementPage implements OnInit {
 
   quotedRequest: RecentRequest[] = [];
 
-  acceptedRequest: AcceptedRequest = {
-    repairerName: 'a. Trần Bình Trọng',
-    address: '23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam',
-    coin: 250,
-    desImages: [
-      'http://maychasandon.com/wp-content/uploads/2018/08/san-nha-bi-tham-nuoc-nguyen-nhan-va-giai-phap-khac-phuc-02.jpg'
-    ],
-    desText: 'Sàn nhà gạch bông bị bễ khoảng 8 9 ô gạch',
-    createAt: new Date(2019, 8, 10, 10, 21)
-  };
+  acceptedRequest: AcceptedRequest[] = [];
 
   acceptedItemConfig: AcceptedItemConfig = {
     color: 'secondary',
@@ -80,6 +71,11 @@ export class RequestManagementPage implements OnInit {
           if (req.status === 'QUOTED') { this.quotedRequest.push(req); }
           else { this.recentRequest.push(req); }
         });
+      });
+
+    this.requestService.getAndFilterBy(['ACCEPTED', 'WAITING'])
+      .subscribe((data: Page<AcceptedRequest>) => {
+        this.acceptedRequest = data.content;
       });
   }
 

@@ -25,8 +25,8 @@
       <ion-list-header class="bg-light">
         Vừa đăng
       </ion-list-header>
-     
-      <item-recent *ngFor="let req of recentRequest" [routerLink]="['requests', '1']" [data]="req"></item-recent>
+
+      <item-recent *ngFor="let req of recentRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
 
       <div class="ion-padding-bottom"></div>
 
@@ -34,7 +34,7 @@
         Đã có thợ báo giá
       </ion-list-header>
 
-      <item-recent *ngFor="let req of quotedRequest" [routerLink]="['requests', '1']" [data]="req"></item-recent>
+      <item-recent *ngFor="let req of quotedRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
 
     </ion-list>
   </ng-container>
@@ -45,7 +45,7 @@
         Yêu cầu chờ đến thời gian thực hiện
       </ion-list-header>
 
-      <item-accepted routerLink="/requests/1" [data]="acceptedRequest" [config]="acceptedItemConfig"></item-accepted>
+      <item-accepted *ngFor="let req of acceptedRequest" [routerLink]="['/requests', req.id]"  [data]="req" [config]="acceptedItemConfig"></item-accepted>
 
     </ion-list>
   </ng-container>
