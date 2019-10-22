@@ -45,7 +45,8 @@
         Yêu cầu chờ đến thời gian thực hiện
       </ion-list-header>
 
-      <item-accepted *ngFor="let req of acceptedRequest" [routerLink]="['/requests', req.id]"  [data]="req" [config]="acceptedItemConfig"></item-accepted>
+      <item-accepted *ngFor="let req of acceptedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="acceptedItemConfig"></item-accepted>
 
     </ion-list>
   </ng-container>
@@ -57,14 +58,16 @@
         Yêu cầu chờ được phản hồi ý kiến
       </ion-list-header>
 
-      <item-complete routerLink="/requests/1" [data]="completedRequest" [config]="completedItemConfig"></item-complete>
+      <item-complete *ngFor="let req of completedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="completedItemConfig"></item-complete>
 
       <div class="ion-padding-bottom"></div>
 
       <ion-list-header class="bg-light">
         Yêu cầu đã đóng
       </ion-list-header>
-      <item-closed routerLink="/requests/1" [data]="closedRequest" [config]="closedItemConfig"></item-closed>
+      <item-closed *ngFor="let req of completedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="closedItemConfig"></item-closed>
     </ion-list>
   </ng-container>
 

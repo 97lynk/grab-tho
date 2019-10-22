@@ -13,6 +13,8 @@ export class RequestDetailPage implements OnInit {
 
   request: Request;
   imageHost = imageHost;
+  loadingRepairerSection = false;
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED'];
   options = {
     speed: 400,
     loop: true,
@@ -34,6 +36,7 @@ export class RequestDetailPage implements OnInit {
     this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
+        this.loadingRepairerSection = this.statusToLoadRepairer.includes(this.request.status);
       });
   }
 

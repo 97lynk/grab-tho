@@ -26,6 +26,6 @@
     </ion-label>
   </ion-item>
 
-  <repairer-list [request-id]="request?.id"></repairer-list>
+  <repairer-list *ngIf="loadingRepairerSection" [request-id]="request?.id"></repairer-list>
 
 </ion-content>

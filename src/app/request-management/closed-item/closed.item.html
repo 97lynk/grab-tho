@@ -11,17 +11,17 @@
 
 <ion-item lines="none">
   <ion-thumbnail slot="start">
-    <img [src]="data?.desImages[0]">
+    <img [src]="imageHost + '' +  data?.imagesDescription[0]">
   </ion-thumbnail>
   <ion-label>
     <p>
-      <ion-icon name="cash"></ion-icon> {{ data?.coin }} điểm
+      <ion-icon name="cash"></ion-icon> {{ data?.point }} điểm
       <ion-icon name="star"></ion-icon> {{ data?.rating }}
     </p>
     <p>
       <ion-icon name="pin"></ion-icon> {{ data?.address }}
     </p>
-    <ion-text>{{ data?.desText }}</ion-text>
+    <ion-text>{{ data?.textDescription }}</ion-text>
   </ion-label>
 </ion-item>
 

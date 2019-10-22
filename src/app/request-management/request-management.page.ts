@@ -22,37 +22,18 @@ export class RequestManagementPage implements OnInit {
 
   acceptedRequest: AcceptedRequest[] = [];
 
+  completedRequest: CompletedRequest[] = [];
+
+  closedRequest: CompletedRequest[] = [];
+
   acceptedItemConfig: AcceptedItemConfig = {
     color: 'secondary',
     iconName: 'checkmark-circle-outline',
   };
 
-  completedRequest: CompletedRequest = {
-    repairerName: 'a. Lê Duy Chí',
-    address: '23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam',
-    coin: 250,
-    desImages: [
-      'https://noithatmanhhe.vn/media/3246/phong-tro-cho-vo-chong-moi-cuoi.jpg'
-    ],
-    desText: 'Cầ thợ qua nhà lắp máy lạnh Daikin',
-    createAt: new Date(2019, 8, 1, 13, 20)
-  };
-
   completedItemConfig: CompletedItemConfig = {
     color: 'warning',
     iconName: 'checkbox-outline',
-  };
-
-  closedRequest: ClosedRequest = {
-    repairerName: 'a. Nguyễn Văn Hoàng',
-    address: '23 Lê Thị Hoa, Thủ Đức, Hồ Chí Minh, Việt Nam',
-    coin: 250,
-    rating: 4.5,
-    desImages: [
-      'https://uwosh.edu/facilities/wp-content/uploads/sites/105/2018/09/no-photo.png'
-    ],
-    desText: 'Tôi cần lắp hệ thống nước cho vườn trước nhà',
-    createAt: new Date(2019, 7, 21, 18, 20)
   };
 
   closedItemConfig: ClosedItemConfig = {
@@ -77,6 +58,15 @@ export class RequestManagementPage implements OnInit {
       .subscribe((data: Page<AcceptedRequest>) => {
         this.acceptedRequest = data.content;
       });
+
+    this.requestService.getAndFilterBy(['COMPLETED', 'FEEDBACK', 'CLOSED'])
+      .subscribe((data: Page<CompletedRequest>) => {
+        data.content.forEach(req => {
+          if (req.status === 'CLOSED') { this.closedRequest.push(req); }
+          else { this.completedRequest.push(req); }
+        });
+      });
+
   }
 
 }
