@@ -35,6 +35,11 @@
        class="btn-facebook" [disabled]="loading">
         <ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon> Đăng nhập với Facebook
       </ion-button>
+
+      <ion-button expand="full" type="submit" (click)="loginWithMockToken()"
+       color="medium" [disabled]="loading">
+        <ion-icon name="aperture" class="ion-margin-end"></ion-icon> Đăng nhập với MockToken
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

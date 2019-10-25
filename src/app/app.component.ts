@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
+import { AuthService } from './util/auth.service';
 const { SplashScreen } = Plugins;
 
 @Component({
@@ -12,6 +13,7 @@ const { SplashScreen } = Plugins;
 export class AppComponent {
   constructor(
     private platform: Platform,
+    private authService: AuthService
     // private splashScreen: SplashScreen,
     // private statusBar: StatusBar
   ) {

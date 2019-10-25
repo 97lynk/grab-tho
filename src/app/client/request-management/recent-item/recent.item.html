@@ -1,0 +1,33 @@
+<ion-item lines="none">
+  <ion-label>
+    <h2 class="ion-text-wrap" style="color: var(--ion-color-primary);">
+      <span *ngIf="data?.status === 'QUOTED'"><b>{{ data?.noQuote }}</b> thợ báo giá</span>
+      <span *ngIf="data?.status !== 'QUOTED'"><b>{{ (data?.noReceiver == 0) ? 'Chưa có' : data?.noReceiver}}</b> thợ nhận yêu cầu</span>
+    </h2>
+    <p>
+      <ion-icon name="pin"></ion-icon>
+      {{ data?.address }}
+    </p>
+  </ion-label>
+</ion-item>
+
+<ion-item lines="none">
+  <ion-thumbnail *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
+  <img [src]="imageHost + '' + src">
+  </ion-thumbnail>
+</ion-item>
+
+<ion-item lines="none">
+  <ion-label>
+    <ion-text class="ion-text-wrap">
+      {{ data?.textDescription}}
+    </ion-text>
+  </ion-label>
+</ion-item>
+
+<ion-item lines="full" style="--min-height: 20px">
+  <ion-label></ion-label>
+  <ion-note slot="end">
+    <small>{{ data?.createAt | vdatetime }}</small>
+  </ion-note>
+</ion-item>

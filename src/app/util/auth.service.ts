@@ -33,6 +33,11 @@ export class AuthService {
         // logging stored token
         this.loggingCurrentToken();
 
+        if (!this.oauthService.hasValidAccessToken()
+            && this.oauthService.getRefreshToken() !== null) {
+                this.refreshToken();
+        }
+
         // handle all event relate token
         this.oauthService.events.subscribe(e => {
             console.log('Oauth/oidc Event', e);

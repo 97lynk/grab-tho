@@ -1,0 +1,74 @@
+<ion-header translucent>
+  <ion-toolbar translucent style="height: 30px;">
+    <ion-title>Quản lý yêu cầu</ion-title>
+  </ion-toolbar>
+  <ion-toolbar translucent>
+    <ion-segment #tabRequest class="ion-padding" style="padding: 5px;" value="1">
+      <ion-segment-button value="1">
+        <ion-label>Gần đây</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label>Đã xác nhận</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        <ion-label>Đã hoàn thành</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-vertical" fullscreen>
+
+  <ng-container *ngIf="tabRequest.value == '1'">
+    <ion-list>
+      <ion-list-header class="bg-light">
+        Vừa đăng
+      </ion-list-header>
+
+      <item-recent *ngFor="let req of recentRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
+
+      <div class="ion-padding-bottom"></div>
+
+      <ion-list-header class="bg-light">
+        Đã có thợ báo giá
+      </ion-list-header>
+
+      <item-recent *ngFor="let req of quotedRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
+
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="tabRequest.value == '2'">
+    <ion-list>
+      <ion-list-header class="bg-light">
+        Yêu cầu chờ đến thời gian thực hiện
+      </ion-list-header>
+
+      <item-accepted *ngFor="let req of acceptedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="acceptedItemConfig"></item-accepted>
+
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="tabRequest.value == '3'">
+
+    <ion-list>
+      <ion-list-header class="bg-light">
+        Yêu cầu chờ được phản hồi ý kiến
+      </ion-list-header>
+
+      <item-complete *ngFor="let req of completedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="completedItemConfig"></item-complete>
+
+      <div class="ion-padding-bottom"></div>
+
+      <ion-list-header class="bg-light">
+        Yêu cầu đã đóng
+      </ion-list-header>
+      <item-closed *ngFor="let req of closedRequest" [routerLink]="['/requests', req.id]" [data]="req"
+        [config]="closedItemConfig"></item-closed>
+    </ion-list>
+  </ng-container>
+
+</ion-content>

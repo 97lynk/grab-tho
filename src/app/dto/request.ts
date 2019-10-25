@@ -24,9 +24,13 @@ export interface Request {
 
     rate: number;
 
+    point: number;
+
     comment: string;
 
     userId: number;
+
+    repairerId: number;
 }
 
 

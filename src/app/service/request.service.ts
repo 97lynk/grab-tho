@@ -54,4 +54,8 @@ export class RequestService {
       latitude: await this.storageService.get('lat')
     };
   }
+
+  acceptRepairerForRequest(requestId: number, repairerId: number) {
+    return this.http.put(`${REQUEST_API}/${requestId}?repairer_id=${repairerId}`, {});
+  }
 }

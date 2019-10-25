@@ -1,0 +1,231 @@
+<ion-header translucent>
+  <ion-toolbar translucent>
+    <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
+      <img [src]="profile?.avatar">
+    </ion-avatar>
+    <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
+    <ion-buttons slot="end" style="font-size: 24px;">
+      <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
+      <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content fullscreen class="ion-padding-vertical">
+
+  <div class="ion-padding-horizontal ion-padding-bottom">
+    <h3 class="ion-no-margin title">Yêu cầu ngay & luôn</h3>
+    <!-- <ion-card-subtitle>Bạn cần sửa chữa</ion-card-subtitle> -->
+    <ion-button class="ion-padding-vertical" expand="block" (click)="createRequestPage()">
+      <ion-icon name="add"></ion-icon> Yêu cầu ngay
+    </ion-button>
+  </div>
+
+  <div class="ion-padding-horizontal ion-padding-bottom">
+    <h3 class="ion-no-margin title">Gần đây</h3>
+    <!-- <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle> -->
+  </div>
+
+  <ion-slides pager="true" [options]="options">
+
+    <ion-slide *ngFor="let req of recentRequest">
+      <ion-card [routerLink]="['/requests', req?.id]" class="recently-request">
+        <img class="img-request" [src]="imageHost + '' + req.imagesDescription[0]" />
+        <ion-card-header>
+          <ion-label>
+            <p>
+              <small>
+                <ion-icon name="pin"></ion-icon>
+              </small> {{ req.address }}
+            </p>
+            <p>
+              <small>
+                <ion-icon name="time"></ion-icon>
+              </small> {{ req.createAt | vdatetime }}
+            </p>
+          </ion-label>
+        </ion-card-header>
+
+        <div class="ion-padding-horizontal">
+          <ion-chip color="primary">
+            <ion-label><b>{{ req.noQuote }}</b> thợ báo giá</ion-label>
+          </ion-chip>
+          <ion-chip color="secondary">
+            <ion-label><b>{{ req.noReceiver }}</b> thợ nhận yêu cầu</ion-label>
+          </ion-chip>
+        </div>
+
+        <ion-card-content>{{ req.textDescription }}</ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides>
+
+
+  <div class="ion-padding-horizontal">
+    <ion-text class="ion-padding-bottom">
+      <h3 class="ion-no-margin title">Dịch vụ sửa chữa</h3>
+      <!-- <ion-card-subtitle>Yêu cầu theo loại dịch vụ</ion-card-subtitle> -->
+    </ion-text>
+
+    <ion-grid>
+      <ion-slides>
+
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-1.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ điện lạnh</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-2.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Lao động phổ thông</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-3.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa khóa</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-4.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Cứu hộ xe máy</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-5.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ điện</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-6.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Bảo vệ - giữ xe</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-7.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">PG/PB</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-8.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa chữa nước</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-9.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Xây dựng - Nội thất</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-10.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa máy lạnh</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-11.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Giúp việc</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-12.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ trang điểm</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+
+    </ion-grid>
+
+    <ion-text>
+      <h3 class="title">Tin tức</h3>
+    </ion-text>
+    <ion-slides>
+
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="https://www.w3schools.com/w3css/img_lights.jpg">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+    </ion-slides>
+
+    <!-- <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Resources</ion-label>
+    </ion-list-header>
+    <ion-item routerLink="add-request">
+      <ion-icon slot="start" color="medium" name="book"></ion-icon>
+      <ion-label>Ionic Documentation</ion-label>
+    </ion-item>
+    <ion-item href="https://ionicframework.com/docs/building/scaffolding">
+      <ion-icon slot="start" color="medium" name="build"></ion-icon>
+      <ion-label>Scaffold Out Your App</ion-label>
+    </ion-item>
+    <ion-item href="https://ionicframework.com/docs/layout/structure">
+      <ion-icon slot="start" color="medium" name="grid"></ion-icon>
+      <ion-label>Change Your App Layout</ion-label>
+    </ion-item>
+    <ion-item href="https://ionicframework.com/docs/theming/basics">
+      <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
+      <ion-label>Theme Your App</ion-label>
+    </ion-item>
+  </ion-list> -->
+
+    <router-outlet></router-outlet>
+  </div>
+</ion-content>

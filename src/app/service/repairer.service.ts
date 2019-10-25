@@ -6,6 +6,7 @@ import { dataURItoBlob } from '../util/file.util';
 import { RecentRequest } from '../dto/request';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
+const REPAIRER_API = `${environment.serviceUrl}/repairers`;
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,14 @@ export class RepairerService {
     return this.http.get(`${REQUEST_API}/${requestId}/histories/repairers`, {
       params: { actions }
     });
+  }
+
+
+  getARepairerWithHistories(requestId: number | string, repairerId: number | string) {
+    return this.http.get(`${REQUEST_API}/${requestId}/histories/repairers/${repairerId}`);
+  }
+
+  getRepairer(repairerId: number | string) {
+    return this.http.get(`${REPAIRER_API}/${repairerId}`);
   }
 }

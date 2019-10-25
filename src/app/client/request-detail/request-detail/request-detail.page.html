@@ -1,0 +1,106 @@
+<ion-header no-border>
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon> Trở lại
+        </ion-button>
+      </ion-buttons>
+  
+      <ion-title>Yêu cầu</ion-title>
+
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content fullscreen class="ion-padding-bottom">
+  <!-- slide images -->
+  <div style="height: 30%;">
+    <ion-slides [options]="options" pager="true" style="height: 100%;">
+      <ion-slide *ngFor="let src of request?.imagesDescription" #slide>
+        <img crossorigin="anonymous" [src]="imageHost + '' + src" alt="" (load)="loadImage(img, slide)" #img>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <!-- description -->
+  <div style="background: var(--ion-color-light);">
+    <ion-item color="light" lines="full">
+      <ion-label>
+        <h2 class="ion-no-margin">Mô tả</h2>
+        <p class="ion-no-margin ion-text-wrap">{{ request?.textDescription }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <!-- status -->
+  <ion-item lines="none" *ngIf="request">
+    <ion-label class="ion-text-center">
+      <ion-chip [color]="status?.color">
+        <ion-label>{{ status?.name }}</ion-label>
+      </ion-chip>
+    </ion-label>
+  </ion-item>
+
+  <!-- posted at -->
+  <ion-item lines="none">
+    <ion-label>
+      <h2 style="color: var(--ion-color-primary)">Đăng lúc</h2>
+      <h3 class="ion-text-wrap">{{ request?.createAt | vdatetime }}</h3>
+    </ion-label>
+  </ion-item>
+
+  <!-- address -->
+  <ion-item lines="full" detail="true">
+    <ion-label>
+      <h2 style="color: var(--ion-color-primary)">Địa chỉ</h2>
+      <h3 class="ion-text-wrap">{{ request?.address }}</h3>
+    </ion-label>
+  </ion-item>
+
+  <!-- review -->
+  <ion-item lines="full" *ngIf="showReviewSection">
+    <ion-label>
+      <h2 style="color: var(--ion-color-primary)">Đánh giá</h2>
+      <h3 class="ion-text-wrap" *ngIf="!request?.feedBack">Chưa có đánh giá</h3>
+      <star-rating *ngIf="request?.feedBack" [value]="request?.rate" checkedcolor="gold" uncheckedcolor="gray"
+        size="24px" readonly="true"></star-rating>
+      <h3 class="ion-text-wrap ion-padding-top" *ngIf="request?.feedBack">
+        {{ request?.comment }}
+      </h3>
+    </ion-label>
+    <ion-note>
+      <ion-button fill="outline" size="small">
+        <ion-icon slot="icon-only" size="small" mode="md" name="create"></ion-icon>
+      </ion-button>
+    </ion-note>
+  </ion-item>
+
+  <!-- price -->
+  <ion-item *ngIf="showJoinedRepairer" lines="none">
+    <ion-label>
+      <h2 style="color: var(--ion-color-primary)">Chi phí</h2>
+      <h3 class="ion-text-wrap">{{ request?.point }} điểm</h3>
+    </ion-label>
+  </ion-item>
+
+
+  <!-- joined repairer -->
+  <ion-item lines="none">
+    <ion-label>
+      <h2 style="color: var(--ion-color-primary)">Thợ nhận việc</h2>
+      <h3 *ngIf="!showJoinedRepairer" class="ion-text-wrap">Chưa có thợ</h3>
+
+      <ion-item *ngIf="repairer && showJoinedRepairer" lines="none">
+        <ion-avatar slot="start">
+          <img [src]="repairer.avatar">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ repairer.fullName }}</h2>
+          <h3>Thợ sữa</h3>
+        </ion-label>
+      </ion-item>
+    </ion-label>
+  </ion-item>
+
+  <repairer-list *ngIf="showRepairerSection" [request-id]="request?.id"></repairer-list>
+
+</ion-content>
