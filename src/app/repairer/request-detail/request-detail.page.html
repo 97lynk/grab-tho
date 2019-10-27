@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()" color="primary">
+        <ion-icon name="arrow-back"></ion-icon> Trở lại
+      </ion-button>
+    </ion-buttons>
+
+
+    <ion-title>Yêu cầu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <!-- slide images -->
+  <div style="height: 30%;">
+    <ion-slides [options]="options" pager="true" style="height: 100%;">
+      <ion-slide *ngFor="let src of request?.imagesDescription" #slide>
+        <img crossorigin="anonymous" [src]="imageHost + '' + src" alt="" (load)="loadImage(img, slide)" #img>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <!-- description -->
+  <div class="bg-light">
+    <ion-item color="light" lines="full">
+      <ion-label>
+        <h2 class="ion-no-margin">Mô tả</h2>
+        <p class="ion-no-margin ion-text-wrap">{{ request?.textDescription }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h2 class="primary-color">Người đăng</h2>
+      <div class="description">Tuấn Tuấn</div>
+    </ion-label>
+  </ion-item>
+
+  <!-- posted at -->
+  <ion-item lines="none">
+    <ion-label>
+      <h2 class="primary-color">Đăng lúc</h2>
+      <div class="description">{{ request?.createAt | vdatetime }}</div>
+    </ion-label>
+  </ion-item>
+
+  <!-- address -->
+  <ion-item lines="full">
+    <ion-label>
+      <h2 class="primary-color">Địa chỉ</h2>
+      <div class="description">{{ request?.address }}</div>
+    </ion-label>
+  </ion-item>
+
+  <!-- price -->
+  <ion-item *ngIf="showJoinedRepairer" lines="none">
+    <ion-label>
+      <h2 class="primary-color">Chi phí</h2>
+      <div class="description">{{ request?.point }} điểm</div>
+    </ion-label>
+  </ion-item>
+
+  <div class="footer primary ion-no-padding">
+    <ion-button expand="full" class="ion-no-margin" (click)="presentAlertPrompt()">
+      <ion-icon name="flash" mode="ios" class="ion-padding-end"></ion-icon> Báo giá
+    </ion-button>
+  </div>
+</ion-content>

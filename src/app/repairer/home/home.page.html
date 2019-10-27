@@ -1,9 +1,58 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+<ion-header translucent>
+  <ion-toolbar translucent>
+    <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
+      <img [src]="profile?.avatar">
+    </ion-avatar>
+    <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
+    <ion-buttons slot="end" style="font-size: 24px;">
+      <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
+      <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+
+  <div class="ion-padding">
+
+    <h3 class="subtitle">Yêu cầu của bạn</h3>
+
+    <div style="border: 1px dashed var(--ion-color-tertiary);" class="ion-padding-top" *ngIf="recentRequest.length > 0">
+      <ion-item lines="none">
+        <ion-thumbnail *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
+          <img [src]="imageHost + '' + src">
+        </ion-thumbnail>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>
+          <div class="description">
+            {{ data?.textDescription}}
+          </div>
+          <p class="address">
+            <ion-icon name="pin"></ion-icon>
+            {{ data?.address }}
+          </p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" style="--min-height: 20px">
+        <ion-label></ion-label>
+        <ion-note slot="end">
+          <div class="time">{{ data?.createAt | vdatetime }}</div>
+        </ion-note>
+      </ion-item>
+
+    </div>
+
+    <h3 class="subtitle">Yêu cầu mới</h3>
+
+  </div>
+
+  <ion-list>
+    <item-request [routerLink]="['/r','requests', req.id]" *ngFor="let req of recentRequest" [data]="req">
+    </item-request>
+  </ion-list>
 
 </ion-content>
