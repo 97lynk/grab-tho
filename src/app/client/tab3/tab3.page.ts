@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import {
   Plugins, Capacitor,
   PushNotification,
@@ -9,7 +9,7 @@ import {
   LocalNotificationsPluginWeb,
   registerWebPlugin
 } from '@capacitor/core';
-import { Platform, ModalController, NavController } from '@ionic/angular';
+import { Platform, ModalController, NavController, ActionSheetController, AlertController } from '@ionic/angular';
 import { Ionic4DatepickerModalComponent } from '@logisticinfotech/ionic4-datepicker';
 const { LocalNotifications, PushNotifications, Device, OAuth2Client } = Plugins;
 
@@ -19,6 +19,7 @@ import { NotificationsService } from 'src/app/service/notification.servie';
 import { OAuth2Client as OAuth2 } from '@byteowls/capacitor-oauth2';
 import { AuthService } from 'src/app/util/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { ImageProvider } from 'src/app/service/image.service';
 
 @Component({
   selector: 'app-tab3',
@@ -33,10 +34,18 @@ export class Tab3Page implements OnInit, AfterViewInit {
   platforms: any;
   myDate: any;
   datePickerObj: any;
+  @ViewChild('inputPhoto', { static: false }) inputPhoto: ElementRef;
 
-  constructor(private authService: AuthService, private plt: Platform, public modalCtrl: ModalController,
-    public navCtrl: NavController, private notificationsService: NotificationsService,
-    private http: HttpClient) {
+  constructor(
+    private authService: AuthService,
+    private plt: Platform,
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    private notificationsService: NotificationsService,
+    private http: HttpClient,
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController,
+    private imageProvider: ImageProvider, ) {
   }
 
   async ngOnInit() {
@@ -49,8 +58,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
     console.log('Register custom capacitor plugins');
     registerWebPlugin(OAuth2);
 
-    firebase.initializeApp(environment.firebase);
-    await this.notificationsService.init();
+    // firebase.initializeApp(environment.firebase);
+    // await this.notificationsService.init();
 
     this.getInfoPlatform();
 
@@ -391,5 +400,86 @@ export class Tab3Page implements OnInit, AfterViewInit {
         console.log('OAuth2: login failed');
       });
   }
+
+  captureImage() {
+    this.launchActionSheet();
+  }
+
+  parseImage(mode: string) {
+    switch (mode) {
+
+      // Handle image requests via the device camera
+      case 'camera':
+        this.imageProvider
+          .takePicture()
+          .then((url: string) => {
+            console.log('image form camera');
+            // this.makeGrid(url);
+          })
+          .catch((error) => {
+            console.dir(error);
+            this.displayErrorWarning(error);
+          });
+        break;
+
+      // Handle image requests via the device photolibrary
+      case 'library':
+        // if (Capacitor.platform === 'web') {
+        //   this.inputPhoto.nativeElement.click();
+        // } else {
+          this.imageProvider
+            .selectPhoto()
+            .then((data) => {
+              console.log('image form library');
+              // this.makeGrid(data);
+            })
+            .catch((error) => {
+              console.log('ERROR - Returning the selectPhoto method data in a Promise');
+              console.dir(error);
+              this.displayErrorWarning(error);
+            });
+        // }
+        break;
+
+    }
+  }
+
+  async launchActionSheet() {
+    const action = await this.actionSheetController.create({
+      header: 'Chọn hình ảnh từ',
+      buttons: [
+        {
+          text: 'Máy ảnh',
+          handler: () => {
+            this.parseImage('camera');
+          }
+        },
+        {
+          text: 'Bộ sưu tập',
+          handler: () => {
+            this.parseImage('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancelled');
+          }
+        }
+      ]
+    });
+    action.present();
+  }
+
+  async displayErrorWarning(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message,
+      buttons: ['Ok']
+
+    });
+    alert.present();
+  }
+
 
 }

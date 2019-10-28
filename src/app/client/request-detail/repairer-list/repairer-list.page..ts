@@ -15,9 +15,7 @@ export class RepairerList implements OnInit {
 
   selectedTab = 'RECEIVE';
 
-  receiveRepairers: JoinedRepairer[] = [];
-
-  quoteRepairers: JoinedRepairer[] = [];
+  repairers: JoinedRepairer[] = [];
 
   @Input('request-id')
   set requestId(value: number) {
@@ -25,10 +23,7 @@ export class RepairerList implements OnInit {
       this._requestId = value;
       this.repairerService.getRepairerJoinedRequest(value, ['RECEIVE', 'QUOTE'])
         .subscribe((data: JoinedRepairer[]) => {
-          data.forEach(r => {
-            if (r.status === 'QUOTE') { this.quoteRepairers.push(r); }
-            else { this.receiveRepairers.push(r); }
-          });
+          this.repairers = data;
         });
     }
   }

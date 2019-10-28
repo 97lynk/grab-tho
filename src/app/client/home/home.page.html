@@ -15,7 +15,7 @@
 <ion-content fullscreen class="ion-padding-vertical">
 
   <div class="ion-padding-horizontal ion-padding-bottom">
-    <h3 class="ion-no-margin title">Yêu cầu ngay & luôn</h3>
+    <h3 class="ion-no-margin subtitle">Yêu cầu ngay & luôn</h3>
     <!-- <ion-card-subtitle>Bạn cần sửa chữa</ion-card-subtitle> -->
     <ion-button class="ion-padding-vertical" expand="block" (click)="createRequestPage()">
       <ion-icon name="add"></ion-icon> Yêu cầu ngay
@@ -23,7 +23,7 @@
   </div>
 
   <div class="ion-padding-horizontal ion-padding-bottom">
-    <h3 class="ion-no-margin title">Gần đây</h3>
+    <h3 class="ion-no-margin subtitle">Gần đây</h3>
     <!-- <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle> -->
   </div>
 
@@ -34,15 +34,13 @@
         <img class="img-request" [src]="imageHost + '' + req.imagesDescription[0]" />
         <ion-card-header>
           <ion-label>
-            <p>
-              <small>
-                <ion-icon name="pin"></ion-icon>
-              </small> {{ req.address }}
+            <p class="address">
+              <ion-icon name="pin"></ion-icon>
+              {{ req.address }}
             </p>
-            <p>
-              <small>
-                <ion-icon name="time"></ion-icon>
-              </small> {{ req.createAt | vdatetime }}
+            <p class="time">
+              <ion-icon name="time"></ion-icon>
+              {{ req.createAt | vdatetime }}
             </p>
           </ion-label>
         </ion-card-header>
@@ -56,7 +54,11 @@
           </ion-chip>
         </div>
 
-        <ion-card-content>{{ req.textDescription }}</ion-card-content>
+        <ion-card-content>
+          <div class="description">
+            {{ req.textDescription }}
+          </div>
+        </ion-card-content>
       </ion-card>
     </ion-slide>
 
@@ -65,7 +67,7 @@
 
   <div class="ion-padding-horizontal">
     <ion-text class="ion-padding-bottom">
-      <h3 class="ion-no-margin title">Dịch vụ sửa chữa</h3>
+      <h3 class="ion-no-margin subtitle">Dịch vụ sửa chữa</h3>
       <!-- <ion-card-subtitle>Yêu cầu theo loại dịch vụ</ion-card-subtitle> -->
     </ion-text>
 
@@ -161,7 +163,7 @@
     </ion-grid>
 
     <ion-text>
-      <h3 class="title">Tin tức</h3>
+      <h3 class="subtitle">Tin tức</h3>
     </ion-text>
     <ion-slides>
 

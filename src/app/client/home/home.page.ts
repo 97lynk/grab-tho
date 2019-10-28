@@ -24,7 +24,7 @@ export class HomePage implements OnInit {
     speed: 400,
     loop: true,
     autoplay: {
-      delay: 1000,
+      delay: 500000,
     },
     fadeEffect: {
       crossFade: true

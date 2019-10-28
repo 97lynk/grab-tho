@@ -4,10 +4,11 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Capacitor } from '@capacitor/core';
 import { ImageProvider } from 'src/app/service/image.service';
 import { StorageService } from 'src/app/service/storage.service';
+import { fetchAndConvertToBase64 } from 'src/app/util/file.util';
 
 
 @Component({
-  selector: 'request-description',
+  selector: 'c-request-description',
   templateUrl: './description-request.component.html',
   styleUrls: ['./description-request.component.scss'],
 })
@@ -151,7 +152,11 @@ export class DescriptionRequestComponent implements OnInit {
     }
   }
 
-  continute() {
+  async continute() {
+    if (this.sources.length === 0) {
+      const data = await fetchAndConvertToBase64('http://localhost:8100/assets/no-image.png');
+      this.sources.push({src: data});
+    }
     this.storageService.save('imagesDescription', this.sources.map(i => i.src));
     this.storageService.save('textDescription', this.textDescription);
 

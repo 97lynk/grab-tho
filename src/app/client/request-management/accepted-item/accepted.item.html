@@ -5,7 +5,7 @@
     <ion-label></ion-label>
   </ion-chip>
   <ion-label color="primary">
-    <h2>{{ data?.repairerName }}</h2>
+    <h2>thợ {{ data?.repairerName }}</h2>
   </ion-label>
 </ion-item>
 <ion-item lines="none">
@@ -13,13 +13,17 @@
     <img [src]="imageHost + '' + data?.imagesDescription[0]">
   </ion-thumbnail>
   <ion-label>
-    <p>
+    <p class="point">
       <ion-icon name="cash"></ion-icon> {{ data?.point }} điểm
     </p>
-    <p>
+    <p class="address">
       <ion-icon name="pin"></ion-icon> {{ data?.address }}
     </p>
-    <ion-text>{{ data?.textDescription }}</ion-text>
+    <ion-text>
+      <div class="description">
+        {{ data?.textDescription }}
+      </div>
+    </ion-text>
   </ion-label>
 </ion-item>
 

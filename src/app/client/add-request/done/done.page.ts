@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-done',
+  selector: 'c-done',
   templateUrl: './done.page.html',
   styleUrls: ['./done.page.scss'],
 })

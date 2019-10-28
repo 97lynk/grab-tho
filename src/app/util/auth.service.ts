@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { OAuth2Client as OAuth2 } from '@byteowls/capacitor-oauth2';
 import { registerWebPlugin, Plugins } from '@capacitor/core';
+import * as jwtDecode from 'jwt-decode';
 const { OAuth2Client } = Plugins;
 const fbApiVersion = '2.11';
 
@@ -35,7 +36,7 @@ export class AuthService {
 
         if (!this.oauthService.hasValidAccessToken()
             && this.oauthService.getRefreshToken() !== null) {
-                this.refreshToken();
+            this.refreshToken();
         }
 
         // handle all event relate token
@@ -71,8 +72,10 @@ export class AuthService {
         }).catch(error => {
             console.log('OAuth2: refresh new token failed ', error);
         });
-        // await this.oauthService.refreshToken();
-        // this.loadProfile();
+    }
+
+    async refreshTokenWithoutLoadProfile() {
+        return this.oauthService.refreshToken();
     }
 
     loadProfile = () => {
@@ -105,8 +108,6 @@ export class AuthService {
         const accessToken = await this.http.post(`${environment.serviceUrl}/login/facebook?token=${resourceUrlResponse['access_token']}`,
             {}).toPromise();
         localStorage.setItem('refresh_token', accessToken['refresh_token']);
-        await this.refreshToken();
-        return 'OK';
     }
 
     private facebookLogin() {
@@ -139,6 +140,12 @@ export class AuthService {
         console.log(`OAuth2:      expire: ${(new Date(this.oauthService.getAccessTokenExpiration()).toLocaleTimeString())}`);
         console.log(`OAuth2:       valid: ${this.oauthService.hasValidAccessToken()}`);
         console.log(`OAuth2: Refresh token is exist(${this.oauthService.getRefreshToken() != null})`);
+    }
+
+    isClient() {
+        const roles = jwtDecode(this.oauthService.getAccessToken()).authorities as string[];
+        console.log('roles ', roles);
+        return roles.includes('ROLE_CUSTOMER');
     }
 
     valid = () => this.oauthService.hasValidAccessToken() + ' ' + (this.oauthService.getAccessTokenExpiration() - Date.now());

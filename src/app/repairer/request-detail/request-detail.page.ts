@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { imageHost } from 'src/app/util/file.util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/service/request.service';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { Request } from 'src/app/dto/request';
 import * as FastAverageColor from 'fast-average-color/dist';
+import { AuthService } from 'src/app/util/auth.service';
+import { Profile } from 'src/app/dto/profile';
+import { History } from 'src/app/dto/history';
+import { Subscription } from 'rxjs';
 const fac = new FastAverageColor();
 
 @Component({
@@ -14,9 +18,12 @@ const fac = new FastAverageColor();
   templateUrl: './request-detail.page.html',
   styleUrls: ['./request-detail.page.scss'],
 })
-export class RequestDetailPage implements OnInit {
+export class RequestDetailPage implements OnInit, OnDestroy {
 
   request: Request;
+  profile: Profile;
+  history: History;
+
   imageHost = imageHost;
   showRepairerSection = false;
   showReviewSection = false;
@@ -24,6 +31,8 @@ export class RequestDetailPage implements OnInit {
   statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED'];
   statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
+
+  subscriptions: Subscription[] = [];
 
   status = {
     color: 'primary',
@@ -43,14 +52,19 @@ export class RequestDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private requestService: RequestService,
     private repairerService: RepairerService,
     private navController: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService: AuthService
   ) { }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     const { requestId } = this.route.snapshot.params;
+    this.authService.registerSubscriber().subscribe(data => this.profile = data);
+    this.authService.loadProfile();
+
     this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
@@ -62,19 +76,31 @@ export class RequestDetailPage implements OnInit {
           color: COLOR_STATUS[data.status]
         };
 
+        this.repairerService.getHistoryInRequests([data.id])
+          .subscribe((histories: History[]) => {
+            this.history = this.getHistory(histories, data.id);
+          });
       });
   }
 
   ngOnInit() {
+    const s = this.authService.registerSubscriber().subscribe(profile => this.profile = profile);
+    this.subscriptions.push(s);
+    this.authService.loadProfile();
   }
 
-  async presentAlertPrompt() {
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(element => element.unsubscribe());
+    this.subscriptions = [];
+  }
+
+  async presentAlertPromptQuote() {
     const alert = await this.alertController.create({
       header: 'Báo giá',
       message: 'Nhập giá mà bạn mong muốn',
       inputs: [
         {
-          name: 'name7',
+          name: 'price',
           type: 'number'
         }
       ],
@@ -88,8 +114,12 @@ export class RequestDetailPage implements OnInit {
           }
         }, {
           text: 'Xong',
-          handler: () => {
-            console.log('Confirm Ok');
+          handler: (data) => {
+            // console.log("input data ", data);
+            this.repairerService.quotingRequest(this.request.id, this.profile.id, data.price, 'QUOTE').subscribe(
+              () => {
+                this.router.navigateByUrl('/r/home');
+              });
           }
         }
       ]
@@ -106,6 +136,10 @@ export class RequestDetailPage implements OnInit {
 
   goBack() {
     this.navController.back();
+  }
+
+  getHistory(histories: History[], requestId: number) {
+    return histories.find(h => h.requestId === requestId && h.status === 'QUOTE');
   }
 
 }

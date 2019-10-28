@@ -1,18 +1,34 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button (click)="goBack()" color="primary">
+      <ion-button (click)="goBack()">
         <ion-icon name="arrow-back"></ion-icon> Trở lại
       </ion-button>
     </ion-buttons>
 
-
     <ion-title>Yêu cầu</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
+<ion-content fullscreen class="ion-padding-vertical">
 
-<ion-content fullscreen>
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img [src]="profile?.avatar" alt="avatar">
+    </ion-avatar>
+    <ion-label>
+      <div class="primary-color">{{ request?.userFullName }}</div>
+      <div class="post-time">{{ request?.createAt | vdatetime }}</div>
+    </ion-label>
+  </ion-item>
+
+  <div class="ion-padding description">{{ request?.textDescription }} - tại
+    <span class="primary-color">
+      <ion-icon name="pin"></ion-icon> {{ request?.address }}
+    </span>
+  </div>
+
   <!-- slide images -->
   <div style="height: 30%;">
     <ion-slides [options]="options" pager="true" style="height: 100%;">
@@ -22,50 +38,41 @@
     </ion-slides>
   </div>
 
-  <!-- description -->
-  <div class="bg-light">
-    <ion-item color="light" lines="full">
-      <ion-label>
-        <h2 class="ion-no-margin">Mô tả</h2>
-        <p class="ion-no-margin ion-text-wrap">{{ request?.textDescription }}</p>
-      </ion-label>
-    </ion-item>
-  </div>
+  <ion-item lines="full" class="ion-padding-horizontal" style="--padding-end: 0;">
+    <ion-note slot="start" class="ion-text-center">
+      <ion-chip [color]="status?.color">
+        <ion-label>{{ status?.name }}</ion-label>
+      </ion-chip>
+    </ion-note>
+    <ion-label></ion-label>
+    <ion-note slot="end" style="--padding-end: 0; padding-right: 0;">
 
-  <ion-item lines="none">
+      <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>
+      <span class="post-sumary" *ngIf="request?.noReceiver > 0">&nbsp;&nbsp;&nbsp; {{ request?.noReceiver }} Nhận yêu
+        cầu</span>
+      <span class="post-sumary" *ngIf="request?.noReceiver === 0">Chưa có thợ nhận yêu cầu</span>
+    </ion-note>
+  </ion-item>
+
+  <ion-item class="ion-margin-top" lines="none" *ngIf="history">
+    <ion-avatar slot="start">
+      <img [src]="profile?.avatar">
+    </ion-avatar>
     <ion-label>
-      <h2 class="primary-color">Người đăng</h2>
-      <div class="description">Tuấn Tuấn</div>
+      <span class="post-comment">
+        <span class="primary-color">{{ profile?.fullName }}</span> - <span>bạn</span>&nbsp;&nbsp;&nbsp;
+        <span>đã nhận báo giá <strong class="primary-color">{{ history?.point }}</strong></span>
+      </span>
     </ion-label>
   </ion-item>
 
-  <!-- posted at -->
-  <ion-item lines="none">
-    <ion-label>
-      <h2 class="primary-color">Đăng lúc</h2>
-      <div class="description">{{ request?.createAt | vdatetime }}</div>
-    </ion-label>
+  <ion-item class="ion-margin-top" lines="none" *ngIf="!history">
+    <ion-avatar slot="start">
+      <img [src]="profile?.avatar">
+    </ion-avatar>
+    <div style="width: 100%;">
+      <ion-input placeholder="Báo giá" class="post-comment" style="--padding-start: 8px"></ion-input>
+    </div>
   </ion-item>
 
-  <!-- address -->
-  <ion-item lines="full">
-    <ion-label>
-      <h2 class="primary-color">Địa chỉ</h2>
-      <div class="description">{{ request?.address }}</div>
-    </ion-label>
-  </ion-item>
-
-  <!-- price -->
-  <ion-item *ngIf="showJoinedRepairer" lines="none">
-    <ion-label>
-      <h2 class="primary-color">Chi phí</h2>
-      <div class="description">{{ request?.point }} điểm</div>
-    </ion-label>
-  </ion-item>
-
-  <div class="footer primary ion-no-padding">
-    <ion-button expand="full" class="ion-no-margin" (click)="presentAlertPrompt()">
-      <ion-icon name="flash" mode="ios" class="ion-padding-end"></ion-icon> Báo giá
-    </ion-button>
-  </div>
 </ion-content>

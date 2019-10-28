@@ -20,6 +20,7 @@ import { PipeModule } from './pipe/pipe.module';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { urlsAuth } from './util/auth.config';
 import { AuthGuard } from './util/auth-guard';
+import { RecentItem } from './client/request-management/recent-item/recent.item';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +47,6 @@ import { AuthGuard } from './util/auth-guard';
     { provide: OAuthStorage, useValue: localStorage },
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -23,7 +23,7 @@ export class RequestService {
     });
   }
 
-  getRequest(id: number) {
+  getRequest(id: number| string) {
     return this.http.get(`${REQUEST_API}/${id}`);
   }
 

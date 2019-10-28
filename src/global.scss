@@ -48,6 +48,25 @@
   font-size: 20px;
 }
 
+.address,
+.time,
+.point {
+  font-size: 14px !important;
+  white-space: normal !important;
+  margin-bottom: 5px !important;
+  color: var(--ion-color-step-600, #666) !important;
+
+  ion-icon {
+    font-size: 75% !important;
+  }
+}
+
+.description {
+  font-size: 14px !important;
+  white-space: normal !important;
+  color: #000 !important;
+}
+
 ion-item.hint {
   --background: var(--ion-color-light);
   --padding-top: 5px;
@@ -62,4 +81,41 @@ ion-item.hint {
 .bg-light {
   --background: var(--ion-color-light);
   background: var(--ion-color-light);
+}
+
+.post-time {
+  font-size: 12px !important;
+  white-space: normal !important;
+  margin-top: 5px !important;
+  color: var(--ion-color-step-600, #666) !important;
+}
+
+.post-sumary {
+  font-size: 14px !important;
+  white-space: normal !important;
+  color: var(--ion-color-step-600, #666) !important;
+}
+
+.post-comment {
+  --background: var(--ion-color-light) !important;
+  background: var(--ion-color-light) !important;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: normal !important;
+  display: inline-block;
+  font-size: 14px !important;
+}
+
+.quote-comment {
+  --background: #ecfcf3 !important;
+  border-left: 3px solid #16c45a;
+}
+
+.accepted-comment {
+  --background: #ecfbfd !important;
+  border-left: 3px solid #0bb8cc;
+}
+
+.primary-color {
+  color: var(--ion-color-primary);
 }

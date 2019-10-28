@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   redirectUri: 'https://motel-242404.web.app',
+  serviceUrl: 'http://192.168.1.7:8080',
   fbAppId: '2108695482772729',
   firebase: {
     apiKey: 'AIzaSyBDc2yRxjlk0RyAp2utPQU5pv3eEmSEntE',

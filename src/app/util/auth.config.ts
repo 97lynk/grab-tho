@@ -91,13 +91,13 @@ export const authConfig: AuthConfig = {
     scope: '',
     useHttpBasicAuthForPasswordFlow: true,
     oidc: false,
-    requireHttps: false
+    requireHttps: true
 };
 
 
 export const urlsAuth: OAuthModuleConfig = {
     resourceServer: {
-        allowedUrls: [`${apiHost}/requests`],
+        allowedUrls: [`${apiHost}`],
         sendAccessToken: true,
     }
 };

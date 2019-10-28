@@ -30,6 +30,8 @@ export interface Request {
 
     userId: number;
 
+    userFullName: number;
+
     repairerId: number;
 }
 
@@ -55,6 +57,8 @@ export interface RecentRequest {
     noReceiver: number;
 
     noQuote: number;
+
+    userFullName: string;
 }
 
 export interface AcceptedRequest {
@@ -129,13 +133,28 @@ export interface CompletedItemConfig {
 }
 
 export interface ClosedRequest {
-    repairerName: string;
+
     address: string;
-    coin: number;
-    rating: number;
-    desImages: string[];
-    desText: string;
+
     createAt: Date;
+
+    feedBack: boolean;
+
+    imagesDescription: string[];
+
+    noQuote: number;
+
+    noReceiver: number;
+
+    point: number;
+
+    rate: number;
+
+    repairerName: string;
+
+    status: string;
+
+    textDescription: string;
 }
 
 export interface ClosedItemConfig {

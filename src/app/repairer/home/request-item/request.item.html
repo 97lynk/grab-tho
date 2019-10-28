@@ -23,6 +23,8 @@
 <ion-item-sliding>
   <ion-item lines="full">
     <ion-label class="ion-no-margin ion-margin-top">
+
+      <h2 class="primary-color" *ngIf="history">Bạn đã báo giá {{ history.point }}</h2>
       <ion-thumbnail style="margin-bottom: 5px;">
         <img [src]="imageHost + '' + src" *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
       </ion-thumbnail>

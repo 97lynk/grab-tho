@@ -7,6 +7,7 @@ import { RecentRequest } from '../dto/request';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
 const REPAIRER_API = `${environment.serviceUrl}/repairers`;
+const HISTORIES_API = `${environment.serviceUrl}/histories`;
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,17 @@ export class RepairerService {
 
   getRepairer(repairerId: number | string) {
     return this.http.get(`${REPAIRER_API}/${repairerId}`);
+  }
+
+  quotingRequest(requestId: number | string, repairerId: number | string, point: number, action: string) {
+    return this.http.post(HISTORIES_API, { requestId, repairerId, point, action });
+  }
+
+  getHistoryInRequests(requestId: number[]) {
+    return this.http.get(HISTORIES_API, {
+      params: {
+        requestId: requestId.join(',')
+      }
+    });
   }
 }

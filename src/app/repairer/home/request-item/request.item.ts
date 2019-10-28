@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RecentRequest } from 'src/app/dto/request';
 import { imageHost } from 'src/app/util/file.util';
 import { AlertController } from '@ionic/angular';
+import { History } from 'src/app/dto/history';
 
 @Component({
     selector: 'item-request',
@@ -9,13 +10,14 @@ import { AlertController } from '@ionic/angular';
 })
 export class RequestItem implements OnInit {
 
-    ngOnInit(): void {
-
-    }
 
     imageHost = imageHost;
 
-    @Input() data: RecentRequest;
+    @Input('request') data: RecentRequest;
+
+    @Input() history: History;
+
+    ngOnInit(): void { }
 
     constructor() { }
 }

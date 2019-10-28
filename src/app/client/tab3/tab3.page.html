@@ -73,4 +73,12 @@
       {{toJson(notif)}}
     </div>
   </div>
+
+  <input class="file-upload-button" type="file" accept="image/*" #inputPhoto>
+
+<div class="footer primary ion-no-padding">
+  <ion-button expand="full" class="ion-no-margin" (click)="captureImage()">
+    <ion-icon name="camera" class="ion-padding-end"></ion-icon> Thêm hình ảnh
+  </ion-button>
+</div>
 </ion-content>

@@ -5,12 +5,12 @@ import { AuthGuard } from './util/auth-guard';
 const routes: Routes = [
   {
     path: 'tabs',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./client/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'requests',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./client/add-request/add-request.module').then(m => m.AddRequestModule)
   },
   {
@@ -18,8 +18,24 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./client/request-detail/request-detail.module').then(m => m.RequestDetailModule)
   },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: '', redirectTo: '/tabs/home', pathMatch: 'full' },  { path: 'home', loadChildren: './repairer/home/home.module#HomePageModule' }
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginPageModule'
+  },
+  {
+    path: 'r/tabs',
+    loadChildren: './repairer/tabs/tabs.module#TabsPageModule'
+  },
+  {
+    path: 'r/requests/:requestId',
+    loadChildren: './repairer/request-detail/request-detail.module#RequestDetailPageModule'
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  { path: 'request-detail', loadChildren: './repairer/request-detail/request-detail.module#RequestDetailPageModule' },
 
 ];
 @NgModule({

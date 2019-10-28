@@ -13,7 +13,7 @@ import { Request } from 'src/app/dto/request';
 
 
 @Component({
-  selector: 'app-get-my-location',
+  selector: 'c-get-my-location',
   templateUrl: './get-my-location.component.html',
   styleUrls: ['./get-my-location.component.scss'],
 })

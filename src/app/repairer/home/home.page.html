@@ -1,7 +1,7 @@
 <ion-header translucent>
   <ion-toolbar translucent>
     <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
-      <img [src]="profile?.avatar">
+      <img *ngIf="profile" [src]="profile?.avatar">
     </ion-avatar>
     <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
     <ion-buttons slot="end" style="font-size: 24px;">
@@ -18,9 +18,9 @@
 
     <h3 class="subtitle">Yêu cầu của bạn</h3>
 
-    <div style="border: 1px dashed var(--ion-color-tertiary);" class="ion-padding-top" *ngIf="recentRequest.length > 0">
+    <div style="border: 1px dashed var(--ion-color-tertiary);" class="ion-padding-top" *ngIf="myRequest">
       <ion-item lines="none">
-        <ion-thumbnail *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
+        <ion-thumbnail *ngFor="let src of myRequest.imagesDescription" style="margin-right: 5px;">
           <img [src]="imageHost + '' + src">
         </ion-thumbnail>
       </ion-item>
@@ -28,11 +28,11 @@
       <ion-item lines="none">
         <ion-label>
           <div class="description">
-            {{ data?.textDescription}}
+            {{ myRequest?.textDescription}}
           </div>
           <p class="address">
             <ion-icon name="pin"></ion-icon>
-            {{ data?.address }}
+            {{ myRequest?.address }}
           </p>
         </ion-label>
       </ion-item>
@@ -40,18 +40,19 @@
       <ion-item lines="none" style="--min-height: 20px">
         <ion-label></ion-label>
         <ion-note slot="end">
-          <div class="time">{{ data?.createAt | vdatetime }}</div>
+          <div class="time">{{ myRequest?.createAt | vdatetime }}</div>
         </ion-note>
       </ion-item>
 
     </div>
-
-    <h3 class="subtitle">Yêu cầu mới</h3>
-
   </div>
 
+
+  <h3 class="subtitle ion-padding-horizontal">Yêu cầu mới</h3>
+
   <ion-list>
-    <item-request [routerLink]="['/r','requests', req.id]" *ngFor="let req of recentRequest" [data]="req">
+    <item-request [routerLink]="['/r','requests', req.id]" *ngFor="let req of recentRequest" [request]="req"
+      [history]="getHistory(req.id)">
     </item-request>
   </ion-list>
 

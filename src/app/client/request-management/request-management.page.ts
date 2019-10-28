@@ -44,11 +44,14 @@ export class RequestManagementPage implements OnInit {
     private requestService: RequestService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ionViewWillEnter() {
     this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
       .subscribe((data: Page<RecentRequest>) => {
+        this.quotedRequest = [];
+        this.recentRequest = [];
+
         data.content.forEach(req => {
           if (req.status === 'QUOTED') { this.quotedRequest.push(req); }
           else { this.recentRequest.push(req); }
@@ -62,6 +65,8 @@ export class RequestManagementPage implements OnInit {
 
     this.requestService.getAndFilterBy(['COMPLETED', 'FEEDBACK', 'CLOSED'])
       .subscribe((data: Page<CompletedRequest>) => {
+        this.completedRequest = [];
+        this.closedRequest = [];
         data.content.forEach(req => {
           if (req.status === 'CLOSED') { this.closedRequest.push(req); }
           else { this.completedRequest.push(req); }

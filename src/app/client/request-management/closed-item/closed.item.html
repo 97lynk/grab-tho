@@ -14,14 +14,18 @@
     <img [src]="imageHost + '' +  data?.imagesDescription[0]">
   </ion-thumbnail>
   <ion-label>
-    <p>
+    <p class="point">
       <ion-icon name="cash"></ion-icon> {{ data?.point }} điểm
-      <ion-icon name="star"></ion-icon> {{ data?.rating }}
+      <ion-icon name="star"></ion-icon> {{ data?.rate }}
     </p>
-    <p>
+    <p class="address">
       <ion-icon name="pin"></ion-icon> {{ data?.address }}
     </p>
-    <ion-text>{{ data?.textDescription }}</ion-text>
+    <ion-text>
+      <div class="description">
+        {{ data?.textDescription }}
+      </div>
+    </ion-text>
   </ion-label>
 </ion-item>
 

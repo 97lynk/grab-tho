@@ -11,7 +11,7 @@ export class RecentItem implements OnInit {
 
   imageHost = imageHost;
 
-  @Input() data: RecentRequest;
+  @Input('data') data: RecentRequest;
 
   constructor() { }
 
