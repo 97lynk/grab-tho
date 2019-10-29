@@ -79,8 +79,8 @@ ion-item.hint {
 }
 
 .bg-light {
-  --background: var(--ion-color-light);
-  background: var(--ion-color-light);
+  --background: var(--ion-color-light) !important;
+  background: var(--ion-color-light) !important;
 }
 
 .post-time {

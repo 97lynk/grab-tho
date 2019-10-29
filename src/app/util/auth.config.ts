@@ -91,7 +91,7 @@ export const authConfig: AuthConfig = {
     scope: '',
     useHttpBasicAuthForPasswordFlow: true,
     oidc: false,
-    requireHttps: true
+    // requireHttps: false
 };
 
 

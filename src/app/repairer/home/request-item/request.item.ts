@@ -3,6 +3,7 @@ import { RecentRequest } from 'src/app/dto/request';
 import { imageHost } from 'src/app/util/file.util';
 import { AlertController } from '@ionic/angular';
 import { History } from 'src/app/dto/history';
+import { Profile } from 'src/app/dto/profile';
 
 @Component({
     selector: 'item-request',

@@ -98,7 +98,7 @@ export class AuthService {
         }
     }
 
-    async loginWithUsernameAndPassword(username: string, password) {
+    async loginWithUsernameAndPassword(username: string, password: string) {
         console.log('OAuth2: request login');
         await this.oauthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password);
     }

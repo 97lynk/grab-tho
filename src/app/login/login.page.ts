@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
       })
       .catch(error => {
         this.loading = false;
-        console.log('OAuth2: login failed ', error);
+        alert('OAuth2: login failed ' + JSON.stringify(error) );
         this.error = error.error.error_description;
       });
   }

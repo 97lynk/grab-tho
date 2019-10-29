@@ -59,6 +59,8 @@ export interface RecentRequest {
     noQuote: number;
 
     userFullName: string;
+
+    userAvatar: string;
 }
 
 export interface AcceptedRequest {
