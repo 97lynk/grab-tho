@@ -1,15 +1,15 @@
 <div class="ion-padding-vertical">
   <ion-list>
     <ion-item [class.quote-comment]="r.status === 'QUOTE'" lines="none" [routerLink]="['repairers', r.id]"
-      *ngFor="let r of repairers" detail="false">
+      routerDirection="root" *ngFor="let r of repairers" detail="false">
       <ion-avatar slot="start">
-        <img [src]="r.avatar">
+        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="r.avatar">
       </ion-avatar>
       <ion-label>
         <span class="post-comment">
-          <span class="primary-color">{{ r.fullName }}</span> - <span>Thợ sửa chữa</span>&nbsp;&nbsp;&nbsp;
+          <span class="primary-color">{{ r.fullName }}</span>&nbsp;&nbsp;
           <span *ngIf="r.status === 'RECEIVE'">đã nhận yêu cầu</span>
-          <span *ngIf="r.status === 'QUOTE'">đã nhận báo giá <strong class="primary-color">{{ r.point }}</strong></span>
+          <span *ngIf="r.status === 'QUOTE'">đã báo giá <strong class="primary-color">{{ r.point }}</strong></span>
         </span>
         <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
       </ion-label>

@@ -27,15 +27,16 @@ export class HomePage implements OnInit {
 
   data: RecentRequest;
 
-  myRequest: Request;
+  myRequests: Request[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private requestService: RequestService,
     private repairerService: RepairerService,
-    private navController: NavController
-  ) { }
+    public navController: NavController
+  ) {
+  }
 
 
   ionViewWillEnter() {
@@ -45,9 +46,10 @@ export class HomePage implements OnInit {
 
     this.recentRequest = [];
     this.histories = [];
+    this.myRequests = [];
 
     this.requestService.getRequest('accepted')
-      .subscribe((data: Request) => this.myRequest = data);
+      .subscribe((data: Request[]) => this.myRequests = data);
 
     this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
       .subscribe((data: Page<RecentRequest>) => {
@@ -61,8 +63,17 @@ export class HomePage implements OnInit {
       });
   }
 
-  ngOnInit(): void {
 
+  ionViewDidEnter() {
+    console.log('r home ionViewDidEnter');
+  }
+
+  ionViewWillLeave() {
+    console.log('r home leave');
+  }
+
+  ngOnInit(): void {
+    console.log('r home init');
     this.authService.registerSubscriber().subscribe((profile: Profile) => {
       console.log('OAuth2: authenticated, receive profile in home ', profile);
       this.profile = profile;

@@ -55,6 +55,7 @@
     "firebase": "^7.2.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
+    "ng-lazyload-image": "^7.0.1",
     "ng-starrating": "^1.0.7",
     "ngx-image-compress": "^8.0.3",
     "rxjs": "~6.5.1",

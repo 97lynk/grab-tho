@@ -10,6 +10,7 @@ import { ClosedItem } from './closed-item/closed.item';
 import { AcceptedItem } from './accepted-item/accepted.item';
 import { RecentItem } from './recent-item/recent.item';
 import { PipeModule } from 'src/app/pipe/pipe.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
     FormsModule,
     AgmCoreModule,
     PipeModule,
+    LazyLoadImageModule,
     RouterModule.forChild([{ path: '', component: RequestManagementPage }])
   ],
   declarations: [RequestManagementPage,

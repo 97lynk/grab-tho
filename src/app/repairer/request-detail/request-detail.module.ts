@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { RequestDetailPage } from './request-detail.page';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { RatingModule } from 'ng-starrating';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RatingModule,
+    LazyLoadImageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [RequestDetailPage]

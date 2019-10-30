@@ -39,7 +39,7 @@
       <ion-row *ngFor="let row of images; let i = index">
         <ion-col *ngFor="let col of row; let j = index">
           <div style="background: var(--ion-color-light); padding: 5px">
-            <img [src]="col.src" alt="Hình {{ 2*i + j + 1 }}">
+            <img [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="col.src" alt="Hình {{ 2*i + j + 1 }}">
             <small>Hình {{ 2*i + j + 1 }}</small>
           </div>
         </ion-col>

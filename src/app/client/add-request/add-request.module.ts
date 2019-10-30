@@ -7,6 +7,7 @@ import { AgmCoreModule } from '@agm/core';
 import { DescriptionRequestComponent } from './description-request/description-request.component';
 import { GetMyLocationComponent } from './get-my-location/get-my-location.component';
 import { DonePage } from './done/done.page';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { DonePage } from './done/done.page';
     CommonModule,
     FormsModule,
     AgmCoreModule,
+    LazyLoadImageModule,
     RouterModule.forChild([
       { path: 'description', component: DescriptionRequestComponent },
       { path: 'my-location', component: GetMyLocationComponent },

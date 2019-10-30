@@ -3,7 +3,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/service/request.service';
 import { RepairerService } from 'src/app/service/repairer.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { Request } from 'src/app/dto/request';
 import * as FastAverageColor from 'fast-average-color/dist';
@@ -50,6 +50,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     }
   };
 
+  loading: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -57,7 +59,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     private repairerService: RepairerService,
     private navController: NavController,
     private alertController: AlertController,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingController: LoadingController
   ) { }
 
   async ionViewWillEnter() {
@@ -83,10 +86,13 @@ export class RequestDetailPage implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const s = this.authService.registerSubscriber().subscribe(profile => this.profile = profile);
     this.subscriptions.push(s);
     this.authService.loadProfile();
+    this.loading = await this.loadingController.create({
+      message: 'Đang báo giá',
+    });
   }
 
   ngOnDestroy(): void {
@@ -94,40 +100,31 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
 
-  async presentAlertPromptQuote() {
+  async successAlert(price) {
     const alert = await this.alertController.create({
       header: 'Báo giá',
-      message: 'Nhập giá mà bạn mong muốn',
-      inputs: [
-        {
-          name: 'price',
-          type: 'number'
+      message: 'Bạn đã báo giá thành công với giá ' + price,
+      buttons: [{
+        text: 'Xong',
+        handler: (data) => {
+          this.navController.navigateRoot('/r/tabs');
         }
-      ],
-      buttons: [
-        {
-          text: 'Hủy',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Xong',
-          handler: (data) => {
-            // console.log("input data ", data);
-            this.repairerService.quotingRequest(this.request.id, this.profile.id, data.price, 'QUOTE').subscribe(
-              () => {
-                this.router.navigateByUrl('/r/home');
-              });
-          }
-        }
+      }
       ]
     });
 
     await alert.present();
   }
 
+
+  submitQuotePrice(price: number) {
+    this.loading.present();
+    this.repairerService.quotingRequest(this.request.id, this.profile.id, price, 'QUOTE').subscribe(
+      () => {
+        this.loading.dismiss();
+        this.successAlert(price);
+      }, error => this.loading.dismiss());
+  }
 
 
   loadImage(img: HTMLImageElement, slide: any) {

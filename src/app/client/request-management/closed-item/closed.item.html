@@ -11,7 +11,7 @@
 
 <ion-item lines="none">
   <ion-thumbnail slot="start">
-    <img [src]="imageHost + '' +  data?.imagesDescription[0]">
+    <img  [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' +  data?.imagesDescription[0]">
   </ion-thumbnail>
   <ion-label>
     <p class="point">

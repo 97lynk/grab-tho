@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { HomePage } from './home.page';
 import { RequestItem } from './request-item/request.item';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    LazyLoadImageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HomePage, RequestItem]

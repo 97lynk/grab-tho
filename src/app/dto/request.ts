@@ -32,6 +32,8 @@ export interface Request {
 
     userFullName: number;
 
+    userAvatar: number;
+
     repairerId: number;
 }
 

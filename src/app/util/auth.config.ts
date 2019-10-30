@@ -75,7 +75,7 @@
 // }
 
 
-import {AuthConfig, OAuthModuleConfig} from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthModuleConfig } from 'angular-oauth2-oidc';
 import { environment } from 'src/environments/environment';
 
 const apiHost = environment.serviceUrl;
@@ -91,13 +91,18 @@ export const authConfig: AuthConfig = {
     scope: '',
     useHttpBasicAuthForPasswordFlow: true,
     oidc: false,
-    // requireHttps: false
+    requireHttps: false
 };
 
 
 export const urlsAuth: OAuthModuleConfig = {
     resourceServer: {
-        allowedUrls: [`${apiHost}`],
+        allowedUrls: [
+            `${apiHost}/requests`,
+            `${apiHost}/accounts`,
+            `${apiHost}/repairers`,
+            `${apiHost}/histories`
+        ],
         sendAccessToken: true,
     }
 };

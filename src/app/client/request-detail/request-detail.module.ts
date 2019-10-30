@@ -11,6 +11,7 @@ import { RepairerModal } from './repairer-modal/repairer.page';
 import { RatingModule } from 'ng-starrating';
 import { AgmDirectionModule } from 'agm-direction';
 import { RequestDetailPage } from './request-detail/request-detail.page';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { RequestDetailPage } from './request-detail/request-detail.page';
     AgmDirectionModule,
     AgmCoreModule,
     RatingModule,
+    LazyLoadImageModule,
     RouterModule.forChild([
       { path: '', component: RequestDetailPage },
       { path: 'repairers', component: RepairerList },

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   redirectUri: 'http://localhost:8100',
-  serviceUrl: 'https://192.168.1.8:8080',
+  serviceUrl: 'http://192.168.1.8:8080',
   fbAppId: '1153417668380667',
   firebase: {
     apiKey: 'AIzaSyBDc2yRxjlk0RyAp2utPQU5pv3eEmSEntE',

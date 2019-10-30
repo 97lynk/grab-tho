@@ -15,12 +15,12 @@ import { AgmCoreModule } from '@agm/core';
 import { Network } from '@ionic-native/network/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { VDateTimePipe } from './pipe/vdate-time.pipe';
 import { PipeModule } from './pipe/pipe.module';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { urlsAuth } from './util/auth.config';
 import { AuthGuard } from './util/auth-guard';
-import { RecentItem } from './client/request-management/recent-item/recent.item';
+import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +39,7 @@ import { RecentItem } from './client/request-management/recent-item/recent.item'
     IonicModule.forRoot({
       mode: 'ios'
     }),
+    LazyLoadImageModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [

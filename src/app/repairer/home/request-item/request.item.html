@@ -5,7 +5,7 @@
 </ion-item>
 <ion-item lines="none" class="ion-margin-top">
   <ion-avatar slot="start">
-    <img [src]="data?.userAvatar" alt="avatar">
+    <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="data?.userAvatar" alt="avatar">
   </ion-avatar>
   <ion-label>
     <div class="primary-color">{{ data?.userFullName }}</div>
@@ -17,7 +17,8 @@
   <ion-label>
     <ion-text class="description">{{ data?.textDescription}} </ion-text>
     <ion-thumbnail class="ion-margin-vertical">
-      <img [src]="imageHost + '' + src" *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
+      <img [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src"
+        *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
     </ion-thumbnail>
   </ion-label>
 </ion-item>

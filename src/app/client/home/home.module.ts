@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './home.page';
 import { PipeModule } from '../../pipe/pipe.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { PipeModule } from '../../pipe/pipe.module';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    LazyLoadImageModule,
     RouterModule.forChild([
       { path: '', component: HomePage },
     ])

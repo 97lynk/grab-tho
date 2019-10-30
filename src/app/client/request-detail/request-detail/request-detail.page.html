@@ -15,7 +15,7 @@
 
   <ion-item lines="none">
     <ion-avatar slot="start">
-      <img [src]="profile?.avatar" alt="avatar">
+      <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="profile?.avatar" alt="avatar">
     </ion-avatar>
     <ion-label>
       <div class="primary-color">{{ profile.fullName }}</div>
@@ -33,31 +33,32 @@
   <div style="height: 30%;">
     <ion-slides [options]="options" pager="true" style="height: 100%;">
       <ion-slide *ngFor="let src of request?.imagesDescription" #slide>
-        <img crossorigin="anonymous" [src]="imageHost + '' + src" alt="" (load)="loadImage(img, slide)" #img>
+        <img crossorigin="anonymous"  [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src" alt="" (load)="loadImage(img, slide)" #img>
       </ion-slide>
     </ion-slides>
   </div>
 
-  <ion-item lines="full" class="ion-padding-horizontal" style="--padding-end: 0;">
-    <ion-note slot="start" class="ion-text-center">
-      <ion-chip [color]="status?.color">
-        <ion-label>{{ status?.name }}</ion-label>
-      </ion-chip>
-    </ion-note>
-    <ion-label></ion-label>
-    <ion-note slot="end" style="--padding-end: 0; padding-right: 0;">
+  <!-- summary -->
+  <ion-row class="ion-margin-horizontal">
+      <ion-col size="6" class="ion-text-left">
+        <ion-chip [color]="status?.color" size="small">
+          <ion-label>{{ status?.name }}</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col size="6" style="margin: auto;" class="ion-text-right">
+        <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>
+        <span class="post-sumary" *ngIf="request?.noReceiver > 0">
+          &nbsp;&#8729;&nbsp;{{ request?.noReceiver }} Nhận yêu cầu</span>
+        <span class="post-sumary" *ngIf="request?.noReceiver === 0">Chưa có thợ nhận yêu cầu</span>
+      </ion-col>
+  </ion-row>
 
-      <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>
-      <span class="post-sumary" *ngIf="request?.noReceiver > 0">&nbsp;&nbsp;&nbsp; {{ request?.noReceiver }} Nhận yêu
-        cầu</span>
-      <span class="post-sumary" *ngIf="request?.noReceiver === 0">Chưa có thợ nhận yêu cầu</span>
-    </ion-note>
-  </ion-item>
+  <hr class="divider ion-no-margin ion-margin-horizontal" />
 
   <!-- review -->
   <ion-item lines="full" *ngIf="showReviewSection && !request?.feedBack">
     <ion-avatar slot="start">
-      <img [src]="profile?.avatar" alt="avatar">
+      <img  [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="profile?.avatar" alt="avatar">
     </ion-avatar>
     <div style="width: 100%;">
       <ion-textarea autoGrow="true" placeholder="Viết đánh giá" rows="3" class="post-comment ion-margin-top"
@@ -72,7 +73,7 @@
     [ngClass]="{'accepted-comment': request.status === 'ACCEPTED'}" [routerLink]="['repairers', repairer.id]"
     detail="false">
     <ion-avatar slot="start">
-      <img [src]="repairer.avatar">
+      <img  [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="repairer.avatar">
     </ion-avatar>
     <ion-label>
       <span class="post-comment">
@@ -85,7 +86,7 @@
   <!-- reviewed -->
   <ion-item class="ion-margin-bottom" *ngIf="showReviewSection && request?.feedBack" lines="none">
     <ion-avatar slot="start">
-      <img [src]="profile?.avatar">
+      <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="profile?.avatar">
     </ion-avatar>
     <ion-label>
       <span class="post-comment">

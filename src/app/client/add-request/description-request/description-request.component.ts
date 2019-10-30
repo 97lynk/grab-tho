@@ -154,7 +154,7 @@ export class DescriptionRequestComponent implements OnInit {
 
   async continute() {
     if (this.sources.length === 0) {
-      const data = await fetchAndConvertToBase64('http://localhost:8100/assets/no-image.png');
+      const data = await fetchAndConvertToBase64('http://localhost:8100/assets/icon-no-image.svg');
       this.sources.push({src: data});
     }
     this.storageService.save('imagesDescription', this.sources.map(i => i.src));

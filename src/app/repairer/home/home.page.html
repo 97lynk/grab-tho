@@ -1,40 +1,41 @@
 <ion-header translucent>
   <ion-toolbar translucent>
-    <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
-      <img *ngIf="profile" [src]="profile?.avatar">
-    </ion-avatar>
-    <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
-    <ion-buttons slot="end" style="font-size: 24px;">
-      <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
-      <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
-    </ion-buttons>
+    <ng-container *ngIf="profile">
+      <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
+        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="profile?.avatar">
+      </ion-avatar>
+      <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
+      <ion-buttons slot="end" style="font-size: 24px;">
+        <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
+        <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
+      </ion-buttons>
+    </ng-container>
   </ion-toolbar>
 
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-light">
 
-  <div class="ion-padding"  *ngIf="myRequest">
+  <div class="ion-padding" *ngIf="myRequests.length > 0">
 
     <h3 class="subtitle">Yêu cầu của bạn</h3>
 
-    <div style="border: 1px dashed var(--ion-color-tertiary); background: #fff;">
-      <item-request [request]="myRequest" [history]="getHistory(myRequest.id)">
+    <div style="border: 1px dashed var(--ion-color-tertiary); background: #fff;" class="ion-margin-bottom"
+      *ngFor="let req of myRequests">
+      <item-request [request]="req" [history]="getHistory(req.id)">
       </item-request>
     </div>
 
   </div>
 
-  <ion-list class="bg-light">
 
-    <h3 class="subtitle ion-padding-horizontal">Yêu cầu mới</h3>
+  <h3 class="subtitle ion-padding-horizontal">Yêu cầu mới</h3>
 
-    <div class="ion-padding" *ngFor="let req of recentRequest">
-      <div style="border: 1px solid #ddd; background: #fff;">
-        <item-request [routerLink]="['/r','requests', req.id]" [request]="req" [history]="getHistory(req.id)">
-        </item-request>
-      </div>
+  <div class="ion-padding-horizontal ion-padding-bottom" *ngFor="let req of recentRequest">
+    <div class="post-item" routerDirection="root" [routerLink]="['/r','requests', req.id]">
+      <item-request [request]="req" [history]="getHistory(req.id)">
+      </item-request>
     </div>
-  </ion-list>
+  </div>
 
 </ion-content>

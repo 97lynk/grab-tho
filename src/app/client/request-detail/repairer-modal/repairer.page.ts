@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { Repairer } from 'src/app/dto/repairer';
 import { History } from 'src/app/dto/history';
 import { RequestService } from 'src/app/service/request.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'repairer',
@@ -18,7 +17,7 @@ export class RepairerModal implements OnInit {
     constructor(
         public modalController: ModalController,
         private requestService: RequestService,
-        private router: Router) {
+        private navController: NavController) {
     }
 
     ngOnInit() {
@@ -34,8 +33,8 @@ export class RepairerModal implements OnInit {
     accept() {
         this.requestService.acceptRepairerForRequest(this.quoted.requestId, this.quoted.repairerId)
             .subscribe(data => {
-                console.log('accept ', data);
                 this.modalController.dismiss();
+                this.navController.navigateRoot('/tabs/request-management');
             });
     }
 }
