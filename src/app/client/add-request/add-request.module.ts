@@ -8,6 +8,7 @@ import { DescriptionRequestComponent } from './description-request/description-r
 import { GetMyLocationComponent } from './get-my-location/get-my-location.component';
 import { DonePage } from './done/done.page';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ProcessingModal } from './processing-modal/processing.page';
 
 @NgModule({
   imports: [
@@ -19,13 +20,14 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     RouterModule.forChild([
       { path: 'description', component: DescriptionRequestComponent },
       { path: 'my-location', component: GetMyLocationComponent },
-      { path: 'done/:id', component: DonePage },
+      { path: 'done', component: DonePage },
     ])
   ],
   declarations: [
     DescriptionRequestComponent,
     GetMyLocationComponent,
-    DonePage,
+    DonePage, ProcessingModal
   ],
+  entryComponents: [ProcessingModal]
 })
 export class AddRequestModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { NavController, IonSearchbar, Platform } from '@ionic/angular';
+import { NavController, IonSearchbar, Platform, ModalController } from '@ionic/angular';
 import { MapsAPILoader } from '@agm/core';
 import { ControlPosition, ZoomControlOptions, ZoomControlStyle } from '@agm/core/services/google-maps-types';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
@@ -10,6 +10,8 @@ import AutocompleteOptions = google.maps.places.AutocompleteOptions;
 import { StorageService } from 'src/app/service/storage.service';
 import { RequestService } from 'src/app/service/request.service';
 import { Request } from 'src/app/dto/request';
+import { DonePage } from '../done/done.page';
+import { ProcessingModal } from '../processing-modal/processing.page';
 
 
 @Component({
@@ -46,7 +48,8 @@ export class GetMyLocationComponent implements OnInit {
     private ngZone: NgZone,
     private platform: Platform,
     private storageService: StorageService,
-    private requestService: RequestService) {
+    private requestService: RequestService,
+    private modalController: ModalController) {
   }
 
   ngOnInit(): void {
@@ -122,17 +125,25 @@ export class GetMyLocationComponent implements OnInit {
     });
   }
 
-  continute() {
+  async  continute() {
     this.storageService.save('address', this.searchInput);
     this.storageService.save('lat', this.myLocation.lat);
     this.storageService.save('lng', this.myLocation.lng);
 
-    this.requestService.postRequest()
-      .then((data: Request) => {
-        this.navController.navigateForward('/requests/done/' + data.id);
-      }).catch(error => {
-        console.log('Failed to post request');
-      });
+
+    const modal = await this.modalController.create({
+      component: ProcessingModal
+    });
+
+    modal.present();
+    // this.navController.navigateForward('/requests/done');
+
+    // this.requestService.postRequest()
+    //   .then((data: Request) => {
+    // this.navController.navigateForward('/requests/done/' + data.id);
+    // }).catch(error => {
+    //   console.log('Failed to post request');
+    // });
   }
 
   goBack() {

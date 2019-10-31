@@ -68,7 +68,11 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.authService.registerSubscriber().subscribe(data => this.profile = data);
     this.authService.loadProfile();
 
-    this.requestService.getRequest(requestId)
+    this.loadRequest(requestId);
+  }
+
+  loadRequest(requestId: number | string) {
+    const s = this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
         this.showRepairerSection = this.statusToLoadRepairer.includes(this.request.status);
@@ -79,11 +83,15 @@ export class RequestDetailPage implements OnInit, OnDestroy {
           color: COLOR_STATUS[data.status]
         };
 
-        this.repairerService.getHistoryInRequests([data.id])
+        const ss = this.repairerService.getHistoryInRequests([data.id])
           .subscribe((histories: History[]) => {
             this.history = this.getHistory(histories, data.id);
           });
+
+        this.subscriptions.push(ss);
       });
+
+    this.subscriptions.push(s);
   }
 
   async ngOnInit() {
@@ -101,15 +109,13 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   async successAlert(price) {
+    const { requestId } = this.route.snapshot.params;
+    this.loadRequest(requestId);
     const alert = await this.alertController.create({
       header: 'Báo giá',
       message: 'Bạn đã báo giá thành công với giá ' + price,
-      buttons: [{
-        text: 'Xong',
-        handler: (data) => {
-          this.navController.navigateRoot('/r/tabs');
-        }
-      }
+      buttons: [
+        { text: 'Xong' }
       ]
     });
 
