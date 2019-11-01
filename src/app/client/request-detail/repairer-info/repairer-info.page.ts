@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ZoomControlOptions, ControlPosition, ZoomControlStyle } from '@agm/core/services/google-maps-types';
-import { ModalController, Platform, NavController } from '@ionic/angular';
+import { ModalController, Platform, NavController, LoadingController } from '@ionic/angular';
 import { showEnter, slideDownLeave } from '../custom-animation';
 import { Plugins, GeolocationPosition } from '@capacitor/core';
-import { GoogleMapsAPIWrapper } from '@agm/core';
+import { GoogleMapsAPIWrapper, AgmMap } from '@agm/core';
 import { RepairerModal } from '../repairer-modal/repairer.page';
 import { ActivatedRoute } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { History } from 'src/app/dto/history';
 import { Repairer } from 'src/app/dto/repairer';
+import { RequestService } from 'src/app/service/request.service';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -17,28 +18,16 @@ const { Geolocation } = Plugins;
   templateUrl: './repairer-info.page.html',
   styleUrls: ['./repairer-info.page.scss']
 })
-export class RepairerInfo implements OnInit {
+export class RepairerInfo implements OnInit, AfterViewInit {
 
   hcmc = { lat: 10.8230989, lng: 106.6296638 };
   origin = { lat: 10.8734763, lng: 106.7357881 };
   destination = null;
-  agmHeight = window.innerHeight - 200;
+  innerHeight = window.innerHeight;
   modal: HTMLIonModalElement;
   quoted: History = null;
   repairer: Repairer;
   histories: History[];
-
-  markerOptions = {
-    origin: {
-      icon: 'https://i.imgur.com/7teZKif.png',
-      label: 'iiii'
-    },
-    destination: {
-      icon: 'https://i.imgur.com/7teZKif.png',
-      infoWindow:
-        `<h4>Anh Nguyễn Văn Thanh<h4>`
-    },
-  };
 
   zoomConfig: ZoomControlOptions = {
     position: ControlPosition.TOP_RIGHT,
@@ -51,10 +40,13 @@ export class RepairerInfo implements OnInit {
     private navController: NavController,
     private location: PlatformLocation,
     private repairerService: RepairerService,
+    private requestService: RequestService,
+    private loadingController: LoadingController,
     private route: ActivatedRoute) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   ionViewWillEnter() {
     const { repairerId, requestId } = this.route.snapshot.params;
@@ -70,7 +62,7 @@ export class RepairerInfo implements OnInit {
         this.histories.sort((a, b) => (+new Date(b.createAt) - +new Date(a.createAt)));
 
         this.repairer = data.repairer;
-        this.presentModal();
+        // this.presentModal();
       });
     this.getMyLocation();
     this.location.onPopState(() => this.modal.dismiss());
@@ -122,4 +114,22 @@ export class RepairerInfo implements OnInit {
     this.navController.back();
   }
 
+  locating() {
+    this.destination = { lat: 10.7605046, lng: 106.6749102 };
+  }
+
+  async accept() {
+    const loading = await this.loadingController.create({
+      message: 'Đang chấp nhận giá ' + this.quoted.point + ' của ' + this.repairer.fullName
+    });
+
+    loading.present();
+    this.requestService.acceptRepairerForRequest(this.quoted.requestId, this.quoted.repairerId)
+      .subscribe(data => {
+        loading.dismiss();
+        this.navController.navigateRoot(['/request', this.quoted.requestId]);
+      }, error => {
+        loading.dismiss();
+      });
+  }
 }

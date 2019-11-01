@@ -95,7 +95,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.navController.back();
+    this.navController.navigateBack('/tabs/request-management');
   }
 
 }

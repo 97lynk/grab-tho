@@ -10,7 +10,6 @@ import AutocompleteOptions = google.maps.places.AutocompleteOptions;
 import { StorageService } from 'src/app/service/storage.service';
 import { RequestService } from 'src/app/service/request.service';
 import { Request } from 'src/app/dto/request';
-import { DonePage } from '../done/done.page';
 import { ProcessingModal } from '../processing-modal/processing.page';
 
 
@@ -90,7 +89,7 @@ export class GetMyLocationComponent implements OnInit {
     // this.clearMarkers();
     this.searchInput = item.description;
     this.autocompleteItems = [];
-    this.geocoder.geocode({ 'placeId': item.place_id }, (results, status) => {
+    this.geocoder.geocode({ placeId: item.place_id }, (results, status) => {
       this.ngZone.run(() => {
         if (status === 'OK' && results[0]) {
           this.myLocation = {
@@ -125,7 +124,7 @@ export class GetMyLocationComponent implements OnInit {
     });
   }
 
-  async  continute() {
+  async continute() {
     this.storageService.save('address', this.searchInput);
     this.storageService.save('lat', this.myLocation.lat);
     this.storageService.save('lng', this.myLocation.lng);
@@ -137,7 +136,6 @@ export class GetMyLocationComponent implements OnInit {
 
     modal.present();
     // this.navController.navigateForward('/requests/done');
-
     // this.requestService.postRequest()
     //   .then((data: Request) => {
     // this.navController.navigateForward('/requests/done/' + data.id);

@@ -9,7 +9,7 @@
     <ion-title>Yêu cầu</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="continute()" color="primary">Tiếp tục</ion-button>
+      <ion-button (click)="continute()" [disabled]="textDescription.trim() === ''" color="primary">Tiếp tục</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -20,13 +20,15 @@
 
   <ion-item class="hint" lines="none">
     <ion-icon size="small" slot="start" color="primary" name="information-circle-outline"></ion-icon>
-    <small>Mô tả vấn đề bạn gặp phải bằng chữ hoặc hình ảnh để giúp thợ có thêm nhiều thông tin về vấn đề của bạn</small>
+    <small>Mô tả vấn đề bạn gặp phải bằng chữ hoặc hình ảnh để giúp thợ có thêm nhiều thông tin về vấn đề của
+      bạn</small>
   </ion-item>
 
   <div class="ion-padding-horizontal">
 
     <h3 class="subtitle">Tóm tắt</h3>
-    <ion-textarea autoGrow="true" rows="3" [(ngModel)]="textDescription" style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
+    <ion-textarea autoGrow="true" rows="3" [(ngModel)]="textDescription"
+      style="border: 1px solid #ddd; padding-left: 5px;"></ion-textarea>
 
     <h3 class="subtitle">Hình ảnh</h3>
     <div class="ion-text-center">

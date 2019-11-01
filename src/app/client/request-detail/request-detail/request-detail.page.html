@@ -49,7 +49,7 @@
         <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>
         <span class="post-sumary" *ngIf="request?.noReceiver > 0">
           &nbsp;&#8729;&nbsp;{{ request?.noReceiver }} Nhận yêu cầu</span>
-        <span class="post-sumary" *ngIf="request?.noReceiver === 0">Chưa có thợ nhận yêu cầu</span>
+        <span class="post-sumary" *ngIf="request?.noReceiver === 0 && request?.noQuote > 0">Chưa có thợ nhận yêu cầu</span>
       </ion-col>
   </ion-row>
 

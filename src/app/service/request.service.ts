@@ -27,19 +27,20 @@ export class RequestService {
     return this.http.get(`${REQUEST_API}/${id}`);
   }
 
-  async postRequest(updatePercent: (percent: number, buffer: number, iconName: string) => any) {
+  async postRequest(updatePercent: (percent: number, buffer: number, iconName: string, stepText: string) => any) {
 
     const request = await this.restoreRequestFromStorage();
-    updatePercent(0.05, 0.4, 'list');
+    updatePercent(0.05, 0.4, 'list', 'Tải lên dữ liệu...');
     const formData = new FormData();
-    updatePercent(0.1, 0.6, 'list');
-    request.imagesDescription.map(i => dataURItoBlob(i));
-    updatePercent(0.3, 0.7, 'images');
-    request.imagesDescription.map(b => new File([b], 'image.png', { type: 'image/png', lastModified: Date.now() }));
-    updatePercent(0.4, 0.8, 'images');
+    updatePercent(0.1, 0.6, 'list', 'Tải lên hình ảnh...');
+    request.imagesDescription = request.imagesDescription.map(i => dataURItoBlob(i));
+    updatePercent(0.3, 0.7, 'images', 'Tải lên hình ảnh...');
+    request.imagesDescription = request.imagesDescription
+      .map(b => new File([b], 'image.png', { type: 'image/png', lastModified: Date.now() }));
+    updatePercent(0.4, 0.8, 'images', 'Trong quá trình tải lên hình ảnh...');
     request.imagesDescription.forEach(file => formData.append('images', file));
     const imagesDescription = await this.http.post<string[]>(`${REQUEST_API}/description-images`, formData).toPromise();
-    updatePercent(0.8, 0.9, 'pin');
+    updatePercent(0.8, 0.9, 'pin', 'Tạo yêu cầu...');
     request.imagesDescription = imagesDescription;
     return this.http.post(REQUEST_API, request).toPromise();
   }

@@ -9,7 +9,7 @@
     <ion-title>Yêu cầu</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="continute()" color="primary">Tiếp tục</ion-button>
+      <ion-button (click)="continute()" [disabled]="searchInput.trim() === ''" color="primary">Tiếp tục</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
