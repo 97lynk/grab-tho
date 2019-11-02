@@ -27,7 +27,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   showRepairerSection = false;
   showReviewSection = false;
   showJoinedRepairer = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED'];
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED'];
   statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
 

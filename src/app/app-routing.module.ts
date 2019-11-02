@@ -24,10 +24,12 @@ const routes: Routes = [
   },
   {
     path: 'r/tabs',
+    canActivate: [AuthGuard],
     loadChildren: './repairer/tabs/tabs.module#TabsPageModule'
   },
   {
     path: 'r/requests/:requestId',
+    canActivate: [AuthGuard],
     loadChildren: './repairer/request-detail/request-detail.module#RequestDetailPageModule'
   },
   {

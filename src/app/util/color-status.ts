@@ -13,7 +13,7 @@ export const COLOR_STATUS = {
 
 export const NAME_STATUS = {
     POSTED: 'Đã đăng',
-    RECEIVED: 'Đã có thợ nhận yêu cầu',
+    RECEIVED: 'Đã có thợ xem yêu cầu',
     QUOTED: 'Đã có thợ báo giá',
 
     ACCEPTED: 'Đã xác nhận',

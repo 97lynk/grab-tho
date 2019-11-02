@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import * as moment from 'moment';
 
 @Pipe({
   name: 'vdatetime'
@@ -20,7 +21,9 @@ export class VDateTimePipe implements PipeTransform {
     } else {
       data = value;
     }
-    return data.toLocaleString('vi-VN', this.option);
+    // return data.toLocaleString('vi-VN', this.option);
+    moment.locale('vi-VN');
+    return moment(data).fromNow();
   }
 
 }

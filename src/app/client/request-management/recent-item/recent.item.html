@@ -3,7 +3,7 @@
     <h2 class="ion-text-wrap">
       <span *ngIf="data?.status === 'QUOTED'"><b>{{ data?.noQuote }}</b> thợ báo giá</span>
       <span *ngIf="data?.status !== 'QUOTED'"><b>{{ (data?.noReceiver == 0) ? 'Chưa có' : data?.noReceiver}}</b> thợ
-        nhận yêu cầu</span>
+        xem yêu cầu</span>
     </h2>
   </ion-label>
 </ion-item>
@@ -18,7 +18,7 @@
     </p>
     <ion-text>
       <div class="description">
-        {{ data?.textDescription }}
+        {{ data?.textDescription | truncateText: 150 : true }}
       </div>
     </ion-text>
   </ion-label>

@@ -20,6 +20,8 @@ export class HomePage implements OnInit {
 
   recentRequest: RecentRequest[] = [];
 
+  loadingData = false;
+
   options = {
     speed: 400,
     loop: true,
@@ -44,10 +46,12 @@ export class HomePage implements OnInit {
 
     this.authService.loadProfile();
 
+    this.loadingData = true;
     this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
       .subscribe((data: Page<RecentRequest>) => {
         this.recentRequest = data.content;
-      });
+        this.loadingData = false;
+      }, error => this.loadingData = false);
   }
 
   ngOnInit(): void {

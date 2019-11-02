@@ -17,14 +17,18 @@ export class RepairerList implements OnInit {
 
   repairers: JoinedRepairer[] = [];
 
+  loading = false;
+
   @Input('request-id')
   set requestId(value: number) {
     if (value !== null) {
       this._requestId = value;
+      this.loading = true;
       this.repairerService.getRepairerJoinedRequest(value, ['RECEIVE', 'QUOTE'])
         .subscribe((data: JoinedRepairer[]) => {
           this.repairers = data;
-        });
+          this.loading = false;
+        }, error => this.loading = false);
     }
   }
 

@@ -23,7 +23,7 @@
     </p>
     <ion-text>
       <div class="description">
-        {{ data?.textDescription }}
+        {{ data?.textDescription | truncateText: 150 : true }}
       </div>
     </ion-text>
   </ion-label>

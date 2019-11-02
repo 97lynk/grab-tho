@@ -18,6 +18,11 @@ export class ProcessingModal implements OnInit {
   color = 'primary';
   stepText = 'Đang gửi yêu cầu';
 
+  status: {
+    progressBarColor: string,
+    textColor: any,
+    text: string
+  };
 
   STATUS = {
     processing: {
@@ -37,7 +42,6 @@ export class ProcessingModal implements OnInit {
     }
   };
 
-  status = this.STATUS.processing;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,13 +51,14 @@ export class ProcessingModal implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.status = this.STATUS.processing;
     this.id = null;
     this.updateProgessBar(0.0, 0.1, 'list', 'Đang gửi yêu cầu...');
     this.status = this.STATUS.processing;
     this.requestService.postRequest(this.updateProgessBar)
       .then((data: Request) => {
         console.log('Post a request success ', data);
-        this.updateProgessBar(1.0, 1.0, 'cloud-upload', 'Các thợ sẽ nhận yêu cầu và cùng với bạn thương lượng để chốt chi phí');
+        this.updateProgessBar(1.0, 1.0, 'cloud-upload', 'Các thợ sẽ xem yêu cầu và cùng với bạn thương lượng để chốt chi phí');
         this.status = this.STATUS.success;
         this.id = data.id;
       }).catch(error => {
@@ -77,7 +82,7 @@ export class ProcessingModal implements OnInit {
 
 
   forwardToRequestDetail() {
-    if (this.id === null) return;
+    if (this.id === null) { return; }
 
     this.navController.navigateForward(['/requests', this.id]);
     this.modalController.dismiss();

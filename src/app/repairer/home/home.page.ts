@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/util/auth.service';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/dto/profile';
@@ -9,13 +9,14 @@ import { imageHost } from 'src/app/util/file.util';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { History } from 'src/app/dto/history';
 import { NavController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   imageHost = imageHost;
 
@@ -28,6 +29,8 @@ export class HomePage implements OnInit {
   data: RecentRequest;
 
   myRequests: Request[] = [];
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private authService: AuthService,
@@ -47,37 +50,38 @@ export class HomePage implements OnInit {
     this.recentRequest = [];
     this.histories = [];
     this.myRequests = [];
+    this.subscriptions.push(
+      this.requestService.getRequest('accepted')
+        .subscribe((data: Request[]) => this.myRequests = data)
+    );
 
-    this.requestService.getRequest('accepted')
-      .subscribe((data: Request[]) => this.myRequests = data);
-
-    this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
-      .subscribe((data: Page<RecentRequest>) => {
-        this.recentRequest = data.content;
-        const ids = this.recentRequest.map(r => r.id);
-        this.data = this.recentRequest[0];
-        this.repairerService.getHistoryInRequests(ids)
-          .subscribe((histories: History[]) => {
-            this.histories = histories;
-          });
-      });
-  }
-
-
-  ionViewDidEnter() {
-    console.log('r home ionViewDidEnter');
-  }
-
-  ionViewWillLeave() {
-    console.log('r home leave');
+    this.subscriptions.push(
+      this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
+        .subscribe((data: Page<RecentRequest>) => {
+          this.recentRequest = data.content;
+          const ids = this.recentRequest.map(r => r.id);
+          this.data = this.recentRequest[0];
+          this.repairerService.getHistoryInRequests(ids)
+            .subscribe((histories: History[]) => {
+              this.histories = histories;
+            });
+        })
+    );
   }
 
   ngOnInit(): void {
     console.log('r home init');
-    this.authService.registerSubscriber().subscribe((profile: Profile) => {
-      console.log('OAuth2: authenticated, receive profile in home ', profile);
-      this.profile = profile;
-    }, () => console.log('Header: receive profile fail'));
+    this.subscriptions.push(
+      this.authService.registerSubscriber().subscribe((profile: Profile) => {
+        console.log('OAuth2: authenticated, receive profile in home ', profile);
+        this.profile = profile;
+      }, () => console.log('Header: receive profile fail'))
+    );
+  }
+
+  ngOnDestroy(): void {
+    console.log('unsubscribe ', this.subscriptions.length);
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   logout() {

@@ -18,7 +18,7 @@ const { Geolocation } = Plugins;
   templateUrl: './repairer-info.page.html',
   styleUrls: ['./repairer-info.page.scss']
 })
-export class RepairerInfo implements OnInit, AfterViewInit {
+export class RepairerInfo implements OnInit {
 
   hcmc = { lat: 10.8230989, lng: 106.6296638 };
   origin = { lat: 10.8734763, lng: 106.7357881 };
@@ -65,7 +65,7 @@ export class RepairerInfo implements OnInit, AfterViewInit {
         // this.presentModal();
       });
     this.getMyLocation();
-    this.location.onPopState(() => this.modal.dismiss());
+    // this.location.onPopState(() => this.modal.dismiss());
   }
 
   getMyLocation() {
@@ -127,7 +127,7 @@ export class RepairerInfo implements OnInit, AfterViewInit {
     this.requestService.acceptRepairerForRequest(this.quoted.requestId, this.quoted.repairerId)
       .subscribe(data => {
         loading.dismiss();
-        this.navController.navigateRoot(['/request', this.quoted.requestId]);
+        this.navController.navigateRoot(['/requests', this.quoted.requestId]);
       }, error => {
         loading.dismiss();
       });

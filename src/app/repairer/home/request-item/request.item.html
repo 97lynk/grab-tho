@@ -15,7 +15,7 @@
 
 <ion-item lines="none">
   <ion-label>
-    <ion-text class="description">{{ data?.textDescription}} </ion-text>
+    <ion-text class="description">{{ data?.textDescription | truncateText: 150 : true }} </ion-text>
     <ion-thumbnail class="ion-margin-vertical">
       <img [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src"
         *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">

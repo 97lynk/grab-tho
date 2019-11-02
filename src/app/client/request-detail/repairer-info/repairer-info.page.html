@@ -42,19 +42,16 @@
       </ion-item-options>
     </ion-item-sliding>
 
-    <ion-item lines="none" *ngIf="quoted">
+    <ion-item lines="none">
       <ion-avatar slot="start"></ion-avatar>
-      <ion-label>Đã báo giá</ion-label>
-      <ion-text slot="end">
+      <ion-label *ngIf="!quoted">Chưa báo giá</ion-label>
+      <ion-label *ngIf="quoted">Đã báo giá</ion-label>
+      <ion-text slot="end" *ngIf="quoted">
         <strong>{{ quoted.point }} điểm</strong>
       </ion-text>
     </ion-item>
-
-    <ion-item lines="none" class="ion-no-padding" *ngIf="!quoted">
-      <ion-label slot="start">Chưa báo giá</ion-label>
-    </ion-item>
-
-    <ion-button expand="block">Đặt thợ ngay</ion-button>
+ 
+    <ion-button expand="block" (click)="accept()" *ngIf="quoted">Đặt thợ ngay</ion-button>
 
   </div>
 </ion-content>

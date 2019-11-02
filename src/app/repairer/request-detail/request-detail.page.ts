@@ -24,6 +24,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   profile: Profile;
   history: History;
 
+  loadingHistory = true;
+
   imageHost = imageHost;
   showRepairerSection = false;
   showReviewSection = false;
@@ -72,6 +74,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   loadRequest(requestId: number | string) {
+    this.loadingHistory = true;
     const s = this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
@@ -86,7 +89,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
         const ss = this.repairerService.getHistoryInRequests([data.id])
           .subscribe((histories: History[]) => {
             this.history = this.getHistory(histories, data.id);
-          });
+            this.loadingHistory = false;
+          }, error => this.loadingHistory = false);
 
         this.subscriptions.push(ss);
       });

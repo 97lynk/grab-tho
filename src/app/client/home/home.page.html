@@ -1,9 +1,24 @@
 <ion-header translucent>
   <ion-toolbar translucent>
-    <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
-      <img [src]="profile?.avatar">
-    </ion-avatar>
-    <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
+    <ng-container *ngIf="profile">
+      <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
+        <img [src]="profile.avatar">
+      </ion-avatar>
+      <h5 class="ion-padding-start">
+        {{ profile.fullName }}
+      </h5>
+    </ng-container>
+
+    <ng-container *ngIf="!profile">
+      <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <h5 class="ion-padding-start">
+        <ion-skeleton-text animated width="50px"></ion-skeleton-text>
+      </h5>
+    </ng-container>
+
+
     <ion-buttons slot="end" style="font-size: 24px;">
       <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
       <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
@@ -27,11 +42,36 @@
     <!-- <ion-card-subtitle>Yêu cầu đang chờ xác nhận và báo giá</ion-card-subtitle> -->
   </div>
 
-  <ion-slides pager="true" [options]="options">
+  <ion-card *ngIf="loadingData" class="recently-request">
+    <ion-skeleton-text animated class="img-skeleton"></ion-skeleton-text>
+    <ion-card-header>
+      <ion-label>
+        <p class="address">
+          <ion-skeleton-text animated width="200px"></ion-skeleton-text>
+        </p>
+        <p class="time">
+          <ion-skeleton-text animated width="100px"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-card-header>
 
+    <div class="ion-padding-horizontal">
+      <ion-skeleton-text style="display: inline-block; margin-left: 10px;" animated width="50px"></ion-skeleton-text>
+      <ion-skeleton-text style="display: inline-block; margin-left: 10px;" animated width="50px"></ion-skeleton-text>
+    </div>
+
+    <ion-card-content>
+      <div class="description">
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated width="100px"></ion-skeleton-text>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-slides *ngIf="!loadingData" pager="true" [options]="options">
     <ion-slide *ngFor="let req of recentRequest">
       <ion-card [routerLink]="['/requests', req?.id]" class="recently-request">
-        <img class="img-request" [src]="imageHost + '' + req.imagesDescription[0]" />
+        <img [src]="imageHost + '' + req.imagesDescription[0]" />
         <ion-card-header>
           <ion-label>
             <p class="address">
@@ -50,18 +90,17 @@
             <ion-label><b>{{ req.noQuote }}</b> thợ báo giá</ion-label>
           </ion-chip>
           <ion-chip color="secondary">
-            <ion-label><b>{{ req.noReceiver }}</b> thợ nhận yêu cầu</ion-label>
+            <ion-label><b>{{ req.noReceiver }}</b> thợ xem yêu cầu</ion-label>
           </ion-chip>
         </div>
 
         <ion-card-content>
           <div class="description">
-            {{ req.textDescription }}
+            {{ req.textDescription | truncateText: 150 : true }}
           </div>
         </ion-card-content>
       </ion-card>
     </ion-slide>
-
   </ion-slides>
 
 
