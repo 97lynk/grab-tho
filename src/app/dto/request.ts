@@ -30,9 +30,9 @@ export interface Request {
 
     userId: number;
 
-    userFullName: number;
+    userFullName: string;
 
-    userAvatar: number;
+    userAvatar: string;
 
     repairerId: number;
 }

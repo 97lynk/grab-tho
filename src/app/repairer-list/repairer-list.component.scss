@@ -1,0 +1,18 @@
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.quote-comment {
+  --background: #ecfcf3 !important;
+  border-left: 3px solid #16c45a;
+}
+
+.accept-comment {
+  --background: #ecfbfd !important;
+  border-left: 3px solid #0bb8cc;
+}
+
+.complete-comment {
+  --background: #fffbeb !important;
+  border-left: 3px solid #e0b500;
+}

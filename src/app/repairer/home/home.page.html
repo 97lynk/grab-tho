@@ -16,26 +16,18 @@
 
 <ion-content class="bg-light">
 
-  <div class="ion-padding" *ngIf="myRequests.length > 0">
+  <ng-container *ngIf="myRequests.length > 0">
+    <h3 class="subtitle ion-padding-horizontal">Yêu cầu của bạn</h3>
 
-    <h3 class="subtitle">Yêu cầu của bạn</h3>
-
-    <div style="border: 1px dashed var(--ion-color-tertiary); background: #fff;" class="ion-margin-bottom"
-      *ngFor="let req of myRequests">
-      <item-request [request]="req" [history]="getHistory(req.id)">
-      </item-request>
-    </div>
-
-  </div>
+    <item-request *ngFor="let req of myRequests" [request]="req" [history]="null" routerDirection="root"
+      [routerLink]="['/r','requests', req.id]">
+    </item-request>
+  </ng-container>
 
 
   <h3 class="subtitle ion-padding-horizontal">Yêu cầu mới</h3>
 
-  <div class="ion-padding-horizontal ion-padding-bottom" *ngFor="let req of recentRequest">
-    <div class="post-item" routerDirection="root" [routerLink]="['/r','requests', req.id]">
-      <item-request [request]="req" [history]="getHistory(req.id)">
-      </item-request>
-    </div>
-  </div>
+  <item-request *ngFor="let req of recentRequest" [request]="req" [history]="getHistory(req.id)" routerDirection="root"
+    [routerLink]="['/r','requests', req.id]"></item-request>
 
 </ion-content>

@@ -33,7 +33,7 @@ export class RepairerService {
     return this.http.get(`${REPAIRER_API}/${repairerId}`);
   }
 
-  quotingRequest(requestId: number | string, repairerId: number | string, point: number, action: string) {
+  actionRequest(requestId: number | string, repairerId: number | string, point: number, action: string) {
     return this.http.post(HISTORIES_API, { requestId, repairerId, point, action });
   }
 

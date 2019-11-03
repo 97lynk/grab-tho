@@ -1,21 +1,21 @@
 export interface Profile {
 
-    id: number;
+    id?: number;
 
-    username: string;
+    username?: string;
 
-    email: string;
+    email?: string;
 
-    fullName: string;
+    fullName?: string;
 
-    address: string;
+    address?: string;
 
-    phone: string;
+    phone?: string;
 
-    block: boolean;
+    block?: boolean;
 
-    avatar: string;
+    avatar?: string;
 
-    roles: string[];
+    roles?: string[];
 
 }

@@ -1,0 +1,105 @@
+<div class="ion-padding-vertical">
+
+  <!-- skeleton -->
+  <ng-container *ngIf="!repairers">
+
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color" class="post-comment">
+          <ion-skeleton-text animated width="100px"></ion-skeleton-text>
+        </div>
+        <ion-skeleton-text style="margin-left: 10px;" class="post-time" animated width="50px"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color" class="post-comment">
+          <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+        </div>
+        <ion-skeleton-text style="margin-left: 10px;" class="post-time" animated width="50px"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color" class="post-comment">
+          <ion-skeleton-text animated width="120px"></ion-skeleton-text>
+        </div>
+        <ion-skeleton-text style="margin-left: 10px;" class="post-time" animated width="50px"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+
+  </ng-container>
+
+  <!-- repairer list -->
+  <ion-list>
+    <ng-container *ngFor="let r of repairers">
+      <ion-item *ngIf="r.status === 'QUOTE'" [class.quote-comment]="highlightComment.QUOTE" lines="none" class="mb-2" detail="false"
+        (click)="clickItem(r.id)">
+        <ion-avatar slot="start">
+          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="r.avatar">
+        </ion-avatar>
+        <ion-label>
+          <span class="post-comment">
+            <span class="primary-color">{{ r.fullName }}</span>&nbsp;&nbsp;
+            <span>báo giá <strong class="primary-color">{{ r.point }}</strong></span>
+          </span>
+          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="r.status === 'RECEIVE'" class="mb-2" lines="none" detail="false" (click)="clickItem(r.id)">
+        <ion-avatar slot="start">
+          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="r.avatar">
+        </ion-avatar>
+        <ion-label>
+          <span class="post-comment">
+            <span class="primary-color">{{ r.fullName }}</span>&nbsp;&nbsp;
+            <span>xem yêu cầu</span>
+          </span>
+          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="r.status === 'ACCEPT'" class="mb-2" [class.accept-comment]="highlightComment.ACCEPT" lines="none" detail="false"
+        (click)="clickItem(r.id)">
+        <ion-avatar slot="start">
+          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="poster?.avatar">
+        </ion-avatar>
+        <ion-label>
+          <span class="post-comment">
+            <span class="primary-color">{{ poster?.fullName }}</span>&nbsp;&nbsp;
+            <span> chấp nhận với giá <strong class="primary-color">{{ r.point }}</strong> của thợ
+              <span class="primary-color">@{{ r.fullName }}</span>
+            </span>
+          </span>
+          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="r.status === 'COMPLETE'" [class.complete-comment]="highlightComment.COMPLETE" class="mb-2" lines="none" detail="false">
+        <ion-avatar slot="start">
+          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="r.avatar">
+        </ion-avatar>
+        <ion-label>
+          <span class="post-comment">
+            <span class="primary-color">{{ r.fullName }}</span>&nbsp;&nbsp;
+            <span> đã xác nhận hoàn thành công việc</span>
+          </span>
+          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+
+    </ng-container>
+  </ion-list>
+</div>

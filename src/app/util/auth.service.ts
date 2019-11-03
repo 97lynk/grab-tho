@@ -51,7 +51,10 @@ export class AuthService {
                             console.log('OAuth2: refresh new token success');
                             this.loadProfile();
                         })
-                        .catch(error => console.log('OAuth2: refresh new token success', error));
+                        .catch(error => {
+                            console.log('OAuth2: refresh new token failed', error);
+                            this.oauthService.logOut();
+                        });
                     break;
                 case 'logout':
                     this.publishChangeProfile(null);

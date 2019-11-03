@@ -1,0 +1,95 @@
+<!-- skeleton poster -->
+<ng-container *ngIf="!request">
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label>
+      <div class="primary-color">
+        <ion-skeleton-text animated width="200px"></ion-skeleton-text>
+      </div>
+      <div class="post-time">
+        <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+      </div>
+    </ion-label>
+  </ion-item>
+
+  <div class="ion-padding description">
+    <p>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </p>
+    <p>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </p>
+    <p>
+      <ion-skeleton-text animated width="50%"></ion-skeleton-text>
+    </p>
+  </div>
+</ng-container>
+
+<!-- poster -->
+<ng-container *ngIf="request">
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="poster?.avatar" alt="avatar">
+    </ion-avatar>
+    <ion-label>
+      <div class="primary-color">{{ poster.fullName }}</div>
+      <div class="post-time">{{ request?.createAt | vdatetime }}</div>
+    </ion-label>
+  </ion-item>
+
+  <div class="ion-padding description">{{ request?.textDescription }} - tại
+    <span class="primary-color">
+      <ion-icon name="pin"></ion-icon> {{ request?.address }}
+    </span>
+  </div>
+</ng-container>
+
+<!-- slide images -->
+<div style="height: 30%;">
+  <ion-slides [options]="options" pager="true" style="height: 100%;">
+    <ion-slide *ngFor="let src of request?.imagesDescription" #slide>
+      <img crossorigin="anonymous" [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src" alt=""
+        (load)="loadImage(img, slide)" #img>
+    </ion-slide>
+  </ion-slides>
+</div>
+
+<!-- skeleton summary -->
+<ion-row class="ion-margin-horizontal" *ngIf="!request">
+  <ion-col size="4" class="ion-text-left">
+    <ion-skeleton-text animated width="100px"></ion-skeleton-text>
+  </ion-col>
+  <ion-col size="8" style="margin: auto;" class="ion-text-right">
+    <span class="post-sumary">
+      <ion-skeleton-text animated width="50px"></ion-skeleton-text>
+    </span>
+    &#8729;
+    <span class="post-sumary">
+      <ion-skeleton-text animated width="50px"></ion-skeleton-text>
+    </span>
+  </ion-col>
+</ion-row>
+
+<!-- summary -->
+<ion-row class="ion-margin-horizontal" *ngIf="request">
+  <ion-col size="6" class="ion-text-left">
+    <ion-chip [color]="status?.color" size="small">
+      <ion-label>{{ status?.name }}</ion-label>
+    </ion-chip>
+  </ion-col>
+  <ion-col size="6" style="margin: auto;" class="ion-text-right">
+    <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>
+    <span class="post-sumary" *ngIf="request?.noReceiver > 0">
+      &nbsp;&#8729;&nbsp;{{ request?.noReceiver }} Xem yêu cầu</span>
+    <span class="post-sumary" *ngIf="request?.noReceiver === 0 && request?.noQuote === 0">Chưa có thợ xem yêu
+      cầu</span>
+  </ion-col>
+</ion-row>
+
+<hr class="divider ion-no-margin ion-margin-horizontal" />
+
+<div class="ion-text-center ion-margin-vertical" *ngIf="!request">
+  <ion-spinner name="lines-small" color="primary"></ion-spinner>
+</div>

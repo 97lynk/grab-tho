@@ -27,7 +27,9 @@
           <div class="post-time">Thợ sửa chữa nước</div>
           <star-rating value="4.0" checkedcolor="gold" uncheckedcolor="gray" size="12px" readonly="true"></star-rating>
         </ion-label>
-        <ion-icon class="ion-margin-vertical" slot="end" name="pin" color="primary" (click)="locating()"></ion-icon>
+        <ion-button class="ion-margin-vertical" size="large" slot="end" fill="clear" color="primary" (click)="locating()">
+          <ion-icon name="pin"></ion-icon>
+        </ion-button>
       </ion-item>
 
       <ion-item-options side="start">
@@ -50,7 +52,7 @@
         <strong>{{ quoted.point }} điểm</strong>
       </ion-text>
     </ion-item>
- 
+
     <ion-button expand="block" (click)="accept()" *ngIf="quoted">Đặt thợ ngay</ion-button>
 
   </div>

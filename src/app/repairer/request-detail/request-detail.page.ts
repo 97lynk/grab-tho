@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/util/auth.service';
 import { Profile } from 'src/app/dto/profile';
 import { History } from 'src/app/dto/history';
 import { Subscription } from 'rxjs';
+import { JoinedRepairer } from 'src/app/dto/repairer';
 const fac = new FastAverageColor();
 
 @Component({
@@ -21,18 +22,25 @@ const fac = new FastAverageColor();
 export class RequestDetailPage implements OnInit, OnDestroy {
 
   request: Request;
-  profile: Profile;
-  history: History;
+  poster: Profile;
+  me: Profile;
+  repairers: JoinedRepairer[];
 
-  loadingHistory = true;
+  highlightComment = {
+    RECEIVE: false,
+    QUOTE: false,
+    ACCEPT: false,
+    COMPLETE: false
+  };
+
+  loading = true;
 
   imageHost = imageHost;
   showRepairerSection = false;
-  showReviewSection = false;
-  showJoinedRepairer = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED'];
-  statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
-  statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
+  showInputQuote = false;
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED'];
+  statusToStyling = ['QUOTED', 'ACCEPTED'];
+  statusToQuote = ['POSTED', 'RECEIVED', 'QUOTED'];
 
   subscriptions: Subscription[] = [];
 
@@ -52,11 +60,10 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     }
   };
 
-  loading: any;
+  loadingPopup: any;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private requestService: RequestService,
     private repairerService: RepairerService,
     private navController: NavController,
@@ -67,42 +74,67 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   async ionViewWillEnter() {
     const { requestId } = this.route.snapshot.params;
-    this.authService.registerSubscriber().subscribe(data => this.profile = data);
+    this.subscriptions.push(
+      this.authService.registerSubscriber().subscribe(data => this.me = data)
+    );
     this.authService.loadProfile();
 
     this.loadRequest(requestId);
   }
 
   loadRequest(requestId: number | string) {
-    this.loadingHistory = true;
-    const s = this.requestService.getRequest(requestId)
-      .subscribe((data: Request) => {
-        this.request = data;
-        this.showRepairerSection = this.statusToLoadRepairer.includes(this.request.status);
-        this.showReviewSection = this.statusToShowReview.includes(this.request.status);
-        this.showJoinedRepairer = this.statusToShowJoinedRepairer.includes(this.request.status);
-        this.status = {
-          name: NAME_STATUS[data.status],
-          color: COLOR_STATUS[data.status]
-        };
+    this.loading = true;
+    this.subscriptions.push(
+      this.requestService.getRequest(requestId)
+        .subscribe((data: Request) => {
+          this.request = data;
+          this.poster = {
+            avatar: data.userAvatar,
+            fullName: data.userFullName
+          };
 
-        const ss = this.repairerService.getHistoryInRequests([data.id])
-          .subscribe((histories: History[]) => {
-            this.history = this.getHistory(histories, data.id);
-            this.loadingHistory = false;
-          }, error => this.loadingHistory = false);
+          this.makeStatus(data.status);
 
-        this.subscriptions.push(ss);
-      });
+          this.loading = false;
 
-    this.subscriptions.push(s);
+          this.subscriptions.push(
+            this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE'])
+              .subscribe((data2: JoinedRepairer[]) => {
+                this.repairers = data2;
+                if (data2.find(r => r.status === 'QUOTE')) {
+                  this.showInputQuote = false;
+                }
+              }, error => this.repairers = [])
+          );
+        }, error => this.loading = false)
+    );
+
+  }
+
+  makeStatus(status: string) {
+    this.showRepairerSection = this.statusToLoadRepairer.includes(status);
+    this.showInputQuote = this.statusToQuote.includes(status);
+
+    switch (status) {
+      case 'QUOTED':
+        this.highlightComment.QUOTE = true;
+        break;
+      case 'ACCEPTED':
+        this.highlightComment.ACCEPT = true;
+        break;
+      case 'COMPLETED':
+        this.highlightComment.COMPLETE = true;
+        break;
+    }
+
+    this.status = {
+      name: NAME_STATUS[status],
+      color: COLOR_STATUS[status]
+    };
   }
 
   async ngOnInit() {
-    const s = this.authService.registerSubscriber().subscribe(profile => this.profile = profile);
-    this.subscriptions.push(s);
-    this.authService.loadProfile();
-    this.loading = await this.loadingController.create({
+    this.loadingPopup = await this.loadingController.create({
       message: 'Đang báo giá',
     });
   }
@@ -128,12 +160,33 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
 
   submitQuotePrice(price: number) {
-    this.loading.present();
-    this.repairerService.quotingRequest(this.request.id, this.profile.id, price, 'QUOTE').subscribe(
+    this.loadingPopup.present();
+    this.repairerService.actionRequest(this.request.id, this.me.id, price, 'QUOTE').subscribe(
       () => {
-        this.loading.dismiss();
+        this.loadingPopup.dismiss();
+        this.showInputQuote = false;
         this.successAlert(price);
-      }, error => this.loading.dismiss());
+      }, error => this.loadingPopup.dismiss());
+  }
+
+  async completeRequest() {
+    const { requestId } = this.route.snapshot.params;
+    const alert = await this.alertController.create({
+      header: 'Xác nhận',
+      message: 'Xác nhận hoàn thành công việc',
+      buttons: [
+        { text: 'Xong' }
+      ]
+    });
+
+    await alert.present();
+
+    this.repairerService.actionRequest(this.request.id, this.me.id, 0, 'COMPLETE').subscribe(
+      () => {
+        alert.dismiss();
+        this.loadRequest(requestId);
+      },
+      error => alert.dismiss());
   }
 
 

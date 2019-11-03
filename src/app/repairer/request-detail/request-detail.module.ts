@@ -9,6 +9,8 @@ import { RequestDetailPage } from './request-detail.page';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { RatingModule } from 'ng-starrating';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { PostComponent } from 'src/app/post/post.component';
+import { ShareModule } from 'src/app/util/share.module';
 
 const routes: Routes = [
   {
@@ -20,6 +22,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     PipeModule,
+    ShareModule,
     CommonModule,
     FormsModule,
     IonicModule,
@@ -29,4 +32,4 @@ const routes: Routes = [
   ],
   declarations: [RequestDetailPage]
 })
-export class RequestDetailPageModule {}
+export class RequestDetailPageModule { }

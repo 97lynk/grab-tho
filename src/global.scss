@@ -107,16 +107,6 @@ ion-item.hint {
   font-size: 14px !important;
 }
 
-.quote-comment {
-  --background: #ecfcf3 !important;
-  border-left: 3px solid #16c45a;
-}
-
-.accepted-comment {
-  --background: #ecfbfd !important;
-  border-left: 3px solid #0bb8cc;
-}
-
 .post-item {
   border: 1px solid #c8c7cc;
   background: #fff;
@@ -129,4 +119,8 @@ ion-item.hint {
 hr.divider {
   background: #c8c7cc;
   height: 1px;
+}
+
+.quoted-status {
+  color: var(--ion-color-step-600, #666) !important;
 }

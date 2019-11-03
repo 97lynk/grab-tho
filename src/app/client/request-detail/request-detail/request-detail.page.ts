@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecentRequest, Request } from 'src/app/dto/request';
+import { Request } from 'src/app/dto/request';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/service/request.service';
 import { imageHost } from 'src/app/util/file.util';
-import { Repairer } from 'src/app/dto/repairer';
+import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { NavController } from '@ionic/angular';
 
 import * as FastAverageColor from 'fast-average-color/dist';
 import { AuthService } from 'src/app/util/auth.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Profile } from 'src/app/dto/profile';
 const fac = new FastAverageColor();
 
@@ -23,17 +23,19 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   request: Request;
   repairer: Repairer = null;
+  repairers: JoinedRepairer[];
+
   imageHost = imageHost;
-  showRepairerSection = false;
+  showRepairerSection = true;
   showReviewSection = false;
   showJoinedRepairer = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED'];
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED'];
   statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
 
   subscriptions: Subscription[] = [];
 
-  profile: Profile;
+  poster: Profile;
 
   status = {
     color: 'primary',
@@ -54,7 +56,6 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
     private requestService: RequestService,
     private repairerService: RepairerService,
     private navController: NavController
@@ -65,6 +66,11 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
+        this.poster = {
+          avatar: data.userAvatar,
+          fullName: data.userFullName
+        };
+
         this.showRepairerSection = this.statusToLoadRepairer.includes(this.request.status);
         this.showReviewSection = this.statusToShowReview.includes(this.request.status);
         this.showJoinedRepairer = this.statusToShowJoinedRepairer.includes(this.request.status);
@@ -77,12 +83,14 @@ export class RequestDetailPage implements OnInit, OnDestroy {
             .subscribe((r: Repairer) => this.repairer = r);
         }
       });
+
+    this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE'])
+      .subscribe((data: JoinedRepairer[]) => {
+        this.repairers = data;
+      }, error => this.repairers = []);
   }
 
   ngOnInit() {
-    const s = this.authService.registerSubscriber().subscribe(profile => this.profile = profile);
-    this.subscriptions.push(s);
-    this.authService.loadProfile();
   }
 
   ngOnDestroy(): void {
