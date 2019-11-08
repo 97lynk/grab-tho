@@ -25,13 +25,15 @@
         <ion-input placeholder="Báo giá" clearInput class="post-comment" type="number" #input
           style="--padding-start: 8px; margin-right: 8px;">
         </ion-input>
-        <ion-icon name="send" mode="ios" color="primary" (click)="submitQuotePrice(input.value)"></ion-icon>
+        <ion-button (click)="submitQuotePrice(input.value)" fill="clear">
+          <ion-icon slot="icon-only" name="send" mode="ios" color="primary" size="large"></ion-icon>
+        </ion-button>
       </ion-item>
     </div>
   </ion-item>
 
-  <div class="ion-text-center" (click)="completeRequest()">
-    <ion-button mode="ios" class="ion-margin" fill="outline" color="primary">
+  <div class="ion-text-center" (click)="completeRequest()" *ngIf="request?.status === 'ACCEPTED'">
+    <ion-button mode="ios" class="ion-margin" fill="outline" color="success">
       <ion-icon name="lock"></ion-icon> Hoàn thành
     </ion-button>
   </div>
@@ -50,6 +52,6 @@
   </ion-item>
 
   <c-repairer-list *ngIf="showRepairerSection" [repairers]="repairers" [highlightComment]="highlightComment"
-    [itemClickable]="false" [poster]="poster"></c-repairer-list>
+    [request]="request" [itemClickable]="false" [poster]="poster"></c-repairer-list>
 
 </ion-content>

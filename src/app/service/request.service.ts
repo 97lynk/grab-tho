@@ -58,4 +58,8 @@ export class RequestService {
   acceptRepairerForRequest(requestId: number, repairerId: number) {
     return this.http.put(`${REQUEST_API}/${requestId}?repairer_id=${repairerId}`, {});
   }
+
+  postReview(requestId: number, comment: string, rate: number = 0) {
+    return this.http.patch(`${REQUEST_API}/${requestId}`, { rate, comment });
+  }
 }

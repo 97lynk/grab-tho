@@ -106,8 +106,8 @@ export class RequestManagementPage implements OnInit {
             .subscribe((data: Page<CompletedRequest>) => {
 
               data.content.forEach(req => {
-                if (req.status === 'CLOSED') { this.closedRequest.push(req); }
-                else { this.completedRequest.push(req); }
+                if (req.status === 'COMPLETED') { this.completedRequest.push(req); }
+                else { this.closedRequest.push(req); }
               });
               this.loadingData = false;
             }, error => {

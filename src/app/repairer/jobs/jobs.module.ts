@@ -5,15 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
+import { JobsPage } from './jobs.page';
 import { PipeModule } from 'src/app/pipe/pipe.module';
-import { HomePage } from './home.page';
-import { RequestItem } from './request-item/request.item';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: JobsPage
   }
 ];
 
@@ -26,6 +25,6 @@ const routes: Routes = [
     LazyLoadImageModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomePage, RequestItem]
+  declarations: [JobsPage]
 })
-export class HomeModule { }
+export class JobsPageModule { }

@@ -20,6 +20,6 @@ export const NAME_STATUS = {
     WAITING: 'Chờ làm việc',
 
     COMPLETED: 'Đã hoàn thành việc',
-    FEEDBACK: 'Chờ đánh giá',
+    FEEDBACK: 'Đã đánh giá',
     CLOSED: 'Đã đóng'
 };

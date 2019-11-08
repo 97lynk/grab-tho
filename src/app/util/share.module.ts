@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { RepairerListComponent } from 'src/app/repairer-list/repairer-list.component.';
+import { RatingModule } from 'ng-starrating';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { RepairerListComponent } from 'src/app/repairer-list/repairer-list.compo
         IonicModule,
         CommonModule,
         LazyLoadImageModule,
-        PipeModule
+        PipeModule,
+        RatingModule
     ],
     declarations: [PostComponent, RepairerListComponent],
     exports: [PostComponent, RepairerListComponent]

@@ -38,7 +38,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   imageHost = imageHost;
   showRepairerSection = false;
   showInputQuote = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED'];
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToStyling = ['QUOTED', 'ACCEPTED'];
   statusToQuote = ['POSTED', 'RECEIVED', 'QUOTED'];
 
@@ -83,6 +83,12 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   loadRequest(requestId: number | string) {
+    this.highlightComment = {
+      RECEIVE: false,
+      QUOTE: false,
+      ACCEPT: false,
+      COMPLETE: false
+    };
     this.loading = true;
     this.subscriptions.push(
       this.requestService.getRequest(requestId)
@@ -98,7 +104,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
           this.loading = false;
 
           this.subscriptions.push(
-            this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE'])
+            this.repairerService.getRepairerJoinedRequest(requestId,
+              ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])
               .subscribe((data2: JoinedRepairer[]) => {
                 this.repairers = data2;
                 if (data2.find(r => r.status === 'QUOTE')) {
@@ -171,22 +178,35 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   async completeRequest() {
     const { requestId } = this.route.snapshot.params;
+
+    const loading = await this.loadingController.create({
+      message: 'Xác nhận hoàn thành công việc'
+    });
+
     const alert = await this.alertController.create({
       header: 'Xác nhận',
-      message: 'Xác nhận hoàn thành công việc',
+      message: 'Xác nhận hoàn thành công việc?',
       buttons: [
-        { text: 'Xong' }
+        {
+          text: 'Hủy',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            loading.present();
+            this.repairerService.actionRequest(this.request.id, this.me.id, 0, 'COMPLETE').subscribe(
+              () => {
+                loading.dismiss();
+                this.loadRequest(requestId);
+              });
+          }
+        }
       ]
     });
 
     await alert.present();
-
-    this.repairerService.actionRequest(this.request.id, this.me.id, 0, 'COMPLETE').subscribe(
-      () => {
-        alert.dismiss();
-        this.loadRequest(requestId);
-      },
-      error => alert.dismiss());
   }
 
 

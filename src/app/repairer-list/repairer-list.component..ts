@@ -4,6 +4,7 @@ import { RepairerService } from 'src/app/service/repairer.service';
 import { JoinedRepairer } from 'src/app/dto/repairer';
 import { Profile } from 'src/app/dto/profile';
 import { ActivatedRoute } from '@angular/router';
+import { Request } from '../dto/request';
 
 
 @Component({
@@ -24,9 +25,9 @@ export class RepairerListComponent implements OnInit {
     COMPLETE: false
   };
 
-  @Input() quotedClass = '';
-  @Input() acceptedClass = '';
   @Input() itemClickable = false;
+
+  @Input() request: Request;
 
   @Input('repairers')
   set setRepairers(repairers: JoinedRepairer[]) {

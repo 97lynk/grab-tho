@@ -6,7 +6,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 
 import * as FastAverageColor from 'fast-average-color/dist';
 import { AuthService } from 'src/app/util/auth.service';
@@ -22,14 +22,17 @@ const fac = new FastAverageColor();
 export class RequestDetailPage implements OnInit, OnDestroy {
 
   request: Request;
-  repairer: Repairer = null;
+  // repairer: Repairer = null;
   repairers: JoinedRepairer[];
+  review = {
+    rate: 0, comment: ''
+  };
 
   imageHost = imageHost;
   showRepairerSection = true;
   showReviewSection = false;
   showJoinedRepairer = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED'];
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK'];
   statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
 
@@ -40,6 +43,13 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   status = {
     color: 'primary',
     name: '',
+  };
+
+  highlightComment = {
+    RECEIVE: false,
+    QUOTE: false,
+    ACCEPT: false,
+    COMPLETE: false
   };
 
   options = {
@@ -58,11 +68,24 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private requestService: RequestService,
     private repairerService: RepairerService,
-    private navController: NavController
+    private navController: NavController,
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) { }
 
   ionViewWillEnter() {
     const { requestId } = this.route.snapshot.params;
+    this.loadData(requestId);
+  }
+
+  loadData(requestId) {
+    this.highlightComment = {
+      RECEIVE: false,
+      QUOTE: false,
+      ACCEPT: false,
+      COMPLETE: false
+    };
+
     this.requestService.getRequest(requestId)
       .subscribe((data: Request) => {
         this.request = data;
@@ -71,23 +94,41 @@ export class RequestDetailPage implements OnInit, OnDestroy {
           fullName: data.userFullName
         };
 
-        this.showRepairerSection = this.statusToLoadRepairer.includes(this.request.status);
-        this.showReviewSection = this.statusToShowReview.includes(this.request.status);
-        this.showJoinedRepairer = this.statusToShowJoinedRepairer.includes(this.request.status);
-        this.status = {
-          name: NAME_STATUS[data.status],
-          color: COLOR_STATUS[data.status]
-        };
-        if (data.repairerId) {
-          this.repairerService.getRepairer(data.repairerId)
-            .subscribe((r: Repairer) => this.repairer = r);
-        }
+        this.makeStatus(data.status);
+
+        // if (data.repairerId) {
+        //   this.repairerService.getRepairer(data.repairerId)
+        //     .subscribe((r: Repairer) => this.repairer = r);
+        // }
       });
 
-    this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE'])
+    this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])
       .subscribe((data: JoinedRepairer[]) => {
         this.repairers = data;
       }, error => this.repairers = []);
+  }
+
+  makeStatus(status: string) {
+    this.showRepairerSection = this.statusToLoadRepairer.includes(status);
+    this.showReviewSection = this.statusToShowReview.includes(status);
+    this.showJoinedRepairer = this.statusToShowJoinedRepairer.includes(status);
+
+    switch (status) {
+      case 'QUOTED':
+        this.highlightComment.QUOTE = true;
+        break;
+      case 'ACCEPTED':
+        this.highlightComment.ACCEPT = true;
+        break;
+      case 'COMPLETED':
+        this.highlightComment.COMPLETE = true;
+        break;
+    }
+
+    this.status = {
+      name: NAME_STATUS[status],
+      color: COLOR_STATUS[status]
+    };
   }
 
   ngOnInit() {
@@ -104,6 +145,41 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   goBack() {
     this.navController.navigateBack('/tabs/request-management');
+  }
+
+
+  async confirmPostReview() {
+    const { requestId } = this.route.snapshot.params;
+
+    const loading = await this.loadingController.create({
+      message: 'Đánh giá thợ sửa chữa'
+    });
+
+    const alert = await this.alertController.create({
+      header: 'Xác nhận',
+      message: 'Gửi đánh giá?',
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            loading.present();
+            this.requestService.postReview(this.request.id, this.request.comment, this.request.rate)
+              .subscribe(data => {
+                console.log('post review ', data);
+                loading.dismiss();
+                this.loadData(requestId);
+              });
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
 }

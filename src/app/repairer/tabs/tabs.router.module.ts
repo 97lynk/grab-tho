@@ -17,6 +17,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'jobs',
+        children: [
+          {
+            path: '',
+            loadChildren: '../jobs/jobs.module#JobsPageModule'
+          }
+        ]
+      },
+      {
         path: 'account',
         children: [
           {
