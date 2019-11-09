@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from 'src/app/service/request.service';
 import { Subscription } from 'rxjs';
 import { Request } from 'src/app/dto/request';
@@ -10,7 +10,7 @@ import { imageHost } from 'src/app/util/file.util';
   templateUrl: './jobs.page.html',
   styleUrls: ['./jobs.page.scss'],
 })
-export class JobsPage implements OnInit {
+export class JobsPage implements OnInit, OnDestroy {
 
   requests: Request[] = [];
 
@@ -21,6 +21,10 @@ export class JobsPage implements OnInit {
   constructor(private requestService: RequestService) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ionViewWillEnter() {
