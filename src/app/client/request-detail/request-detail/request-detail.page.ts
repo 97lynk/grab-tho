@@ -147,7 +147,6 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.navController.navigateBack('/tabs/request-management');
   }
 
-
   async confirmPostReview() {
     const { requestId } = this.route.snapshot.params;
 
@@ -173,6 +172,40 @@ export class RequestDetailPage implements OnInit, OnDestroy {
                 console.log('post review ', data);
                 loading.dismiss();
                 this.loadData(requestId);
+              });
+          }
+        }
+      ]
+    });
+
+    alert.present();
+  }
+
+  async acceptQuote(repairer: JoinedRepairer) {
+    console.log('handle ', repairer);
+    const loading = await this.loadingController.create({
+      message: `Đang chấp nhận giá ${repairer.point} của ${repairer.fullName}`
+    });
+
+    const alert = await this.alertController.create({
+      header: 'Xác nhận',
+      message: `Chấp nhận giá ${repairer.point} của ${repairer.fullName}?`,
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            loading.present();
+            this.requestService.acceptRepairerForRequest(this.request.id, repairer.id)
+              .subscribe(data => {
+                loading.dismiss();
+                this.ionViewWillEnter();
+              }, error => {
+                loading.dismiss();
               });
           }
         }

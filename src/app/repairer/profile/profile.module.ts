@@ -9,11 +9,19 @@ import { ProfilePage } from './profile.page';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { RatingModule } from 'ng-starrating';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { HistoriesComponent } from './histories/histories.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage
+    component: ProfilePage,
+    // children: [
+    //   {
+    //     path: 'reviews',
+    //     loadChildren: './reviews/reviews.module#ReviewsModule'
+    //   }
+    // ]
   }
 ];
 
@@ -27,6 +35,6 @@ const routes: Routes = [
     RatingModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, ReviewsComponent, HistoriesComponent]
 })
 export class ProfilePageModule { }

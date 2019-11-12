@@ -7,8 +7,7 @@
   <div [style.height.px]="innerHeight - infoPanel.offsetHeight">
     <agm-map style="height: 100%" [latitude]="hcmc.lat" [longitude]="hcmc.lng" [streetViewControl]="false"
       [zoomControlOptions]="zoomConfig">
-      <agm-direction *ngIf="destination != null" [origin]="origin" [destination]="destination"
-        [markerOptions]="markerOptions">
+      <agm-direction *ngIf="destination != null" [origin]="origin" [destination]="destination">
       </agm-direction>
     </agm-map>
   </div>

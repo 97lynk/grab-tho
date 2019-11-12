@@ -52,7 +52,8 @@
   </ion-item> -->
 
   <c-repairer-list *ngIf="showRepairerSection" [repairers]="repairers" [highlightComment]="highlightComment"
-    [request]="request" [itemClickable]="request?.status === 'RECEIVED' || request?.status === 'QUOTED'" [poster]="poster">
+    [request]="request" [itemClickable]="true" [poster]="poster"
+    (acceptQuote)="acceptQuote($event)">
   </c-repairer-list>
 
 </ion-content>

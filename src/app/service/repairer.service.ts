@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 import { dataURItoBlob } from '../util/file.util';
 import { RecentRequest } from '../dto/request';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { Repairer } from '../dto/repairer';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
 const REPAIRER_API = `${environment.serviceUrl}/repairers`;
@@ -13,7 +15,6 @@ const HISTORIES_API = `${environment.serviceUrl}/histories`;
   providedIn: 'root'
 })
 export class RepairerService {
-
 
   constructor(
     private http: HttpClient) { }
@@ -31,6 +32,10 @@ export class RepairerService {
 
   getRepairer(repairerId: number | string) {
     return this.http.get(`${REPAIRER_API}/${repairerId}`);
+  }
+
+  getRateRepairer(repairerId: number | string) {
+    return this.http.get(`${REPAIRER_API}/${repairerId}/rate`);
   }
 
   actionRequest(requestId: number | string, repairerId: number | string, point: number, action: string) {

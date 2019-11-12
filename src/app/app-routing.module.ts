@@ -37,7 +37,16 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
-  { path: 'request-detail', loadChildren: './repairer/request-detail/request-detail.module#RequestDetailPageModule' },
+  {
+    path: 'request-detail',
+    loadChildren: './repairer/request-detail/request-detail.module#RequestDetailPageModule'
+  },
+  {
+    path: 'repairers/:repairerId',
+    canActivate: [AuthGuard],
+    loadChildren: './repairer/profile/profile.module#ProfilePageModule'
+  },
+
 
 ];
 @NgModule({

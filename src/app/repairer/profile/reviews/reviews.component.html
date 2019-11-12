@@ -1,0 +1,61 @@
+<ion-row class="ion-padding-horizontal ion-padding-top" style="color: var(--ion-color-theme-shade); font-size: 16px;">
+  Đánh giá
+</ion-row>
+
+<ng-container *ngIf="repairer && rate && rate?.count > 0">
+  <ion-row class="ion-padding-horizontal ion-padding-top ion-align-items-center">
+    <ion-col sie="5" class="ion-text-center">
+      <div class="rate-number">{{ repairer.rating | number:'1.1-1' }}</div>
+      <star-rating [value]="repairer.rating" checkedcolor="#737373" uncheckedcolor="#d9d9d9" size="18px"
+        readonly="true">
+      </star-rating>
+      <div class="total-rate">
+        <ion-icon name="person" mode="md"></ion-icon> Tổng {{ rate?.count }} lượt
+      </div>
+    </ion-col>
+    <ion-col size="7">
+      <div>
+        <span class="prefix-bar">5</span>
+        <ion-progress-bar [value]="rate.data['5.0'] / rate.max" class="rate bar-5"></ion-progress-bar>
+      </div>
+      <div>
+        <span class="prefix-bar">4</span>
+        <ion-progress-bar [value]="rate.data['4.0'] / rate.max" class="rate bar-4"></ion-progress-bar>
+      </div>
+      <div>
+        <span class="prefix-bar">3</span>
+        <ion-progress-bar [value]="rate.data['3.0'] / rate.max" class="rate bar-3"></ion-progress-bar>
+      </div>
+      <div>
+        <span class="prefix-bar">2</span>
+        <ion-progress-bar [value]="rate.data['2.0'] / rate.max" class="rate bar-2"></ion-progress-bar>
+      </div>
+      <div>
+        <span class="prefix-bar">1</span>
+        <ion-progress-bar [value]="rate.data['1.0'] / rate.max" class="rate bar-1"></ion-progress-bar>
+      </div>
+    </ion-col>
+  </ion-row>
+  <hr class="divider ion-margin-horizontal" />
+</ng-container>
+
+<ion-list class="ion-padding-vertical">
+  <ng-container *ngFor="let req of requests">
+    <ion-item lines="none" *ngIf="req.feedBack">
+      <ion-avatar slot="start">
+        <img [src]="req.userAvatar" alt="avatar">
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color">{{ req.userFullName }}</div>
+        <div class="post-time">
+          <star-rating style="display: inline-block;" [value]="4.2" checkedcolor="gold" uncheckedcolor="gray"
+            size="12px" readonly="true">
+          </star-rating> {{ req.createAt | vdatetime }}
+        </div>
+      </ion-label>
+    </ion-item>
+    <div>
+      <div class="review-comment">{{ req.comment }}</div>
+    </div>
+  </ng-container>
+</ion-list>

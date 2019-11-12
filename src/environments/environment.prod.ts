@@ -1,8 +1,9 @@
 export const environment = {
   production: true,
-  redirectUri: 'https://motel-242404.web.app',
-  serviceUrl: 'http://192.168.1.7:8080',
-  fbAppId: '2108695482772729',
+  redirectUri: 'https://grabtho.web.app',
+  serviceUrl: 'https://35.198.211.40',
+  authSsl: false,
+  fbAppId: '406082087012941',
   firebase: {
     apiKey: 'AIzaSyBDc2yRxjlk0RyAp2utPQU5pv3eEmSEntE',
     authDomain: 'motel-242404.firebaseapp.com',

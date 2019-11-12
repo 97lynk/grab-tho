@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-light">
+<ion-content>
 
   <div *ngFor="let data of requests" routerDirection="root" [routerLink]="['/r','requests', data.id]">
     <ion-item lines="none">
@@ -19,12 +19,25 @@
 
     <ion-item lines="none" class="ion-margin-bottom">
       <ion-label>
-        <ion-text class="description">{{ data?.textDescription | truncateText: 150 : true }} </ion-text>
-        <ion-thumbnail class="ion-margin-vertical">
-          <img [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src + '?q=0.1'"
-            *ngFor="let src of data.imagesDescription" style="margin-right: 5px;">
-        </ion-thumbnail>
+        <ion-text class="description" style="display: block;">
+          {{ data?.textDescription | truncateText: 150 : true }}
+        </ion-text>
       </ion-label>
     </ion-item>
+
+    <div [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + data.imagesDescription[0]"
+      class="post-image">
+    </div>
+
+    <div class="ion-text-right ion-padding">
+      <span class="post-sumary" *ngIf="data.noQuote > 0">{{ data?.noQuote }} Báo giá</span>
+      <span class="post-sumary" *ngIf="data.noReceiver > 0">
+        &nbsp;&#8729;&nbsp;{{ data?.noReceiver }} Xem yêu cầu
+      </span>
+      <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
+        Chưa có thợ xem yêu cầu</span>
+    </div>
+
+    <ion-item-divider></ion-item-divider>
   </div>
 </ion-content>

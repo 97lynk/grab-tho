@@ -6,6 +6,7 @@ import { dataURItoBlob } from '../util/file.util';
 import { RecentRequest } from '../dto/request';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
+const REPAIRER_API = `${environment.serviceUrl}/repairers`;
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,12 @@ export class RequestService {
 
   getAndFilterBy(statuses: string[]) {
     return this.http.get(REQUEST_API, {
+      params: { status: statuses }
+    });
+  }
+
+  getRequestOfRepairer(repairerId: number, statuses: string[]) {
+    return this.http.get(`${REPAIRER_API}/${repairerId}/requests`, {
       params: { status: statuses }
     });
   }

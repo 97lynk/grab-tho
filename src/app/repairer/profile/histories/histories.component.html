@@ -1,0 +1,20 @@
+<ion-row class="ion-padding-horizontal ion-padding-top" style="color: var(--ion-color-theme-shade); font-size: 16px;">
+  Lịch sử
+</ion-row>
+
+<ion-list class="ion-padding-vertical">
+  <ng-container *ngFor="let req of requests">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img [src]="req.userAvatar" alt="avatar">
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color">{{ req.userFullName }}</div>
+        <div class="post-time"> {{ req.createAt | vdatetime }} </div>
+      </ion-label>
+    </ion-item>
+    <div>
+      <div class="review-comment">{{ req.textDescription }}</div>
+    </div>
+  </ng-container>
+</ion-list>

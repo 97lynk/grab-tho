@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { JoinedRepairer } from 'src/app/dto/repairer';
 import { Profile } from 'src/app/dto/profile';
 import { ActivatedRoute } from '@angular/router';
 import { Request } from '../dto/request';
+import { RequestService } from '../service/request.service';
 
 
 @Component({
@@ -15,6 +16,9 @@ import { Request } from '../dto/request';
 export class RepairerListComponent implements OnInit {
 
   repairers: JoinedRepairer[] = null;
+
+  @Output() acceptQuote = new EventEmitter<JoinedRepairer>();
+
 
   @Input() poster: Profile;
 
@@ -38,7 +42,10 @@ export class RepairerListComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
-    private repairerService: RepairerService) {
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private repairerService: RepairerService,
+    private requestService: RequestService) {
   }
 
   ngOnInit() {
@@ -47,7 +54,7 @@ export class RepairerListComponent implements OnInit {
 
   clickItem(repairerId: number) {
     if (this.itemClickable) {
-      this.navController.navigateRoot(['repairers', repairerId], { relativeTo: this.activatedRoute });
+      this.navController.navigateRoot(['/repairers', repairerId], { relativeTo: this.activatedRoute });
     }
   }
 

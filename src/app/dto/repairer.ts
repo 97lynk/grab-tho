@@ -16,6 +16,11 @@ export interface Repairer {
 
     rating: number;
 
+    reviews: number;
+
+    major: string;
+
+    completedJob: number;
 }
 
 export interface JoinedRepairer {

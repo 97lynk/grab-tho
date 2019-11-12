@@ -22,6 +22,17 @@ export class HomePage implements OnInit {
 
   loadingData = false;
 
+  optionsForGuide = {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 1500,
+    },
+    fadeEffect: {
+      crossFade: true
+    }
+  };
+
   options = {
     speed: 400,
     loop: true,

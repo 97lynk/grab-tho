@@ -1,31 +1,66 @@
-<ion-header translucent>
+<ion-header translucent noborder>
   <ion-toolbar translucent>
-    <ng-container *ngIf="profile">
-      <ion-avatar slot="start" class="ion-margin-start" style="border: 2px solid var(--ion-color-primary-shade)">
-        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="profile?.avatar">
-      </ion-avatar>
-      <h5 class="ion-padding-start">{{ profile?.fullName }}</h5>
-      <ion-buttons slot="end" style="font-size: 24px;">
-        <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
-        <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
-      </ion-buttons>
-    </ng-container>
+    <ion-buttons slot="start">
+      <span class="primary-color" style="font-weight: 900; margin-left: 20px;">GrabTho</span>
+    </ion-buttons>
+    <ion-buttons slot="end" style="font-size: 24px;">
+      <!-- <ion-icon class="ion-margin-end" name="notifications-outline"></!--> 
+      <ion-icon class="ion-margin-end" (click)="logout()" name="power" fill="clear" color="primary"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
 
-<ion-content class="bg-light">
+<ion-content class="ion-padding-bottom">
+
+  <div class="ion-padding-vertical" *ngIf="repairer">
+    <ion-item lines="none">
+      <ion-avatar slot="start" style="border: 2px solid var(--ion-color-primary-shade); width: 48px; height: 48px;">
+        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="repairer.avatar">
+      </ion-avatar>
+      <ion-label class="profile-info">
+        <ion-item lines="none" style="--min-height: auto; --padding-start: 0;">
+          <h3 class="fullname ion-text-wrap">{{ repairer.fullName }}</h3>
+          <!-- <ion-button slot="end" (click)="logout()" fill="clear" color="primary">
+            <ion-icon class="ion-margin-end" size="large" name="power"></ion-icon> -->
+          <!-- </ion-button> -->
+        </ion-item>
+        <h5 class="major  ion-text-wrap">{{ repairer.major }}</h5>
+      </ion-label>
+
+    </ion-item>
+
+    <div class="ion-padding-horizontal ion-margin-top">
+      <ion-chip outline color="secondary" style="font-size: 10px; height: auto;">
+        <ion-icon name="star"></ion-icon>
+        <ion-label>{{ repairer.rating | number: '1.1-1'}} điểm</ion-label>
+      </ion-chip>
+      <ion-chip outline color="secondary" style="font-size: 10px; height: auto;">
+        <ion-icon name="build" mode="md"></ion-icon>
+        <ion-label>{{ repairer.completedJob}} công trình</ion-label>
+      </ion-chip>
+      <ion-chip outline color="secondary" style="font-size: 10px; height: auto;">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label>10 yêu thích</ion-label>
+      </ion-chip>
+    </div>
+
+  </div>
+
+  <ion-item-divider></ion-item-divider>
+
 
   <ng-container *ngIf="myRequests.length > 0">
-    <h3 class="subtitle ion-padding-horizontal">Yêu cầu của bạn</h3>
+    <ion-row class="ion-padding list-header">
+      Yêu cầu của bạn
+    </ion-row>
 
     <item-request *ngFor="let req of myRequests" [request]="req" [history]="null" routerDirection="root"
       [routerLink]="['/r','requests', req.id]">
     </item-request>
+
+    <ion-item-divider></ion-item-divider>
   </ng-container>
-
-
-  <h3 class="subtitle ion-padding-horizontal">Yêu cầu mới</h3>
 
   <item-request *ngFor="let req of recentRequest" [request]="req" [history]="getHistory(req.id)" routerDirection="root"
     [routerLink]="['/r','requests', req.id]"></item-request>

@@ -25,6 +25,28 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+$text: #444;
+$text-darker: darken($text, 15);
+$text-lighter: lighten($text, 15);
+
+:root {
+  --ion-color-theme: #0a71f9;
+  --ion-color-theme-rgb: 10, 113, 249;
+  --ion-color-theme-contrast: #ffffff;
+  --ion-color-theme-contrast-rgb: 255, 255, 255;
+  --ion-color-theme-shade: #0963db;
+  --ion-color-theme-tint: #237ffa;
+}
+
+.ion-color-theme {
+  --ion-color-base: var(--ion-color-theme);
+  --ion-color-base-rgb: var(--ion-color-theme-rgb);
+  --ion-color-contrast: var(--ion-color-theme-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-theme-contrast-rgb);
+  --ion-color-shade: var(--ion-color-theme-shade);
+  --ion-color-tint: var(--ion-color-theme-tint);
+}
+
 .repaier-info-modal .modal-wrapper {
   width: 100%;
   top: 0;
@@ -59,6 +81,21 @@
   ion-icon {
     font-size: 75% !important;
   }
+}
+
+.text-color {
+  color: $text;
+  font-size: 14px;
+}
+
+.text-light-color {
+  color: $text-lighter;
+  font-size: 14px;
+}
+
+.text-dark-color {
+  color: $text-darker;
+  font-size: 14px;
 }
 
 .description {
@@ -112,6 +149,15 @@ ion-item.hint {
   background: #fff;
 }
 
+.post-image {
+  border: 1px solid #c8c7cc;
+  width: 100%;
+  height: 200px;
+  background-size: 100% auto;
+  background-position: center;
+  background-clip: content-box;
+}
+
 .primary-color {
   color: var(--ion-color-primary);
 }
@@ -123,4 +169,10 @@ hr.divider {
 
 .quoted-status {
   color: var(--ion-color-step-600, #666) !important;
+}
+
+.list-header {
+  color: var(--ion-color-theme-shade);
+  font-size: 16px;
+  font-weight: bold;
 }

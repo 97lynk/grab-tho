@@ -166,7 +166,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
 
-  submitQuotePrice(price: number) {
+  submitQuotePrice(price) {
     this.loadingPopup.present();
     this.repairerService.actionRequest(this.request.id, this.me.id, price, 'QUOTE').subscribe(
       () => {

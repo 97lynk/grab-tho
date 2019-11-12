@@ -10,6 +10,7 @@ import { RepairerService } from 'src/app/service/repairer.service';
 import { History } from 'src/app/dto/history';
 import { NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { Repairer } from 'src/app/dto/repairer';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ export class HomePage implements OnInit, OnDestroy {
   imageHost = imageHost;
 
   profile: Profile;
+
+  repairer: Repairer;
 
   recentRequest: RecentRequest[] = [];
 
@@ -75,6 +78,15 @@ export class HomePage implements OnInit, OnDestroy {
       this.authService.registerSubscriber().subscribe((profile: Profile) => {
         console.log('OAuth2: authenticated, receive profile in home ', profile);
         this.profile = profile;
+
+        if (profile) {
+          this.subscriptions.push(
+            this.repairerService.getRepairer(profile.id).subscribe((data: Repairer) => {
+              this.repairer = data;
+              console.log('repairer ', data);
+            })
+          );
+        }
       }, () => console.log('Header: receive profile fail'))
     );
   }

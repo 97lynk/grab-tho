@@ -7,7 +7,7 @@
 
 .profile-info {
   margin: 0;
-  text-align: center;
+  // text-align: center;
 
   .fullname {
     font-size: 22px;
@@ -22,61 +22,21 @@
 .summary-info {
   border-right: 1px solid #ddd;
   text-align: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
 
   .value {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 300;
   }
 
   .title {
     padding: 0;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
 .no-border {
   border: none !important;
-}
-
-.rate {
-  height: 10px;
-  --buffer-background: transparent;
-  margin-bottom: 8px;
-}
-
-.bar-5 {
-  --progress-background: #4caf50;
-}
-.bar-4 {
-  --progress-background: #2196f3;
-}
-.bar-3 {
-  --progress-background: #00bcd4;
-}
-.bar-2 {
-  --progress-background: #ff9800;
-}
-.bar-1 {
-  --progress-background: #f44336;
-}
-
-.prefix-bar {
-  position: absolute;
-  left: -10px;
-  font-size: 14px;
-  line-height: 10px;
-}
-
-.total-rate {
-  font-size: 12px;
-  color: var(--ion-color-step-600, #666) !important;
-}
-
-.rate-number {
-  font-size: 3rem;
-  line-height: 2.5rem;
-  text-align: center;
-  font-weight: normal;
-  color: var(--ion-color-step-600, #666) !important;
 }

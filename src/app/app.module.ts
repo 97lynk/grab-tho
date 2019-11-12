@@ -31,7 +31,7 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
     BrowserModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0',
+      apiKey: 'AIzaSyCDPeg9P7THit_cAZ8IGKoNn84FPwQrgNE',
       libraries: ['places']
     }),
     OAuthModule.forRoot(urlsAuth),
