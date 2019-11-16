@@ -1,10 +1,9 @@
 <ion-header translucent noborder>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <span class="primary-color" style="font-weight: 900; margin-left: 20px;">GrabTho</span>
+      <span class="logo">GrabTho</span>
     </ion-buttons>
     <ion-buttons slot="end" style="font-size: 24px;">
-      <!-- <ion-icon class="ion-margin-end" name="notifications-outline"></!--> 
       <ion-icon class="ion-margin-end" (click)="logout()" name="power" fill="clear" color="primary"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
@@ -21,9 +20,6 @@
       <ion-label class="profile-info">
         <ion-item lines="none" style="--min-height: auto; --padding-start: 0;">
           <h3 class="fullname ion-text-wrap">{{ repairer.fullName }}</h3>
-          <!-- <ion-button slot="end" (click)="logout()" fill="clear" color="primary">
-            <ion-icon class="ion-margin-end" size="large" name="power"></ion-icon> -->
-          <!-- </ion-button> -->
         </ion-item>
         <h5 class="major  ion-text-wrap">{{ repairer.major }}</h5>
       </ion-label>
@@ -55,14 +51,16 @@
       Yêu cầu của bạn
     </ion-row>
 
-    <item-request *ngFor="let req of myRequests" [request]="req" [history]="null" routerDirection="root"
-      [routerLink]="['/r','requests', req.id]">
-    </item-request>
-
+    <ng-container *ngFor="let req of myRequests">
+      <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req" [histories]="dataRepairerList[req.id]"
+        routerDirection="root" [routerLink]="['/r','requests', req.id]">
+      </item-request>
+    </ng-container>
     <ion-item-divider></ion-item-divider>
   </ng-container>
 
-  <item-request *ngFor="let req of recentRequest" [request]="req" [history]="getHistory(req.id)" routerDirection="root"
-    [routerLink]="['/r','requests', req.id]"></item-request>
-
+  <ng-container *ngFor="let req of recentRequest">
+    <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req" [histories]="dataRepairerList[req.id]"
+      routerDirection="root" [routerLink]="['/r','requests', req.id]"></item-request>
+  </ng-container>
 </ion-content>

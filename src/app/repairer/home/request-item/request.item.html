@@ -1,9 +1,9 @@
-<ion-item lines="inset" class="quoted-status" *ngIf="history">
+<!-- <ion-item lines="inset" class="quoted-status" *ngIf="history">
   <ion-label class="ion-text-wrap">
     <ion-icon name="flash" mode="ios"></ion-icon>
     Bạn đã báo giá {{ history.point }} lúc {{ history.createAt | vdatetime }}
   </ion-label>
-</ion-item>
+</ion-item> -->
 
 <ion-item lines="none">
   <ion-avatar slot="start">
@@ -15,7 +15,7 @@
   </ion-label>
 </ion-item>
 
-<ion-item lines="none" class="ion-margin-bottom">
+<ion-item lines="none">
   <ion-label>
     <ion-text class="description" style="display: block;">
       {{ data?.textDescription | truncateText: 150 : true }}
@@ -34,5 +34,10 @@
   <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
     Chưa có thợ xem yêu cầu</span>
 </div>
+
+<hr class="divider ion-no-margin ion-margin-horizontal" />
+
+<c-repairer-list *ngIf="true" [repairers]="histories" [highlightComment]="true" [request]="null" [itemClickable]="false"
+  [poster]="{ fullName: data.userFullName, avatar: data.userAvatar }"></c-repairer-list>
 
 <ion-item-divider></ion-item-divider>

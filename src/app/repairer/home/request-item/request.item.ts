@@ -4,6 +4,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { AlertController } from '@ionic/angular';
 import { History } from 'src/app/dto/history';
 import { Profile } from 'src/app/dto/profile';
+import { JoinedRepairer } from 'src/app/dto/repairer';
 
 @Component({
     selector: 'item-request',
@@ -16,9 +17,10 @@ export class RequestItem implements OnInit {
 
     @Input('request') data: RecentRequest;
 
-    @Input() history: History;
+    @Input() histories: JoinedRepairer[];
 
     ngOnInit(): void { }
 
     constructor() { }
+
 }

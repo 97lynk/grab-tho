@@ -9,8 +9,10 @@ import { imageHost } from 'src/app/util/file.util';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { History } from 'src/app/dto/history';
 import { NavController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-import { Repairer } from 'src/app/dto/repairer';
+import { Subscription, merge, forkJoin } from 'rxjs';
+import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
+import { mergeMap, map } from 'rxjs/operators';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -35,74 +37,103 @@ export class HomePage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  requestIds: number[];
+
+  dataRepairerList: any;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private requestService: RequestService,
     private repairerService: RepairerService,
-    public navController: NavController
+    public navController: NavController,
+    private notificationService: NotificationService
   ) {
   }
 
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     console.log('r home page');
+    const sub = this.authService.registerSubscriber().subscribe(profile => {
+      this.profile = profile;
+      if (profile) {
+        this.loadData();
+      }
+    });
 
+    this.subscriptions.push(sub);
     this.authService.loadProfile();
+  }
+
+  loadData() {
 
     this.recentRequest = [];
     this.histories = [];
     this.myRequests = [];
-    this.subscriptions.push(
-      this.requestService.getRequest('accepted')
-        .subscribe((data: Request[]) => this.myRequests = data)
-    );
 
-    this.subscriptions.push(
-      this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
-        .subscribe((data: Page<RecentRequest>) => {
-          this.recentRequest = data.content;
-          const ids = this.recentRequest.map(r => r.id);
-          this.data = this.recentRequest[0];
-          this.repairerService.getHistoryInRequests(ids)
-            .subscribe((histories: History[]) => {
-              this.histories = histories;
-            });
-        })
-    );
+    const sub = forkJoin([
+      this.requestService.getRequest('accepted'),
+      this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED']),
+      this.repairerService.getRepairer(this.profile.id)
+    ]).pipe(
+      mergeMap((results: any[]) => {
+        // 1st request
+        this.myRequests = results[0];
+        // 2nd request
+        this.recentRequest = results[1].content;
+        this.data = this.recentRequest[0];
+        // 3rd request
+        this.repairer = results[2];
+
+        this.requestIds = this.myRequests.map(r => r.id);
+        this.requestIds.push(...this.recentRequest.map(r => r.id));
+        return this.repairerService.getHistoryInRequests(this.requestIds);
+      })
+    ).subscribe((histories: History[]) => {
+      this.histories = histories;
+      this.histories.sort((a, b) => (+new Date(b.createAt) - +new Date(a.createAt)));
+      this.makeRepairerListData();
+    });
+
+
+    this.subscriptions.push(sub);
+
+  }
+
+  ionViewWillLeave() {
   }
 
   ngOnInit(): void {
-    console.log('r home init');
-    this.subscriptions.push(
-      this.authService.registerSubscriber().subscribe((profile: Profile) => {
-        console.log('OAuth2: authenticated, receive profile in home ', profile);
-        this.profile = profile;
-
-        if (profile) {
-          this.subscriptions.push(
-            this.repairerService.getRepairer(profile.id).subscribe((data: Repairer) => {
-              this.repairer = data;
-              console.log('repairer ', data);
-            })
-          );
-        }
-      }, () => console.log('Header: receive profile fail'))
-    );
   }
 
   ngOnDestroy(): void {
-    console.log('unsubscribe ', this.subscriptions.length);
+    console.log('unsubscribe hoem repairer ', this.subscriptions);
     this.subscriptions.forEach(s => s.unsubscribe());
   }
+
+
 
   logout() {
     this.authService.logout();
     this.navController.navigateRoot('/login');
   }
 
-  getHistory(requestId: number) {
-    return this.histories.find(h => h.requestId === requestId && h.status === 'QUOTE');
+  makeRepairerListData() {
+    this.dataRepairerList = {};
+    this.requestIds.forEach((id: number) => {
+      this.dataRepairerList[id + ''] = this.histories
+        .filter(h => h.requestId === id)
+        .map((h: History) => {
+          return {
+            fullName: this.profile.fullName,
+            avatar: this.profile.avatar,
+            point: h.point,
+            status: h.status,
+            createAt: h.createAt
+          };
+        });
+    });
+
   }
 
 }

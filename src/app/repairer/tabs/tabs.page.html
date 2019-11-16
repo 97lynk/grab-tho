@@ -9,8 +9,9 @@
       <ion-icon name="list"></ion-icon>
     </ion-tab-button>
 
-    <ion-tab-button tab="account">
-      <ion-icon name="person"></ion-icon>
+    <ion-tab-button tab="notification">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
     </ion-tab-button>
   </ion-tab-bar>
 

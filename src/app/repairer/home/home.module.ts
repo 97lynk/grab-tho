@@ -9,6 +9,8 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
 import { HomePage } from './home.page';
 import { RequestItem } from './request-item/request.item';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ShareModule } from 'src/app/util/share.module';
+
 
 const routes: Routes = [
   {
@@ -24,7 +26,8 @@ const routes: Routes = [
     IonicModule,
     PipeModule,
     LazyLoadImageModule,
-    RouterModule.forChild(routes)
+    ShareModule,
+    RouterModule.forChild(routes),
   ],
   declarations: [HomePage, RequestItem]
 })

@@ -10,28 +10,19 @@ const routes: Routes = [
       {
         path: 'home',
         children: [
-          {
-            path: '',
-            loadChildren: '../home/home.module#HomeModule'
-          }
+          { path: '', loadChildren: '../home/home.module#HomeModule' }
         ]
       },
       {
         path: 'jobs',
         children: [
-          {
-            path: '',
-            loadChildren: '../jobs/jobs.module#JobsPageModule'
-          }
+          { path: '', loadChildren: '../jobs/jobs.module#JobsPageModule' }
         ]
       },
       {
-        path: 'account',
+        path: 'notification',
         children: [
-          {
-            path: '',
-            loadChildren: '../home/home.module#HomeModule'
-          }
+          { path: '', loadChildren: '../../notification/notification.module#NotificationPageModule' }
         ]
       },
       {
