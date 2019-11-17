@@ -22,63 +22,15 @@
     </ion-item>
   </div>
 
-  <ion-button (click)="facebookLogin()">
-    <ion-icon name="logo-facebook"></ion-icon> Đăng nhập qua Facebook
-  </ion-button>
-  <ion-button (click)="oauth2Login()">
-    <ion-icon name="login"></ion-icon> Đăng nhập qua GrabTho
-  </ion-button>
+  {{ message | async | json }}
 
-  <ion-button (click)="notify()">Notification</ion-button>
+ <ion-button (click)="subscribe()">SubScribe</ion-button>
 
-  <pre>{{ info }}</pre>
-  <div>Cap {{ platform }}</div>
-  <div>Platform {{ platforms }}</div>
+<!--  <pre>{{ info }}</pre>-->
+<!--  <div>Cap {{ platform }}</div>-->
+<!--  <div>Platform {{ platforms }}</div>-->
 
-  <ion-button (click)="openDatePicker()">Select date</ion-button>
-
-  <button (click)="init()" ion-button>
-    Init
-  </button>
-  <br /><br />
-  <button (click)="scheduleNow()" ion-button>
-    Schedule Now - Icon from config (or default)
-  </button>
-  <button (click)="scheduleNowWithIcon()" ion-button>
-    Schedule Now - Icon parameter
-  </button>
-  <br /><br />
-  <button (click)="scheduleOnce()" ion-button>
-    Schedule in 10 seconds
-  </button>
-  <br /><br />
-  <button (click)="scheduleRepeatingEvery()" ion-button>
-    Schedule every minute
-  </button>
-  <br /><br />
-  <button (click)="scheduleRepeatingOn()" ion-button>
-    Schedule when clock matches next minute
-  </button>
-  <br /><br />
-  <button (click)="cancelNotification()" ion-button>
-    Cancel Local Notifications
-  </button>
-  <br /><br />
-  <button (click)="getPending()" ion-button>
-    Get Pending
-  </button>
-  <br /><br />
-  <div *ngIf="pendingNotifs">
-    <div *ngFor="let notif of pendingNotifs.notifications">
-      {{toJson(notif)}}
-    </div>
-  </div>
 
   <input class="file-upload-button" type="file" accept="image/*" #inputPhoto>
 
-<div class="footer primary ion-no-padding">
-  <ion-button expand="full" class="ion-no-margin" (click)="captureImage()">
-    <ion-icon name="camera" class="ion-padding-end"></ion-icon> Thêm hình ảnh
-  </ion-button>
-</div>
 </ion-content>

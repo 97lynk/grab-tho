@@ -20,7 +20,11 @@ import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { urlsAuth } from './util/auth.config';
 import { AuthGuard } from './util/auth-guard';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +45,12 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
     }),
     LazyLoadImageModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule,
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
   ],
   providers: [
     NgxImageCompressService, Platform, WebView, Network,

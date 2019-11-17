@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   redirectUri: 'https://grabtho.web.app',
-  serviceUrl: 'https://35.198.211.40',
+  serviceUrl: 'https://grabtho.tk',
   authSsl: false,
   fbAppId: '406082087012941',
   firebase: {

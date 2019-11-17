@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   redirectUri: 'http://localhost:8100',
   serviceUrl: 'http://192.168.1.10:8080',
-  // serviceUrl: 'http://35.198.211.40',
+  // serviceUrl: 'https://grabtho.tk',
   authSsl: false,
   fbAppId: '1153417668380667',
   firebase: {

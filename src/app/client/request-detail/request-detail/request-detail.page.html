@@ -34,23 +34,6 @@
     </div>
   </ion-item>
 
-  <!-- reviewed -->
-  <!-- <ion-item class="ion-margin-bottom" *ngIf="showReviewSection && request?.feedBack" lines="none">
-    <ion-avatar slot="start">
-      <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="poster?.avatar">
-    </ion-avatar>
-    <ion-label>
-      <span class="post-comment">
-        <span class="primary-color">{{ poster?.fullName }}</span> - <span>đã đánh giá</span>
-        <div>
-          <star-rating [value]="request?.rate" checkedcolor="gold" uncheckedcolor="gray" size="24px" readonly="true">
-          </star-rating>
-          <div class="ion-text-wrap ion-padding-top"> {{ request?.comment }} </div>
-        </div>
-      </span>
-    </ion-label>
-  </ion-item> -->
-
   <c-repairer-list *ngIf="showRepairerSection" [repairers]="repairers" [highlightComment]="highlightComment"
     [request]="request" [itemClickable]="true" [poster]="poster"
     (acceptQuote)="acceptQuote($event)">

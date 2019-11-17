@@ -20,8 +20,9 @@ ion-slide > img {
 ion-card.recently-request {
   text-align: left;
   margin-top: 0;
-  
-  img, ion-skeleton-text.img-skeleton {
+
+  img,
+  ion-skeleton-text.img-skeleton {
     height: 100px;
     width: 100%;
     margin-top: 0;
@@ -45,4 +46,11 @@ ion-card.recently-request {
     font-size: 12px;
     // margin-right: 0;
   }
+}
+
+.quickstart-box {
+  color: #6a6a6a;
+  padding: 20px 0;
+  font-size: 16px;
+  width: 100%;
 }

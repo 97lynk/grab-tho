@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NavController, LoadingController, AlertController } from '@ionic/angular';
-import { RepairerService } from 'src/app/service/repairer.service';
+import { NavController } from '@ionic/angular';
 import { JoinedRepairer } from 'src/app/dto/repairer';
 import { Profile } from 'src/app/dto/profile';
 import { ActivatedRoute } from '@angular/router';
 import { Request } from '../dto/request';
-import { RequestService } from '../service/request.service';
 
 
 @Component({
@@ -35,17 +33,12 @@ export class RepairerListComponent implements OnInit {
 
   @Input('repairers')
   set setRepairers(repairers: JoinedRepairer[]) {
-    console.log('set Repairers ', repairers);
     this.repairers = repairers;
   }
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private navController: NavController,
-    private loadingController: LoadingController,
-    private alertController: AlertController,
-    private repairerService: RepairerService,
-    private requestService: RequestService) {
+    private navController: NavController) {
   }
 
   ngOnInit() {

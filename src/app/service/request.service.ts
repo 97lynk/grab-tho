@@ -69,4 +69,10 @@ export class RequestService {
   postReview(requestId: number, comment: string, rate: number = 0) {
     return this.http.patch(`${REQUEST_API}/${requestId}`, { rate, comment });
   }
+
+  getJoinedRequestByRepairer(actions: string[]) {
+    return this.http.get(`${REQUEST_API}/private`, {
+      params: { action: actions }
+    });
+  }
 }
