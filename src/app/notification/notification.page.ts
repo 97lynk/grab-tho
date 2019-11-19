@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NotificationService } from 'src/app/service/notification.service';
 import { AuthService } from 'src/app/util/auth.service';
 import { Profile } from 'src/app/dto/profile';
@@ -10,13 +10,14 @@ import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.page.html',
-  styleUrls: ['./notification.page.scss'],
+  styleUrls: ['./notification.page.scss']
 })
 export class NotificationPage implements OnInit, OnDestroy {
 
   notifications: Notification[];
   profile: Profile;
   subscriptions: Subscription[] = [];
+  loading = false;
 
   constructor(
     private navController: NavController,
@@ -24,6 +25,7 @@ export class NotificationPage implements OnInit, OnDestroy {
     private authService: AuthService) { }
 
   async ngOnInit() {
+    this.loading = true;
     this.subscriptions.push(
       this.authService.registerSubscriber().subscribe((profile: Profile) => {
         if (profile) {
@@ -37,10 +39,13 @@ export class NotificationPage implements OnInit, OnDestroy {
             });
             console.log('notifi ', this.notifications);
             this.notifications.reverse();
-          });
+            this.loading = false;
+          }, error => this.loading = false);
           this.subscriptions.push(sub);
+        } else {
+          this.loading = false;
         }
-      })
+      }, error => this.loading = false)
     );
     this.authService.loadProfile();
   }

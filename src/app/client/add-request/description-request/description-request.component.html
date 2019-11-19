@@ -38,11 +38,12 @@
     </div>
 
     <ion-grid class="ion-margin-bottom ion-padding-bottom">
-      <ion-row *ngFor="let row of images; let i = index">
-        <ion-col *ngFor="let col of row; let j = index">
+      <ion-row>
+        <ion-col *ngFor="let s of sources; let i = index" [size]="(i == (sources.length - 1) && sources.length % 2 == 1) ? 12 : 6">
           <div style="background: var(--ion-color-light); padding: 5px">
-            <img [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="col.src" alt="Hình {{ 2*i + j + 1 }}">
-            <small>Hình {{ 2*i + j + 1 }}</small>
+            <ion-img-viewer title="Ảnh mô tả" alt="Ảnh mô tả" text="Ảnh {{ i + 1 }}" [src]="s.src">
+            </ion-img-viewer>
+            <small>Ảnh {{ i + 1 }}</small>
           </div>
         </ion-col>
       </ion-row>

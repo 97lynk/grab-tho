@@ -52,7 +52,7 @@ export class DescriptionRequestComponent implements OnInit {
     this.imageProvider
       .selectImage(event)
       .subscribe((data: string) => {
-        this.makeGrid(data);
+        this.sources.push({ src: data });
         console.log('image form input');
       });
   }
@@ -74,7 +74,7 @@ export class DescriptionRequestComponent implements OnInit {
           .takePicture()
           .then((url: string) => {
             console.log('image form camera');
-            this.makeGrid(url);
+            this.sources.push({ src: url });
           })
           .catch((error) => {
             console.dir(error);
@@ -91,7 +91,7 @@ export class DescriptionRequestComponent implements OnInit {
             .selectPhoto()
             .then((data) => {
               console.log('image form library');
-              this.makeGrid(data);
+              this.sources.push({ src: data });
             })
             .catch((error) => {
               console.log('ERROR - Returning the selectPhoto method data in a Promise');
@@ -139,17 +139,6 @@ export class DescriptionRequestComponent implements OnInit {
 
     });
     alert.present();
-  }
-
-  makeGrid(src) {
-    // console.log('make ', src);
-    this.sources.push({ src });
-    const s = [];
-    s.push(...this.sources);
-    this.images = [];
-    while (s.length) {
-      this.images.push(s.splice(0, 2));
-    }
   }
 
   async continute() {

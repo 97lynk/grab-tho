@@ -8,6 +8,7 @@ import { DescriptionRequestComponent } from './description-request/description-r
 import { GetMyLocationComponent } from './get-my-location/get-my-location.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ProcessingModal } from './processing-modal/processing.page';
+import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ProcessingModal } from './processing-modal/processing.page';
     FormsModule,
     AgmCoreModule,
     LazyLoadImageModule,
+    NgxIonicImageViewerModule,
     RouterModule.forChild([
       { path: 'description', component: DescriptionRequestComponent },
       { path: 'my-location', component: GetMyLocationComponent }

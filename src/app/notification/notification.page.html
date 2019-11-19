@@ -5,15 +5,21 @@
 </ion-header>
 
 <ion-content>
+  <div class="bg-light" style="padding: 8px 16px !important; text-align: right; font-size: 14px;">
+    <span class="primary-color">Đánh dấu đã đọc</span>
+    <span>&nbsp;&#8729;&nbsp;</span>
+    <span class="primary-color">Cài đặt</span>
+  </div>
+
   <ion-item-sliding *ngFor="let noti of notifications">
-    <ion-item lines="full" (click)="seenNotification(noti.key, noti.requestId)"
-      [class.unseen-noti]="!noti.seen">
+    <ion-item lines="full" (click)="seenNotification(noti.key, noti.requestId)" [class.unseen]="!noti.seen"
+      class="notification">
       <ion-thumbnail slot="start">
-        <img [src]="noti.thumbnail" alt="">
+        <img [src]="noti.thumbnail + '?q=0.1'" alt="">
       </ion-thumbnail>
       <ion-label>
-        <h2>{{ noti.key }}</h2>
-        <div class="text-light-color">{{ noti.message }}</div>
+        <!-- <h2>{{ noti.key }}</h2> -->
+        <div class="ion-text-wrap" style="font-size: 14px;">{{ noti.message }}</div>
         <div class="post-time">{{ noti.sendAt | vdatetime }}</div>
       </ion-label>
     </ion-item>
@@ -24,4 +30,35 @@
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
+
+  <!-- skeleton -->
+  <ng-container *ngIf="loading">
+    <ion-item lines="full" class="notification">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <ion-skeleton-text animated width="80%"></ion-skeleton-text>
+        <ion-skeleton-text animated width="50px" class="post-time"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="full" class="notification">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <ion-skeleton-text animated width="70%"></ion-skeleton-text>
+        <ion-skeleton-text animated width="50px" class="post-time"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="full" class="notification">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <ion-skeleton-text animated width="85%"></ion-skeleton-text>
+        <ion-skeleton-text animated width="50px" class="post-time"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ng-container>
 </ion-content>

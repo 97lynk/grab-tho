@@ -59,3 +59,8 @@
     </div>
   </ng-container>
 </ion-list>
+
+<div *ngIf="!(rate && rate?.count > 0)" class="ion-text-center">
+  <img src="/assets/empty-box.svg" alt="Chưa có đánh giá">
+  <div class="text-light-color">Chưa có đánh giá</div>
+</div>

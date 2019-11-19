@@ -47,13 +47,18 @@
 </ng-container>
 
 <!-- slide images -->
-<div style="height: 30%;">
+<!-- <div style="height: 30%;">
   <ion-slides [options]="options" pager="true" style="height: 100%;">
     <ion-slide *ngFor="let src of request?.imagesDescription" #slide>
       <img crossorigin="anonymous" [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + src" alt=""
         (load)="loadImage(img, slide)" #img>
     </ion-slide>
   </ion-slides>
+</div> -->
+
+<div class="ion-margin-bottom" *ngFor="let src of request?.imagesDescription; let i = index">
+  <ion-img-viewer title="Ảnh mô tả" alt="Ảnh mô tả" text="Ảnh {{ i }}" [src]="imageHost + '' + src">
+  </ion-img-viewer>
 </div>
 
 <!-- skeleton summary -->

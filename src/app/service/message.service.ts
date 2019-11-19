@@ -7,7 +7,9 @@ import { take, tap } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 
-import 'firebase';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/messaging';
 import * as firebase from 'firebase/app';
 import { environment } from '../../environments/environment';
 
@@ -50,8 +52,8 @@ export class MessagingService {
     this.angularFireAuth.authState.pipe(take(1)).subscribe(() => {
       const data = {};
       data[userId] = token;
-      this.token = token;
-      this.angularFireDB.object('fcmTokens/').update(data);
+      this.token = token; 
+      this.angularFireDB.object(environment.tag + '/fcmTokens/').update(data);
     });
   }
 

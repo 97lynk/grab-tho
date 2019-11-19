@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 import { dataURItoBlob } from '../util/file.util';
 import { RecentRequest } from '../dto/request';
+import { Upload } from '../dto/upload';
+import { UploadService } from '../util/upload.service';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
 const REPAIRER_API = `${environment.serviceUrl}/repairers`;
@@ -16,7 +18,8 @@ export class RequestService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService) { }
+    private storageService: StorageService,
+    private uploadService: UploadService) { }
 
   getAndFilterBy(statuses: string[]) {
     return this.http.get(REQUEST_API, {
@@ -34,6 +37,11 @@ export class RequestService {
     return this.http.get(`${REQUEST_API}/${id}`);
   }
 
+  uploadSingle(file: File) {
+    const currentUpload = new Upload(file);
+    this.uploadService.pushUpload(currentUpload);
+  }
+
   async postRequest(updatePercent: (percent: number, buffer: number, iconName: string, stepText: string) => any) {
 
     const request = await this.restoreRequestFromStorage();
@@ -45,7 +53,10 @@ export class RequestService {
     request.imagesDescription = request.imagesDescription
       .map(b => new File([b], 'image.png', { type: 'image/png', lastModified: Date.now() }));
     updatePercent(0.4, 0.8, 'images', 'Trong quá trình tải lên hình ảnh...');
-    request.imagesDescription.forEach(file => formData.append('images', file));
+    request.imagesDescription.forEach(file => {
+      // this.uploadSingle(file);
+      formData.append('images', file);
+    });
     const imagesDescription = await this.http.post<string[]>(`${REQUEST_API}/description-images`, formData).toPromise();
     updatePercent(0.8, 0.9, 'pin', 'Tạo yêu cầu...');
     request.imagesDescription = imagesDescription;

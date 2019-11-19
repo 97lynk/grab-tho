@@ -18,9 +18,12 @@ export class TabsPage {
     private authService: AuthService,
     private notificationService: NotificationService) {
     this.counterNoti = notificationService.unseenCount;
+  }
+
+  ngOnInit() {
     this.authService.registerSubscriber().subscribe(profile => {
       if (profile) {
-        notificationService.countUnseen(profile.username);
+        this.notificationService.countUnseen(profile.username);
       }
     });
   }

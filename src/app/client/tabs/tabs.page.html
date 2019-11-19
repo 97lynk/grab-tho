@@ -3,22 +3,24 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
       <ion-icon name="home"></ion-icon>
-      <!-- <ion-label>Trang chủ</ion-label> -->
+      <ion-label>Trang chủ</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="request-management">
       <ion-icon name="list-box"></ion-icon>
-      <!-- <ion-label>Báo giá</ion-label> -->
+      <ion-label>Yêu cầu</ion-label>
+    </ion-tab-button>
+
+
+    <ion-tab-button tab="notifications">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-label>Thông báo</ion-label>
+      <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
     </ion-tab-button>
 
     <ion-tab-button tab="tab3">
       <ion-icon name="person"></ion-icon>
-      <!-- <ion-label>Công việc</ion-label> -->
-    </ion-tab-button>
-
-    <ion-tab-button tab="notifications">
-      <ion-icon name="notifications"></ion-icon>
-      <!-- <ion-label>Công việc</ion-label> -->
+      <ion-label>Tài khoản</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

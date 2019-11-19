@@ -8,6 +8,7 @@ export const environment = {
   serviceUrl: 'http://192.168.1.10:8080',
   // serviceUrl: 'https://grabtho.tk',
   authSsl: false,
+  tag: 'dev',
   fbAppId: '1153417668380667',
   firebase: {
     apiKey: 'AIzaSyBDc2yRxjlk0RyAp2utPQU5pv3eEmSEntE',

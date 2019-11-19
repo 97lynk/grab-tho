@@ -44,6 +44,7 @@
     "@types/googlemaps": "^3.37.7",
     "agm-direction": "^0.7.8",
     "angular-oauth2-oidc": "^5.0.2",
+    "angular2-uuid": "^1.1.1",
     "capacitor-data-storage-sqlite": "^1.2.1-8",
     "cordova-android": "^8.1.0",
     "cordova-browser": "6.0.0",
@@ -59,6 +60,7 @@
     "ng-lazyload-image": "^7.0.1",
     "ng-starrating": "^1.0.7",
     "ngx-image-compress": "^8.0.3",
+    "ngx-ionic-image-viewer": "0.0.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

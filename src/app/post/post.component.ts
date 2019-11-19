@@ -4,6 +4,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { Profile } from 'src/app/dto/profile';
 import * as FastAverageColor from 'fast-average-color/dist';
+import { NgxIonicImageViewerComponent } from 'ngx-ionic-image-viewer';
 const fac = new FastAverageColor();
 
 @Component({
@@ -34,8 +35,7 @@ export class PostComponent implements OnInit, OnDestroy {
     slidesPerColumnFill: 'col'
   };
 
-  constructor(
-  ) { }
+  constructor() { }
 
   @Input('request')
   set setRequest(request: Request) {

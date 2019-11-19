@@ -45,22 +45,34 @@
 
   <ion-item-divider></ion-item-divider>
 
+  <ion-row class="ion-padding list-header">
+    Yêu cầu của bạn
+  </ion-row>
+  <div *ngIf="myRequests.length === 0" class="ion-text-center ion-margin-bottom">
+    <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+    <div class="text-light-color">Chưa có yêu cầu</div>
+  </div>
 
   <ng-container *ngIf="myRequests.length > 0">
-    <ion-row class="ion-padding list-header">
-      Yêu cầu của bạn
-    </ion-row>
-
     <ng-container *ngFor="let req of myRequests">
-      <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req" [histories]="dataRepairerList[req.id]"
-        routerDirection="root" [routerLink]="['/r','requests', req.id]">
+      <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req"
+        [histories]="dataRepairerList[req.id]" routerDirection="root" [routerLink]="['/r','requests', req.id]">
       </item-request>
     </ng-container>
     <ion-item-divider></ion-item-divider>
   </ng-container>
 
+  <ion-item-divider></ion-item-divider>
+  <ion-row class="ion-padding list-header">
+    Yêu cầu mới đăng
+  </ion-row>
+  <div *ngIf="recentRequest.length === 0" class="ion-text-center ion-margin-bottom">
+    <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+    <div class="text-light-color">Chưa có yêu cầu</div>
+  </div>
   <ng-container *ngFor="let req of recentRequest">
-    <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req" [histories]="dataRepairerList[req.id]"
-      routerDirection="root" [routerLink]="['/r','requests', req.id]"></item-request>
+    <item-request *ngIf="dataRepairerList && dataRepairerList[req.id]" [request]="req"
+      [histories]="dataRepairerList[req.id]" routerDirection="root" [routerLink]="['/r','requests', req.id]">
+    </item-request>
   </ng-container>
 </ion-content>

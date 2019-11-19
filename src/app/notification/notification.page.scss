@@ -1,3 +1,12 @@
-.unseen-noti {
+.notification {
+  ion-thumbnail {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+.unseen {
   --background: #ecf3ff;
+  // * .item-native {
+  //   height: 74px !important;
+  // }
 }

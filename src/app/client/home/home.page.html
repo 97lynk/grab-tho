@@ -159,31 +159,34 @@
     Gần đây
   </ion-row>
 
-  <ion-card *ngIf="loadingData" class="recently-request">
-    <ion-skeleton-text animated class="img-skeleton"></ion-skeleton-text>
-    <ion-card-header>
-      <ion-label>
-        <p class="address">
-          <ion-skeleton-text animated width="200px"></ion-skeleton-text>
-        </p>
-        <p class="time">
-          <ion-skeleton-text animated width="100px"></ion-skeleton-text>
-        </p>
-      </ion-label>
-    </ion-card-header>
-
-    <div class="ion-padding-horizontal">
-      <ion-skeleton-text style="display: inline-block; margin-left: 10px;" animated width="50px"></ion-skeleton-text>
-      <ion-skeleton-text style="display: inline-block; margin-left: 10px;" animated width="50px"></ion-skeleton-text>
-    </div>
-
-    <ion-card-content>
-      <div class="description">
+  <!-- skeleton poster -->
+  <ng-container *ngIf="loadingData">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
         <ion-skeleton-text animated></ion-skeleton-text>
-        <ion-skeleton-text animated width="100px"></ion-skeleton-text>
-      </div>
-    </ion-card-content>
-  </ion-card>
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color">
+          <ion-skeleton-text animated width="200px"></ion-skeleton-text>
+        </div>
+        <div class="post-time">
+          <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+        </div>
+      </ion-label>
+    </ion-item>
+
+    <div class="ion-padding description">
+      <p>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </p>
+      <p>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </p>
+      <p>
+        <ion-skeleton-text animated width="50%"></ion-skeleton-text>
+      </p>
+    </div>
+  </ng-container>
 
   <div *ngFor="let data of recentRequest" routerDirection="root" [routerLink]="['/requests', data.id]"
     style="border-bottom: 1px solid #c8c7cc;">
