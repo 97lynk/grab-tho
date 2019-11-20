@@ -26,6 +26,12 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab3',
+        children: [
+          { path: '', loadChildren: '../../client/tab3/tab3.module#Tab3PageModule' }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/r/tabs/home',
         pathMatch: 'full'

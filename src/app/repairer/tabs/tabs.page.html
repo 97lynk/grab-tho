@@ -13,6 +13,10 @@
       <ion-icon name="notifications"></ion-icon>
       <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
     </ion-tab-button>
+
+    <ion-tab-button tab="tab3">
+      <ion-icon name="notifications"></ion-icon>
+    </ion-tab-button>
   </ion-tab-bar>
 
 </ion-tabs>

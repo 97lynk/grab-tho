@@ -76,6 +76,7 @@ export class LoginPage implements OnInit {
         console.log('loginWithMockToken flow success');
         this.router.navigateByUrl('/tabs');
         this.loading = false;
+        this.authService.loadProfile();
       });
   }
 }

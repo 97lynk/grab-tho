@@ -47,7 +47,6 @@ export class NotificationPage implements OnInit, OnDestroy {
         }
       }, error => this.loading = false)
     );
-    this.authService.loadProfile();
   }
 
 

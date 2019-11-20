@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
-import { Observable, Subject, of, throwError } from 'rxjs';
+import { Observable, Subject, of, throwError, BehaviorSubject } from 'rxjs';
 import { authConfig } from './auth.config';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,7 @@ const fbApiVersion = '2.11';
 })
 export class AuthService {
 
-    private subject = new Subject<any>();
+    private subject = new BehaviorSubject<any>(null);
 
     constructor(
         private oauthService: OAuthService,
@@ -34,8 +34,9 @@ export class AuthService {
         // logging stored token
         this.loggingCurrentToken();
 
-        if (!this.oauthService.hasValidAccessToken()
-            && this.oauthService.getRefreshToken() !== null) {
+        if (this.oauthService.hasValidAccessToken()) {
+            this.loadProfile();
+        } else if (this.oauthService.getRefreshToken() !== null) {
             this.refreshToken();
         }
 
@@ -60,6 +61,7 @@ export class AuthService {
                     this.publishChangeProfile(null);
             }
         });
+
 
     }
 

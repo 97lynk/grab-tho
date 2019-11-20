@@ -17,15 +17,15 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
     IonicModule,
     CommonModule,
     FormsModule,
-    Ionic4DatepickerModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireMessagingModule,
-    AngularFireAuthModule,
-    AngularFireFunctionsModule,
+    // Ionic4DatepickerModule,
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireDatabaseModule,
+    // AngularFireMessagingModule,
+    // AngularFireAuthModule,
+    // AngularFireFunctionsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
-  providers: [MessagingService, AsyncPipe],
+  // providers: [AsyncPipe],
   declarations: [Tab3Page]
 })
 export class Tab3PageModule {}

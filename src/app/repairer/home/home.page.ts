@@ -9,10 +9,11 @@ import { imageHost } from 'src/app/util/file.util';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { History } from 'src/app/dto/history';
 import { NavController } from '@ionic/angular';
-import { Subscription, merge, forkJoin } from 'rxjs';
+import { Subscription, merge, forkJoin, BehaviorSubject } from 'rxjs';
 import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
 import { mergeMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/service/notification.service';
+import { LikeService } from 'src/app/service/like.service';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   dataRepairerList: any;
 
+  countLike: BehaviorSubject<number>;
+
   constructor(
+    private likeService: LikeService,
     private authService: AuthService,
     private router: Router,
     private requestService: RequestService,
@@ -54,9 +58,11 @@ export class HomePage implements OnInit, OnDestroy {
 
   async ionViewWillEnter() {
     console.log('r home page');
+    this.countLike = this.likeService.counter;
     const sub = this.authService.registerSubscriber().subscribe(profile => {
       this.profile = profile;
       if (profile) {
+        this.likeService.countLike(this.profile.username, '');
         this.loadData();
       }
     });

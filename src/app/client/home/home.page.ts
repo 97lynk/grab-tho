@@ -55,21 +55,22 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
 
-    this.authService.loadProfile();
-
     this.loadingData = true;
     this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
       .subscribe((data: Page<RecentRequest>) => {
         this.recentRequest = data.content;
         this.loadingData = false;
       }, error => this.loadingData = false);
-  }
-
-  ngOnInit(): void {
-    this.authService.registerSubscriber().subscribe((profile: Profile) => {
+      
+      
+      this.authService.registerSubscriber().subscribe((profile: Profile) => {
       console.log('OAuth2: authenticated, receive profile in home ', profile);
       this.profile = profile;
     }, () => console.log('Header: receive profile fail'));
+
+  }
+
+  ngOnInit(): void {
 
   }
 

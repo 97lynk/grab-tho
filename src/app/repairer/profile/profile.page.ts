@@ -69,7 +69,6 @@ export class ProfilePage implements OnInit, OnDestroy {
         this.loadRepairerData();
       })
     );
-    this.authService.loadProfile();
 
     this.subscriptions.push(
       this.likeService.liked.subscribe(k => this.liked = k)
