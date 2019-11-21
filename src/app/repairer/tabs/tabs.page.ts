@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/util/auth.service';
+import { AuthService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Profile } from 'src/app/dto/profile';
@@ -27,10 +27,11 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('tabs init');
     this.gc.collect('profile', this.authService.registerSubscriber().subscribe(profile => {
       if (!profile) return;
-
-      this.gc.collect('messagingService.requestPermission', this.messagingService.requestPermission(profile.username));
+      console.log('tabs profile');
+      this.gc.collect('messagingService.requestPermission', this.messagingService.requestPermission(profile.username, this.authService.isClient()));
       this.gc.collect('messagingService.receiveMessage', this.messagingService.receiveMessage());
 
       this.notificationService.countUnseen(profile.username);

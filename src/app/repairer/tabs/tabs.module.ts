@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 
 import { TabsPageRoutingModule } from './tabs.router.module';
 import { TabsPage } from './tabs.page';
+import { GuideSlidesModule } from 'src/app/guide-slides/guide-sildes.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    GuideSlidesModule
   ],
   declarations: [TabsPage]
 })

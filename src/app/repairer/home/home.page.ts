@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/util/auth.service';
+import { AuthService } from 'src/app/service/authentication.service';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/dto/profile';
 import { RequestService } from 'src/app/service/request.service';
@@ -14,6 +14,7 @@ import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
 import { mergeMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/service/notification.service';
 import { LikeService } from 'src/app/service/like.service';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 @Component({
   selector: 'app-home',
@@ -36,28 +37,24 @@ export class HomePage implements OnInit, OnDestroy {
 
   myRequests: Request[] = [];
 
-  subscriptions: Subscription[] = [];
-
   requestIds: number[];
 
   dataRepairerList: any;
 
   countLike: BehaviorSubject<number>;
 
+  gc = new GarbageCollector();
+
   constructor(
     private likeService: LikeService,
     private authService: AuthService,
-    private router: Router,
     private requestService: RequestService,
     private repairerService: RepairerService,
     public navController: NavController,
-    private notificationService: NotificationService
-  ) {
-  }
+  ) { }
 
 
   async ionViewWillEnter() {
-    console.log('r home page');
     this.countLike = this.likeService.counter;
     const sub = this.authService.registerSubscriber().subscribe(profile => {
       this.profile = profile;
@@ -67,7 +64,7 @@ export class HomePage implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptions.push(sub);
+    this.gc.collect('profile', sub);
     this.authService.loadProfile();
   }
 
@@ -101,9 +98,7 @@ export class HomePage implements OnInit, OnDestroy {
       this.makeRepairerListData();
     });
 
-
-    this.subscriptions.push(sub);
-
+    this.gc.collect('forkJoin', sub);
   }
 
   ionViewWillLeave() {
@@ -113,8 +108,8 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('unsubscribe hoem repairer ', this.subscriptions);
-    this.subscriptions.forEach(s => s.unsubscribe());
+    console.log('unsubscribe hoem repairer ', this.gc.subscriptions.length);
+    this.gc.clearAll();
   }
 
 

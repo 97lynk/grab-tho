@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActionSheetController, Platform, NavController, AlertController } from '@ionic/angular';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Capacitor } from '@capacitor/core';
 import { ImageProvider } from 'src/app/service/image.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { fetchAndConvertToBase64 } from 'src/app/util/file.util';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { fetchAndConvertToBase64 } from 'src/app/util/file.util';
   templateUrl: './description-request.component.html',
   styleUrls: ['./description-request.component.scss'],
 })
-export class DescriptionRequestComponent implements OnInit {
+export class DescriptionRequestComponent implements OnInit, OnDestroy {
 
   sources = [];
   images: Array<Array<string>>;
@@ -20,10 +21,11 @@ export class DescriptionRequestComponent implements OnInit {
   platformIs = '';
   textDescription = '';
 
+  gc = new GarbageCollector();
+
   @ViewChild('inputPhoto', { static: false }) inputPhoto: ElementRef;
 
   constructor(
-    private webview: WebView,
     private actionSheetController: ActionSheetController,
     private alertController: AlertController,
     private platform: Platform,
@@ -37,9 +39,6 @@ export class DescriptionRequestComponent implements OnInit {
 
     this.images = new Array(0);
 
-    console.log('Platform ', this.platform.platforms());
-    console.log('Capacitor.platform ', Capacitor.platform);
-
     // Are we on mobile?
     if (this.platform.is('ios')) {
       this.platformIs = 'ios';
@@ -49,12 +48,18 @@ export class DescriptionRequestComponent implements OnInit {
   }
 
   selectImage(event: any) {
-    this.imageProvider
-      .selectImage(event)
-      .subscribe((data: string) => {
-        this.sources.push({ src: data });
-        console.log('image form input');
-      });
+    this.gc.collect('imageProvider.selectImage',
+      this.imageProvider
+        .selectImage(event)
+        .subscribe((data: string) => {
+          this.sources.push({ src: data });
+          console.log('image form input');
+        })
+    );
+  }
+
+  ngOnDestroy() {
+    this.gc.clearAll();
   }
 
   captureImage() {
@@ -144,7 +149,7 @@ export class DescriptionRequestComponent implements OnInit {
   async continute() {
     if (this.sources.length === 0) {
       const data = await fetchAndConvertToBase64('/assets/no-image.png');
-      this.sources.push({src: data});
+      this.sources.push({ src: data });
     }
     this.storageService.save('imagesDescription', this.sources.map(i => i.src));
     this.storageService.save('textDescription', this.textDescription);

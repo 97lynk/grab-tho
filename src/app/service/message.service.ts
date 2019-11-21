@@ -12,6 +12,8 @@ import 'firebase/database';
 import 'firebase/messaging';
 import * as firebase from 'firebase/app';
 import { environment } from '../../environments/environment';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 firebase.initializeApp(environment.firebase);
 
@@ -26,13 +28,15 @@ export class MessagingService {
 
   token: string;
 
+  isCustomer: boolean;
+
   current = new Date().toLocaleTimeString();
 
   constructor(
     private toastController: ToastController,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
-    private fun: AngularFireFunctions,
+    private router: Router,
     private angularFireMessaging: AngularFireMessaging) {
 
     const messaging = firebase.messaging();
@@ -72,10 +76,11 @@ export class MessagingService {
    *
    * @param userId userId
    */
-  requestPermission(userId) {
+  requestPermission(userId, isCustomer) {
+    this.isCustomer = isCustomer;
     return this.angularFireMessaging.requestToken.subscribe(
       (token) => {
-        console.log(token);
+        console.log(this.current, token);
         this.currentMessage.next(token);
         this.updateToken(userId, token);
       },
@@ -96,13 +101,26 @@ export class MessagingService {
     });
   }
 
-  async makeToast(message) {
+  async makeToast(payload) {
+    const notification = payload['notification'];
+    const data = payload['data'];
     const toast = await this.toastController.create({
-      message,
+      header: notification.title,
+      message: notification.body,
       duration: 5000,
       position: 'top',
-      showCloseButton: true,
-      closeButtonText: 'dismiss'
+      buttons: [
+        {
+          side: 'end',
+          text: 'Xem',
+          handler: () => {
+            if (this.isCustomer)
+              this.router.navigateByUrl(`/requests/${data.requestId}`)
+            else
+              this.router.navigateByUrl(`/r/requests/${data.requestId}`)
+          }
+        }
+      ]
     });
     toast.present();
   }

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
-import { AuthService } from 'src/app/util/auth.service';
+import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/service/authentication.service';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/service/request.service';
 import { Page } from 'src/app/dto/page';
 import { RecentRequest } from 'src/app/dto/request';
 import { imageHost } from 'src/app/util/file.util';
 import { Profile } from 'src/app/dto/profile';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 
 @Component({
@@ -46,28 +47,37 @@ export class HomePage implements OnInit {
 
   profile: Profile;
 
+  gc = new GarbageCollector();
+
   constructor(
     private navController: NavController,
     private authService: AuthService,
-    private router: Router,
     private requestService: RequestService) {
   }
 
   ionViewWillEnter() {
 
     this.loadingData = true;
-    this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
-      .subscribe((data: Page<RecentRequest>) => {
-        this.recentRequest = data.content;
-        this.loadingData = false;
-      }, error => this.loadingData = false);
-      
-      
-      this.authService.registerSubscriber().subscribe((profile: Profile) => {
-      console.log('OAuth2: authenticated, receive profile in home ', profile);
-      this.profile = profile;
-    }, () => console.log('Header: receive profile fail'));
 
+    this.gc.collect('requestService.getAndFilterBy',
+      this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
+        .subscribe((data: Page<RecentRequest>) => {
+          this.recentRequest = data.content;
+          this.loadingData = false;
+        }, error => this.loadingData = false)
+    );
+
+    this.gc.collect('profile',
+      this.authService.registerSubscriber().subscribe((profile: Profile) => {
+        console.log('OAuth2: authenticated, receive profile in home ', profile);
+        this.profile = profile;
+      }, () => console.log('Header: receive profile fail'))
+    );
+
+  }
+
+  ionViewWillLeave() {
+    this.gc.clearAll();
   }
 
   ngOnInit(): void {

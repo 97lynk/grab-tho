@@ -7,6 +7,7 @@ import {
 } from 'src/app/dto/request';
 import { RequestService } from 'src/app/service/request.service';
 import { Page } from 'src/app/dto/page';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 @Component({
   selector: 'grabtho-request-management',
@@ -44,15 +45,20 @@ export class RequestManagementPage implements OnInit {
 
   loadingData = false;
 
+  gc = new GarbageCollector();
+
   constructor(
     private requestService: RequestService
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void { }
 
   ionViewWillEnter() {
     this.changeTab('recent');
+  }
+
+  ionViewWillLeave() {
+    this.gc.clearAll();
   }
 
   changeTab(tabIndex) {
@@ -65,19 +71,22 @@ export class RequestManagementPage implements OnInit {
           this.quotedRequest = [];
           this.recentRequest = [];
           this.loadingData = true;
-          this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
-            .subscribe((data: Page<RecentRequest>) => {
-              data.content.forEach(req => {
-                if (req.status === 'QUOTED') { this.quotedRequest.push(req); }
-                else { this.recentRequest.push(req); }
-              });
-              this.loadingData = false;
 
-            }, error => {
-              this.loadingData = false;
-              this.quotedRequest = tempQuotedRequest;
-              this.recentRequest = tempRecentRequest;
-            });
+          this.gc.collect('requestService.getAndFilterBy([POSTED, RECEIVED, QUOTED]',
+            this.requestService.getAndFilterBy(['POSTED', 'RECEIVED', 'QUOTED'])
+              .subscribe((data: Page<RecentRequest>) => {
+                data.content.forEach(req => {
+                  if (req.status === 'QUOTED') { this.quotedRequest.push(req); }
+                  else { this.recentRequest.push(req); }
+                });
+                this.loadingData = false;
+
+              }, error => {
+                this.loadingData = false;
+                this.quotedRequest = tempQuotedRequest;
+                this.recentRequest = tempRecentRequest;
+              })
+          );
         }
         break;
       case 'accepted':
@@ -85,14 +94,16 @@ export class RequestManagementPage implements OnInit {
           const tempAcceptedtRequest = this.acceptedRequest;
           this.acceptedRequest = [];
           this.loadingData = true;
-          this.requestService.getAndFilterBy(['ACCEPTED', 'WAITING'])
-            .subscribe((data: Page<AcceptedRequest>) => {
-              this.acceptedRequest = data.content;
-              this.loadingData = false;
-            }, error => {
-              this.loadingData = false;
-              this.acceptedRequest = tempAcceptedtRequest;
-            });
+          this.gc.collect('requestService.getAndFilterBy([ACCEPTED, WAITING]',
+            this.requestService.getAndFilterBy(['ACCEPTED', 'WAITING'])
+              .subscribe((data: Page<AcceptedRequest>) => {
+                this.acceptedRequest = data.content;
+                this.loadingData = false;
+              }, error => {
+                this.loadingData = false;
+                this.acceptedRequest = tempAcceptedtRequest;
+              })
+          );
         }
         break;
       case 'completed':
@@ -102,19 +113,21 @@ export class RequestManagementPage implements OnInit {
           this.completedRequest = [];
           this.closedRequest = [];
           this.loadingData = true;
-          this.requestService.getAndFilterBy(['COMPLETED', 'FEEDBACK', 'CLOSED'])
-            .subscribe((data: Page<CompletedRequest>) => {
+          this.gc.collect('requestService.getAndFilterBy([COMPLETED, FEEDBACK, CLOSED]',
+            this.requestService.getAndFilterBy(['COMPLETED', 'FEEDBACK', 'CLOSED'])
+              .subscribe((data: Page<CompletedRequest>) => {
 
-              data.content.forEach(req => {
-                if (req.status === 'COMPLETED') { this.completedRequest.push(req); }
-                else { this.closedRequest.push(req); }
-              });
-              this.loadingData = false;
-            }, error => {
-              this.loadingData = false;
-              this.completedRequest = tempCompletedRequest;
-              this.closedRequest = tempClosedRequest;
-            });
+                data.content.forEach(req => {
+                  if (req.status === 'COMPLETED') { this.completedRequest.push(req); }
+                  else { this.closedRequest.push(req); }
+                });
+                this.loadingData = false;
+              }, error => {
+                this.loadingData = false;
+                this.completedRequest = tempCompletedRequest;
+                this.closedRequest = tempClosedRequest;
+              })
+          );
         }
         break;
     }

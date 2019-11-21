@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, OnDestroy } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { MessagingService } from '../../service/message.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { AuthService } from '../../util/auth.service';
+import { AuthService } from '../../service/authentication.service';
 import { Profile } from '../../dto/profile';
 import { environment } from '../../../environments/environment';
 

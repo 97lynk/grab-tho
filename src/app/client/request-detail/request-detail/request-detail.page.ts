@@ -9,9 +9,10 @@ import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { NavController, AlertController, LoadingController } from '@ionic/angular';
 
 import * as FastAverageColor from 'fast-average-color/dist';
-import { AuthService } from 'src/app/util/auth.service';
-import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/service/authentication.service';
+import { Subscription, forkJoin } from 'rxjs';
 import { Profile } from 'src/app/dto/profile';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 const fac = new FastAverageColor();
 
 @Component({
@@ -22,7 +23,7 @@ const fac = new FastAverageColor();
 export class RequestDetailPage implements OnInit, OnDestroy {
 
   request: Request;
-  // repairer: Repairer = null;
+
   repairers: JoinedRepairer[];
   review = {
     rate: 0, comment: ''
@@ -35,8 +36,6 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK'];
   statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
-
-  subscriptions: Subscription[] = [];
 
   poster: Profile;
 
@@ -64,6 +63,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     slidesPerColumnFill: 'col'
   };
 
+  gc = new GarbageCollector();
+
   constructor(
     private route: ActivatedRoute,
     private requestService: RequestService,
@@ -86,26 +87,23 @@ export class RequestDetailPage implements OnInit, OnDestroy {
       COMPLETE: false
     };
 
-    this.requestService.getRequest(requestId)
-      .subscribe((data: Request) => {
-        this.request = data;
-        this.poster = {
-          avatar: data.userAvatar,
-          fullName: data.userFullName
-        };
+    this.gc.collect('requestService.getRequest-repairerService.getRepairerJoinedRequest',
+      forkJoin([
+        this.requestService.getRequest(requestId),
+        this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])])
+        .subscribe((results: any[]) => {
+          ///
+          this.request = results[0];
+          this.poster = {
+            avatar: results[0].userAvatar,
+            fullName: results[0].userFullName
+          };
+          this.makeStatus(results[0].status);
+          ///
+          this.repairers = results[1];
+        }, error => this.repairers = [])
+    );
 
-        this.makeStatus(data.status);
-
-        // if (data.repairerId) {
-        //   this.repairerService.getRepairer(data.repairerId)
-        //     .subscribe((r: Repairer) => this.repairer = r);
-        // }
-      });
-
-    this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])
-      .subscribe((data: JoinedRepairer[]) => {
-        this.repairers = data;
-      }, error => this.repairers = []);
   }
 
   makeStatus(status: string) {
@@ -135,8 +133,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(element => element.unsubscribe());
-    this.subscriptions = [];
+    this.gc.clearAll();
   }
 
   loadImage(img: HTMLImageElement, slide: any) {

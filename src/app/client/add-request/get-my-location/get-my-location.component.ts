@@ -8,8 +8,6 @@ declare var google;
 import PlaceResult = google.maps.places.PlaceResult;
 import AutocompleteOptions = google.maps.places.AutocompleteOptions;
 import { StorageService } from 'src/app/service/storage.service';
-import { RequestService } from 'src/app/service/request.service';
-import { Request } from 'src/app/dto/request';
 import { ProcessingModal } from '../processing-modal/processing.page';
 
 
@@ -38,16 +36,11 @@ export class GetMyLocationComponent implements OnInit {
   @ViewChild(IonSearchbar, { static: true })
   searchBar: IonSearchbar;
 
-  @ViewChild('input2', { static: false })
-  ip: ElementRef;
-
   constructor(
     private navController: NavController,
     private apiLoader: MapsAPILoader,
     private ngZone: NgZone,
-    private platform: Platform,
     private storageService: StorageService,
-    private requestService: RequestService,
     private modalController: ModalController) {
   }
 
@@ -135,13 +128,6 @@ export class GetMyLocationComponent implements OnInit {
     });
 
     modal.present();
-    // this.navController.navigateForward('/requests/done');
-    // this.requestService.postRequest()
-    //   .then((data: Request) => {
-    // this.navController.navigateForward('/requests/done/' + data.id);
-    // }).catch(error => {
-    //   console.log('Failed to post request');
-    // });
   }
 
   goBack() {

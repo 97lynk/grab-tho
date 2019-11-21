@@ -9,12 +9,15 @@ export class GarbageCollector {
     }
 
     collect(name: string, sub: Subscription) {
-        if (this.subscriptions.find(s => s.name === name)) return;
+        if (this.subscriptions.find(s => s.name === name)) {
+            sub.unsubscribe();
+            return;
+        }
 
         this.subscriptions.push({ name, sub });
     }
 
-    clearAll(){
+    clearAll() {
         this.subscriptions.forEach(s => s.sub.unsubscribe());
         this.subscriptions = [];
     }

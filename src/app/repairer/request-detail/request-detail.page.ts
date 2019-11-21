@@ -7,11 +7,12 @@ import { NavController, AlertController, LoadingController } from '@ionic/angula
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { Request } from 'src/app/dto/request';
 import * as FastAverageColor from 'fast-average-color/dist';
-import { AuthService } from 'src/app/util/auth.service';
+import { AuthService } from 'src/app/service/authentication.service';
 import { Profile } from 'src/app/dto/profile';
 import { History } from 'src/app/dto/history';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { JoinedRepairer } from 'src/app/dto/repairer';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 const fac = new FastAverageColor();
 
 @Component({
@@ -42,7 +43,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   statusToStyling = ['QUOTED', 'ACCEPTED'];
   statusToQuote = ['POSTED', 'RECEIVED', 'QUOTED'];
 
-  subscriptions: Subscription[] = [];
+  gc = new GarbageCollector();
 
   status = {
     color: 'primary',
@@ -74,11 +75,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
 
   async ionViewWillEnter() {
     const { requestId } = this.route.snapshot.params;
-    this.subscriptions.push(
-      this.authService.registerSubscriber().subscribe(data => this.me = data)
-    );
-    this.authService.loadProfile();
-
+    this.gc.collect('profile', this.authService.registerSubscriber().subscribe(data => this.me = data));
     this.loadRequest(requestId);
   }
 
@@ -90,32 +87,29 @@ export class RequestDetailPage implements OnInit, OnDestroy {
       COMPLETE: false
     };
     this.loading = true;
-    this.subscriptions.push(
-      this.requestService.getRequest(requestId)
-        .subscribe((data: Request) => {
-          this.request = data;
-          this.poster = {
-            avatar: data.userAvatar,
-            fullName: data.userFullName
-          };
 
-          this.makeStatus(data.status);
+    this.gc.collect('forkJoin', forkJoin([
+      this.requestService.getRequest(requestId),
+      this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])
+    ]).subscribe((results: any[]) => {
+      this.request = results[0];
+      this.poster = {
+        avatar: results[0].userAvatar,
+        fullName: results[0].userFullName
+      };
 
-          this.loading = false;
+      this.makeStatus(results[0].status);
+      this.loading = false;
 
-          this.subscriptions.push(
-            this.repairerService.getRepairerJoinedRequest(requestId,
-              ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])
-              .subscribe((data2: JoinedRepairer[]) => {
-                this.repairers = data2;
-                if (data2.find(r => r.status === 'QUOTE')) {
-                  this.showInputQuote = false;
-                }
-              }, error => this.repairers = [])
-          );
-        }, error => this.loading = false)
+      this.repairers = results[1];
+      if (results[1].find(r => r.status === 'QUOTE')) {
+        this.showInputQuote = false;
+      }
+    }, error => {
+      this.repairers = [];
+      this.loading = false;
+    })
     );
-
   }
 
   makeStatus(status: string) {
@@ -147,8 +141,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(element => element.unsubscribe());
-    this.subscriptions = [];
+    this.gc.clearAll();
   }
 
   async successAlert(price) {

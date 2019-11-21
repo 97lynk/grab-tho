@@ -5,6 +5,7 @@ import { Request } from 'src/app/dto/request';
 import { Page } from 'src/app/dto/page';
 import { imageHost } from 'src/app/util/file.util';
 import { AlertController } from '@ionic/angular';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 @Component({
   selector: 'app-jobs',
@@ -17,7 +18,7 @@ export class JobsPage implements OnInit, OnDestroy {
 
   imageHost = imageHost;
 
-  subscriptions: Subscription[] = [];
+  gc = new GarbageCollector();
 
   filterStatuses = ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'];
 
@@ -30,7 +31,7 @@ export class JobsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.gc.clearAll();
   }
 
   ionViewWillEnter() {
@@ -38,7 +39,7 @@ export class JobsPage implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.subscriptions.push(
+    this.gc.collect('requestService.getJoinedRequestByRepairer',
       this.requestService.getJoinedRequestByRepairer(this.filterStatuses)
         .subscribe((data: Request[]) => {
           this.requests = data;

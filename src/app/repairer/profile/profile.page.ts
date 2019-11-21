@@ -9,8 +9,9 @@ import { Page } from 'src/app/dto/page';
 import { Subscription, forkJoin, BehaviorSubject } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { LikeService } from 'src/app/service/like.service';
-import { AuthService } from 'src/app/util/auth.service';
+import { AuthService } from 'src/app/service/authentication.service';
 import { Profile } from 'src/app/dto/profile';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,7 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   repairer: Repairer;
 
-  subscriptions: Subscription[] = [];
+  gc = new GarbageCollector();
 
   rate: {
     data: {
@@ -55,31 +56,27 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.gc.clearAll();
   }
 
   ionViewWillEnter() {
     this.countLike = this.likeService.counter;
     this.liked = this.likeService.liked;
 
-    this.subscriptions.push(
-      this.authService.registerSubscriber().subscribe(p => {
-        ///
-        this.me = p;
-        this.loadRepairerData();
-      })
-    );
+    this.gc.collect('profile', this.authService.registerSubscriber().subscribe(p => {
+      ///
+      this.me = p;
+      this.loadRepairerData();
+    }));
 
-    this.subscriptions.push(
-      this.likeService.liked.subscribe(k => this.liked = k)
-    );
+    this.gc.collect('likeService.liked', this.likeService.liked.subscribe(k => this.liked = k));
   }
 
   loadRepairerData() {
     const { repairerId } = this.route.snapshot.params;
     this.loading = true;
 
-    this.subscriptions.push(
+    this.gc.collect('forkJoin',
       forkJoin([
         this.repairerService.getRepairer(repairerId),
         this.repairerService.getRateRepairer(repairerId),

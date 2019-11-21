@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { Observable, Subject, of, throwError, BehaviorSubject } from 'rxjs';
-import { authConfig } from './auth.config';
+import { authConfig } from '../util/auth.config';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';

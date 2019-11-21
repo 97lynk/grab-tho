@@ -7,7 +7,7 @@ import { take, tap, map, filter } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../util/auth.service';
+import { AuthService } from './authentication.service';
 import { Profile } from '../dto/profile';
 
 @Injectable({

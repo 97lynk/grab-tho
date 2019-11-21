@@ -17,7 +17,6 @@ import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
         PipeModule,
         RatingModule,
         NgxIonicImageViewerModule
-
     ],
     declarations: [PostComponent, RepairerListComponent],
     exports: [PostComponent, RepairerListComponent]

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NavController, ModalController } from '@ionic/angular';
-import { StorageService } from 'src/app/service/storage.service';
 import { RequestService } from 'src/app/service/request.service';
 import { Request } from 'src/app/dto/request';
 
@@ -44,7 +42,6 @@ export class ProcessingModal implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute,
     private requestService: RequestService,
     private modalController: ModalController,
     private navController: NavController
