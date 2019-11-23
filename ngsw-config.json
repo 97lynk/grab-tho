@@ -24,15 +24,18 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
-    },
+    }
+  ],
+  "dataGroups": [
     {
-      "name": "api",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "resources": {
-        "urls": [
-          "/requests/description-images/*"
-        ]
+      "name": "image-desciptions",
+      "urls": [
+        "**/grabtho.tk/**/*.png",
+        "**/grabtho.tk/**/*.png?*"
+      ],
+      "cacheConfig": {
+        "maxSize": 250,
+        "maxAge": "1d"
       }
     }
   ]

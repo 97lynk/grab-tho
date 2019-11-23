@@ -161,4 +161,10 @@ export class AuthService {
     }
 
     valid = () => this.oauthService.hasValidAccessToken() + ' ' + (this.oauthService.getAccessTokenExpiration() - Date.now());
+
+    registerAccount(username: string, email: string, password: string) {
+        return this.http.post(`${environment.serviceUrl}/accounts`, {
+            username, email, password
+        });
+    }
 }
