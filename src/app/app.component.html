@@ -1,6 +1,14 @@
 <ion-app>
-  <ion-router-outlet>
-    <img style=" position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-      src="/assets/icons/icon-152x152.png" alt="">
-  </ion-router-outlet>
+  <ion-row style="height: 100%;" class="bg-light ion-justify-content-center">
+    <ion-col size-lg="4" size-xl="3" class="ion-hide-md-down ion-no-padding">
+      <c-guide-slides></c-guide-slides>
+    </ion-col>
+
+    <ion-col size-lg="8" size-xl="5">
+      <ion-router-outlet>
+        <img style=" position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+          src="/assets/icons/icon-152x152.png" alt="">
+      </ion-router-outlet>
+    </ion-col>
+  </ion-row>
 </ion-app>

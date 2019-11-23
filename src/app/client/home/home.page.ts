@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/service/authentication.service';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { GarbageCollector } from 'src/app/util/garbage.collector';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   imageHost = imageHost;
 
@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
 
   profile: Profile;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Tabs/Home');
 
   constructor(
     private navController: NavController,
@@ -81,7 +81,10 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
+  }
 
+  ngOnDestroy() {
+    this.ionViewWillLeave();
   }
 
   logout() {

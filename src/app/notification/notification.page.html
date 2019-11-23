@@ -1,35 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Thông báo</ion-title>
+    <ion-title>Thông báo
+      <ion-badge *ngIf="(counterNoti | async) > 0" color="danger" class="ion-hide-md-down">{{counterNoti | async}}
+      </ion-badge>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="bg-light" style="padding: 8px 16px !important; text-align: right; font-size: 14px;">
+  <div style="padding: 8px 16px !important; text-align: right; font-size: 14px;">
     <span class="primary-color">Đánh dấu đã đọc</span>
     <span>&nbsp;&#8729;&nbsp;</span>
     <span class="primary-color">Cài đặt</span>
   </div>
 
-  <ion-item-sliding *ngFor="let noti of notifications">
-    <ion-item lines="full" (click)="seenNotification(noti.key, noti.requestId)" [class.unseen]="!noti.seen"
-      class="notification">
-      <ion-thumbnail slot="start">
-        <img [src]="noti.thumbnail + '?q=0.1'" alt="">
-      </ion-thumbnail>
-      <ion-label>
-        <!-- <h2>{{ noti.key }}</h2> -->
-        <div class="ion-text-wrap" style="font-size: 14px;">{{ noti.message }}</div>
-        <div class="post-time">{{ noti.sendAt | vdatetime }}</div>
-      </ion-label>
-    </ion-item>
-    <ion-item-options>
-      <ion-item-option color="danger">
-        <ion-icon slot="top" name="trash"></ion-icon>
-        Xóa
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let noti of notifications">
+      <ion-item lines="full" (click)="seenNotification(noti.key, noti.requestId)" [class.unseen]="!noti.seen"
+        class="notification">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-thumbnail slot="start">
+          <img [src]="noti.thumbnail + '?q=0.1'" alt="">
+        </ion-thumbnail>
+        <ion-label>
+          <!-- <h2>{{ noti.key }}</h2> -->
+          <div class="ion-text-wrap" style="font-size: 14px;">{{ noti.message }}</div>
+          <div class="post-time">{{ noti.sendAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="removeNotification(noti.key)">
+          <ion-icon slot="top" name="trash"></ion-icon>
+          Xóa
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="!loading">
+    <ion-infinite-scroll-content loadingSpinner="lines" loadingText="Đang tải thêm thông báo...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
   <!-- skeleton -->
   <ng-container *ngIf="loading">

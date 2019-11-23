@@ -21,7 +21,7 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
   platformIs = '';
   textDescription = '';
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Request-detail');
 
   @ViewChild('inputPhoto', { static: false }) inputPhoto: ElementRef;
 

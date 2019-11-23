@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./client/tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./client/tabs/tabs.module').then(m => m.TabsClientPageModule)
   },
   {
     path: 'requests',
@@ -20,12 +20,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './login/login.module#LoginPageModule'
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'r/tabs',
     canActivate: [AuthGuard],
-    loadChildren: './repairer/tabs/tabs.module#TabsPageModule'
+    loadChildren: () => import('./repairer/tabs/tabs.module').then(m => m.TabsRepairerPageModule)
   },
   {
     path: 'r/requests/:requestId',
@@ -45,7 +45,8 @@ const routes: Routes = [
     path: 'repairers/:repairerId',
     canActivate: [AuthGuard],
     loadChildren: './repairer/profile/profile.module#ProfilePageModule'
-  },
+  },  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+
 
 
 ];

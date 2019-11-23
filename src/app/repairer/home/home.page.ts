@@ -43,7 +43,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   countLike: BehaviorSubject<number>;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Repairer/Tabs/Home');
 
   constructor(
     private likeService: LikeService,
@@ -65,7 +65,6 @@ export class HomePage implements OnInit, OnDestroy {
     });
 
     this.gc.collect('profile', sub);
-    this.authService.loadProfile();
   }
 
   loadData() {
@@ -102,14 +101,15 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ionViewWillLeave() {
+    console.log('unsubscribe hoem repairer ', this.gc.subscriptions.length);
+    this.gc.clearAll();
   }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
-    console.log('unsubscribe hoem repairer ', this.gc.subscriptions.length);
-    this.gc.clearAll();
+    this.ionViewWillLeave();
   }
 
 

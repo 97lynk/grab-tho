@@ -1,0 +1,13 @@
+.profile-info {
+  margin: 0;
+  // text-align: center;
+
+  .fullname {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .major {
+    font-size: 16px;
+    color: var(--ion-color-step-600, #666) !important;
+  }
+}

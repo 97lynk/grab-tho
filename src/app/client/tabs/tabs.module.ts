@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { TabsPageRoutingModule } from './tabs.router.module';
 import { TabsPage } from './tabs.page';
-import { GuideSlidesModule } from 'src/app/guide-slides/guide-sildes.module';
 
 @NgModule({
   imports: [
@@ -13,8 +12,7 @@ import { GuideSlidesModule } from 'src/app/guide-slides/guide-sildes.module';
     CommonModule,
     FormsModule,
     TabsPageRoutingModule,
-    GuideSlidesModule
   ],
   declarations: [TabsPage]
 })
-export class TabsPageModule {}
+export class TabsClientPageModule {}

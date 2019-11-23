@@ -57,6 +57,9 @@ export class AuthService {
                             this.oauthService.logOut();
                         });
                     break;
+                case 'user_profile_loaded':
+                    this.loadProfile();
+                    break;
                 case 'logout':
                     this.publishChangeProfile(null);
             }
@@ -65,7 +68,10 @@ export class AuthService {
 
     }
 
-    publishChangeProfile = (profile: any) => this.subject.next(profile);
+    publishChangeProfile = (profile: any) => {
+        if (JSON.stringify(profile) === JSON.stringify(this.subject.value)) return;
+        this.subject.next(profile);
+    };
 
     registerSubscriber = (): Observable<any> => this.subject.asObservable();
 
@@ -110,6 +116,7 @@ export class AuthService {
 
     async loginWithFacebook() {
         const resourceUrlResponse = await this.facebookLogin();
+        console.log(resourceUrlResponse);
         const accessToken = await this.http.post(`${environment.serviceUrl}/login/facebook?token=${resourceUrlResponse['access_token']}`,
             {}).toPromise();
         localStorage.setItem('refresh_token', accessToken['refresh_token']);

@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding login-bg">
+  <ion-row class="ion-align-items-center" style="height: 100%; max-width: 400px; margin: auto;">
+    <ion-col>
+      <div class="ion-text-center primary-color" style="margin-bottom: 50px;">Đăng kí <span class="logo"
+          style="margin: 0;">GrabTho</span></div>
+
+      <div style="height: 3px;">
+        <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+      </div>
+      <form #registerForm="ngForm" autocomplete="off">
+        <!-- email -->
+        <ion-item style="--padding-start: 8px; --background: transparent;">
+          <ion-label color="primary" position="stacked">Email<ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input #emailField="ngModel" [(ngModel)]="email" name="email" id="email" inputmode="email" type="email"
+            required></ion-input>
+        </ion-item>
+        <ng-container *ngIf="emailField.invalid && emailField.touched">
+          <ion-item lines="none" *ngIf="emailField.errors?.required" style="--padding-start: 8px">
+            <ion-text color="danger">
+              <small>Email không được trống</small>
+            </ion-text>
+          </ion-item>
+        </ng-container>
+
+        <!-- username -->
+        <ion-item style="--padding-start: 8px; --background: transparent;">
+          <ion-label color="primary" position="stacked">Tài khoản <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input #usernameField="ngModel" [(ngModel)]="username" name="username" id="username" type="text" required></ion-input>
+        </ion-item>
+        <ng-container *ngIf="usernameField.invalid && usernameField.touched">
+          <ion-item lines="none" *ngIf="usernameField.errors?.required" style="--padding-start: 8px">
+            <ion-text color="danger">
+              <small>Tài khoản không được trống</small>
+            </ion-text>
+          </ion-item>
+        </ng-container>
+
+        <!-- password -->
+        <ion-item style="--padding-start: 8px; --background: transparent;">
+          <ion-label color="primary" position="stacked">Mật khẩu <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input name="password" id="password" type="password" #passwordField="ngModel" [(ngModel)]="password"
+            (focus)="noMatchPassword = false" required></ion-input>
+        </ion-item>
+        <ng-container *ngIf="passwordField.invalid && passwordField.touched">
+          <ion-item lines="none" *ngIf="passwordField.errors?.required" style="--padding-start: 8px">
+            <ion-text color="danger">
+              <small>Mật khẩu không được trống</small>
+            </ion-text>
+          </ion-item>
+        </ng-container>
+
+        <!-- confirm password -->
+        <ion-item style="--padding-start: 8px; --background: transparent;">
+          <ion-label color="primary" position="stacked">Xác nhận mật khẩu <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input #confirmPasswordField="ngModel" name="confirmPassword"
+            (focusout)="noMatchPassword = (confirmPassword != password)" (focus)="noMatchPassword = false"
+            [(ngModel)]="confirmPassword" required></ion-input>
+        </ion-item>
+        <ng-container *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
+          <ion-item lines="none" *ngIf="confirmPasswordField.errors?.required" style="--padding-start: 8px">
+            <ion-text color="danger">
+              <small>Mật khẩu không được trống</small>
+            </ion-text>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="noMatchPassword && confirmPassword.length > 0">
+          <ion-item lines="none" style="--padding-start: 8px">
+            <ion-text color="danger">
+              <small>Mật khẩu xác nhận không khớp với mật khẩu mới</small>
+            </ion-text>
+          </ion-item>
+        </ng-container>
+
+
+        <!-- <ion-item lines="none" style="--padding-start: 8px; --background: transparent;">
+          <ion-text *ngIf="error" color="danger">
+            <small>{{error}}</small>
+          </ion-text>
+        </ion-item> -->
+        {{ registerForm.valid | json }}
+
+        <ion-button style="width: 100%;" type="submit"
+          [disabled]="!registerForm.valid || password != confirmPassword">
+          Đăng ký
+        </ion-button>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>

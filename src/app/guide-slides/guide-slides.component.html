@@ -1,40 +1,43 @@
 <ion-header>
   <ion-toolbar translucent>
     <ion-buttons slot="start">
-      <span class="logo">GrabTho</span>
+      <span class="logo">GrabTho </span>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen scroll-y="false" class="bg-light ion-padding">
+<!-- <ion-content > -->
+<div style="padding-right: 10px; height: 90%;" *ngIf="authService.isAuthenticated()">
+  <page-notification></page-notification>
+</div>
+<!-- </ion-content> -->
+<ion-content fullscreen scroll-y="false" class="ion-padding" *ngIf="!authService.isAuthenticated()"
+  style="border-right: 1px solid #f1f1f1;">
   <ion-row style="height: 100%;">
     <ion-col class="ion-align-self-center">
       <ion-slides pager="true">
         <ion-slide>
-          <img src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/slides/slide-1.png" />
-          <h2>Welcome to the <b>ICA</b></h2>
-          <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a
-            demonstration
-            of proper code use.</p>
+          <img src="/assets/undraw_wall_post_83ul.svg" />
+          <h2>Tạo mới <b>yêu cầu sửa chữa</b></h2>
+          <p>Viết vài dòng mô tả vấn đề bạn gặp phải</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/slides/slide-2.png" />
-          <h2>What is Ionic?</h2>
-          <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with
-            web technologies like HTML, CSS, and JavaScript.</p>
+          <img src="/assets/undraw_image_upload_wqh3.svg" />
+          <h2>Mô tả với hình ảnh</h2>
+          <p>Tải lên những tấm ảnh mô tả rõ hơn vấn để cần sửa chữa</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/slides/slide-3.png" />
-          <h2>What is Ionic Pro?</h2>
-          <p><b>Ionic Pro</b> is a powerful set of services and features built on top of Ionic Framework that brings a
-            totally new level of app development agility to mobile dev teams.</p>
+          <img src="/assets/undraw_Map_dark_k9pw.svg" />
+          <h2>Xác định địa chỉ</h2>
+          <p>Địa chỉ nơi bạn cần sửa chữa</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="https://github.com/ionic-team/ionic-docs/raw/master/src/demos/api/slides/slide-4.png" />
-          <h2>Ready to Play?</h2>
+          <img src="/assets/undraw_referral_4ki4.svg" />
+          <h2>Thương lượng</h2>
+          <p>Bạn và thợ cùng nhau thương lượng và chốt giá cả</p>
           <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon>
           </ion-button>
         </ion-slide>

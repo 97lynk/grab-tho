@@ -1,32 +1,22 @@
-<ion-row style="height: 100%;" class="bg-light">
-  <ion-col size-lg="4" class="ion-hide-md-down ion-no-padding">
-    <c-guide-slides></c-guide-slides>
-  </ion-col>
+<ion-tabs>
 
-  <ion-col size-lg="8">
-    <ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+    </ion-tab-button>
 
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="home">
-          <ion-icon name="home"></ion-icon>
-        </ion-tab-button>
+    <ion-tab-button tab="jobs">
+      <ion-icon name="list"></ion-icon>
+    </ion-tab-button>
 
-        <ion-tab-button tab="jobs">
-          <ion-icon name="list"></ion-icon>
-        </ion-tab-button>
+    <ion-tab-button tab="notification" class="ion-hide-lg-up">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
+    </ion-tab-button>
 
-        <ion-tab-button tab="notification">
-          <ion-icon name="notifications"></ion-icon>
-          <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
-        </ion-tab-button>
+    <ion-tab-button tab="tab3">
+      <ion-icon name="person"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
 
-        <ion-tab-button tab="tab3">
-          <ion-icon name="notifications"></ion-icon>
-        </ion-tab-button>
-      </ion-tab-bar>
-
-    </ion-tabs>
-  </ion-col>
-
-  <!-- <ion-col size-lg="2" class="ion-hide-md-down">dd</ion-col> -->
-</ion-row>
+</ion-tabs>

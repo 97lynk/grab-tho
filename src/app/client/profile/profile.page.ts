@@ -5,20 +5,21 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthService } from '../../service/authentication.service';
 import { Profile } from '../../dto/profile';
 import { environment } from '../../../environments/environment';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 const { LocalNotifications, PushNotifications, Device, OAuth2Client } = Plugins;
 
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'page-profile',
+  templateUrl: 'profile.page.html',
+  styleUrls: ['profile.page.scss']
 })
-export class Tab3Page implements OnInit, OnDestroy, AfterViewInit {
+export class ClientProfilePage implements OnInit, OnDestroy, AfterViewInit {
 
-  // message: BehaviorSubject<any>;
+  gc = new GarbageCollector();
 
-  // subscriptions: Subscription[] = [];
+  profile: Profile;
 
   constructor(
     private messagingService: MessagingService,
@@ -26,18 +27,12 @@ export class Tab3Page implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async ngOnInit() {
-    // console.log('ngOnit tab3');
-
-    // this.message = this.messagingService.currentMessage;
-    // this.subscriptions.push(
-    //   this.messagingService.requestPermission(this.authService.getUsername()),
-    //   this.messagingService.receiveMessage()
-    // );
+    console.log('ngOnit tab3');
+    this.gc.collect('profile', this.authService.registerSubscriber().subscribe(p => this.profile = p))
   }
 
   ngOnDestroy(): void {
-    // this.subscriptions.forEach(s => s.unsubscribe());
-    // this.messagingService.destroy();
+    this.gc.clearAll();
   }
 
   async ngAfterViewInit() {

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Demo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="background: white" class="ion-padding-vertical">
+
+    <ion-item>
+      <ion-thumbnail slot="start" style="--border-radius: 3px">
+        <img [src]="profile?.avatar">
+      </ion-thumbnail>
+      <ion-label class="profile-info">
+        <h1 class="fullname">{{ profile?.fullName }}</h1>
+        <span class="text-light-color"> @{{ profile?.username }}</span>
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>

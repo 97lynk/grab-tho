@@ -24,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [AsyncPipe],
-  declarations: [NotificationPage]
+  declarations: [NotificationPage],
+  exports: [NotificationPage]
 })
 export class NotificationPageModule {}

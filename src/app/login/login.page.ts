@@ -62,6 +62,7 @@ export class LoginPage implements OnInit {
             console.log('Fb login flow success');
             this.router.navigateByUrl('/tabs');
             this.loading = false;
+            this.authService.loadProfile();
           });
       }).catch(error => {
         console.log('Fb login flow failed', error);

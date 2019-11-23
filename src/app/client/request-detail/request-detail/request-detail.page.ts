@@ -63,7 +63,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     slidesPerColumnFill: 'col'
   };
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Request-detail');
 
   constructor(
     private route: ActivatedRoute,

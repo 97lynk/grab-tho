@@ -13,221 +13,232 @@
 
 </ion-header>
 
-<ion-content fullscreen class="ion-padding-bottom">
+<ion-content class="ion-padding-vertical bg-light">
 
   <!-- Quick start -->
-  <ion-item lines="full" style="--padding-bottom: 8px;  --padding-top: 8px;">
-    <ion-avatar slot="start">
-      <img [src]="profile?.avatar">
-    </ion-avatar>
-    <div (click)="createRequestPage()" style="width: 100%;">
-      <div class="quickstart-box">Tạo yêu cầu</div>
-    </div>
-  </ion-item>
+  <div class="bg-white">
+    <ion-row class="ion-padding list-header">
+      Tạo yêu cầu
+    </ion-row>
+    <ion-item lines="full" style="--padding-bottom: 8px;  --padding-top: 8px;">
+      <ion-avatar slot="start">
+        <img [src]="profile?.avatar">
+      </ion-avatar>
+      <div (click)="createRequestPage()" style="width: 100%;">
+        <div class="quickstart-box">Tạo yêu cầu</div>
+      </div>
+    </ion-item>
+  </div>
 
-  <ion-slides [options]="optionsForGuide">
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-icon name="camera" mode="ios" style="color: #4caf50"></ion-icon>
-        <ion-label class="text-dark-color">
-          Viết mô tả kèm hình ảnh
-        </ion-label>
-      </ion-item>
-    </ion-slide>
-
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-icon name="pin" style="color: #f44336"></ion-icon>
-        <ion-label class="text-dark-color">
-          Xác định địa chỉ
-        </ion-label>
-      </ion-item>
-    </ion-slide>
-
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-icon name="send" mode="ios" style="color: #2196f3"></ion-icon>
-        <ion-label class="text-dark-color">
-          Gửi yêu cầu và chờ thợ báo giá
-        </ion-label>
-      </ion-item>
-    </ion-slide>
-  </ion-slides>
-  <ion-item-divider></ion-item-divider>
-
-  <!-- recently post -->
-  <ion-row class="ion-padding list-header">
-    Dịch vụ sửa chữa
-  </ion-row>
-  <ion-grid>
-    <ion-slides>
+  <div class="bg-white">
+    <ion-slides [options]="optionsForGuide">
       <ion-slide>
-        <ion-row>
-          <ion-col>
-            <img src="/assets/repair/repairer-1.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ điện lạnh</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-2.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Lao động phổ thông</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-3.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ sửa khóa</ion-chip>
-            </div>
-          </ion-col>
-        </ion-row>
+        <ion-item lines="none">
+          <ion-icon name="camera" mode="ios" style="color: #4caf50"></ion-icon>
+          <ion-label class="text-dark-color">
+            Viết mô tả kèm hình ảnh
+          </ion-label>
+        </ion-item>
       </ion-slide>
+
       <ion-slide>
-        <ion-row>
-          <ion-col>
-            <img src="/assets/repair/repairer-4.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Cứu hộ xe máy</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-5.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ điện</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-6.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Bảo vệ - giữ xe</ion-chip>
-            </div>
-          </ion-col>
-        </ion-row>
+        <ion-item lines="none">
+          <ion-icon name="pin" style="color: #f44336"></ion-icon>
+          <ion-label class="text-dark-color">
+            Xác định địa chỉ
+          </ion-label>
+        </ion-item>
       </ion-slide>
+
       <ion-slide>
-        <ion-row>
-          <ion-col>
-            <img src="/assets/repair/repairer-7.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">PG/PB</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-8.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ sửa chữa nước</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-9.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Xây dựng - Nội thất</ion-chip>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-slide>
-      <ion-slide>
-        <ion-row>
-          <ion-col>
-            <img src="/assets/repair/repairer-10.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ sửa máy lạnh</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-11.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Giúp việc</ion-chip>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="/assets/repair/repairer-12.png" alt="">
-            <div>
-              <ion-chip class="ion-no-margin">Thợ trang điểm</ion-chip>
-            </div>
-          </ion-col>
-        </ion-row>
+        <ion-item lines="none">
+          <ion-icon name="send" mode="ios" style="color: #2196f3"></ion-icon>
+          <ion-label class="text-dark-color">
+            Gửi yêu cầu và chờ thợ báo giá
+          </ion-label>
+        </ion-item>
       </ion-slide>
     </ion-slides>
-  </ion-grid>
+  </div>
+  <ion-item-divider></ion-item-divider>
+
+  <!-- recently post -->
+  <div class="bg-white">
+    <ion-row class="ion-padding list-header">
+      Dịch vụ sửa chữa
+    </ion-row>
+    <ion-grid>
+      <ion-slides>
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-1.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ điện lạnh</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-2.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Lao động phổ thông</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-3.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa khóa</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-4.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Cứu hộ xe máy</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-5.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ điện</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-6.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Bảo vệ - giữ xe</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-7.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">PG/PB</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-8.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa chữa nước</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-9.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Xây dựng - Nội thất</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+        <ion-slide>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/repair/repairer-10.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ sửa máy lạnh</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-11.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Giúp việc</ion-chip>
+              </div>
+            </ion-col>
+            <ion-col>
+              <img src="/assets/repair/repairer-12.png" alt="">
+              <div>
+                <ion-chip class="ion-no-margin">Thợ trang điểm</ion-chip>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </ion-grid>
+  </div>
 
   <ion-item-divider></ion-item-divider>
 
   <!-- recently post -->
-  <ion-row class="ion-padding list-header">
-    Gần đây
-  </ion-row>
-
-  <!-- skeleton poster -->
-  <ng-container *ngIf="loadingData">
-    <ion-item lines="none">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <div class="primary-color">
-          <ion-skeleton-text animated width="200px"></ion-skeleton-text>
-        </div>
-        <div class="post-time">
-          <ion-skeleton-text animated width="150px"></ion-skeleton-text>
-        </div>
-      </ion-label>
-    </ion-item>
-
-    <div class="ion-padding description">
-      <p>
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </p>
-      <p>
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </p>
-      <p>
-        <ion-skeleton-text animated width="50%"></ion-skeleton-text>
-      </p>
-    </div>
-  </ng-container>
-
-  <div *ngFor="let data of recentRequest" routerDirection="root" [routerLink]="['/requests', data.id]"
-    style="border-bottom: 1px solid #c8c7cc;">
-    <ion-item lines="none">
-      <ion-avatar slot="start">
-        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="data?.userAvatar" alt="avatar">
-      </ion-avatar>
-      <ion-label>
-        <div class="primary-color">{{ data?.userFullName }}</div>
-        <div class="post-time">{{ data?.createAt | vdatetime }}</div>
-      </ion-label>
-    </ion-item>
-
-    <ion-item lines="none" class="ion-margin-bottom">
-      <ion-label>
-        <ion-text class="description" style="display: block;">
-          {{ data?.textDescription | truncateText: 150 : true }}
-        </ion-text>
-      </ion-label>
-    </ion-item>
-
-    <!-- images -->
-    <div [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + data.imagesDescription[0]"
-      class="post-image" style="border: none;">
-    </div>
-    <ion-row *ngIf="data.imagesDescription.length >= 4">
-      <ng-container *ngFor="let src of data.imagesDescription; let i = index">
-        <ion-col class="ion-text-center" *ngIf="i > 0 && i <= 4 ">
-          <img [defaultImage]="'/assets/no-image.svg'" style="height: 100px;"
-            [lazyLoad]="imageHost + '' + src + '?q=0.2'">
-        </ion-col>
-      </ng-container>
+  <div class="bg-white">
+    <ion-row class="ion-padding list-header">
+      Gần đây
     </ion-row>
 
-    <div class="ion-text-right ion-padding">
-      <span class="post-sumary" *ngIf="data.noQuote > 0">{{ data?.noQuote }} Báo giá</span>
-      <span class="post-sumary" *ngIf="data.noReceiver > 0">
-        &nbsp;&#8729;&nbsp;{{ data?.noReceiver }} Xem yêu cầu
-      </span>
-      <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
-        Chưa có thợ xem yêu cầu</span>
+    <!-- skeleton poster -->
+    <ng-container *ngIf="loadingData">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <div class="primary-color">
+            <ion-skeleton-text animated width="200px"></ion-skeleton-text>
+          </div>
+          <div class="post-time">
+            <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <div class="ion-padding description">
+        <p>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated width="50%"></ion-skeleton-text>
+        </p>
+      </div>
+    </ng-container>
+
+    <div *ngFor="let data of recentRequest" routerDirection="root" [routerLink]="['/requests', data.id]"
+      style="border-bottom: 1px solid #c8c7cc;">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="data?.userAvatar" alt="avatar">
+        </ion-avatar>
+        <ion-label>
+          <div class="primary-color">{{ data?.userFullName }}</div>
+          <div class="post-time">{{ data?.createAt | vdatetime }}</div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label>
+          <ion-text class="description" style="display: block;">
+            {{ data?.textDescription | truncateText: 150 : true }}
+          </ion-text>
+        </ion-label>
+      </ion-item>
+
+      <!-- images -->
+      <div [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + data.imagesDescription[0]"
+        class="post-image" style="border: none;">
+      </div>
+      <ion-row *ngIf="data.imagesDescription.length >= 4">
+        <ng-container *ngFor="let src of data.imagesDescription; let i = index">
+          <ion-col class="ion-text-center" *ngIf="i > 0 && i <= 4 ">
+            <img [defaultImage]="'/assets/no-image.svg'" style="height: 100px;"
+              [lazyLoad]="imageHost + '' + src + '?q=0.2'">
+          </ion-col>
+        </ng-container>
+      </ion-row>
+
+      <div class="ion-text-right ion-padding">
+        <span class="post-sumary" *ngIf="data.noQuote > 0">{{ data?.noQuote }} Báo giá</span>
+        <span class="post-sumary" *ngIf="data.noReceiver > 0">
+          &nbsp;&#8729;&nbsp;{{ data?.noReceiver }} Xem yêu cầu
+        </span>
+        <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
+          Chưa có thợ xem yêu cầu</span>
+      </div>
     </div>
   </div>
 
@@ -269,48 +280,51 @@
   <ion-item-divider></ion-item-divider>
 
   <!-- News -->
-  <ion-row class="ion-padding list-header">
-    Tin tức
-  </ion-row>
-  <ion-slides>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img
-            src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
+  <div class="bg-white">
+    <ion-row class="ion-padding list-header">
+      Tin tức
+    </ion-row>
+    <ion-slides>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img src="https://www.w3schools.com/w3css/img_lights.jpg">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
 
-    <ion-slide>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img
-            src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>H2 Title Text</h2>
-          <p>Button on right</p>
-        </ion-label>
-      </ion-item>
-    </ion-slide>
-  </ion-slides>
-  <router-outlet></router-outlet>
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="https://www.w3schools.com/w3css/img_lights.jpg">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img
+              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>H2 Title Text</h2>
+            <p>Button on right</p>
+          </ion-label>
+        </ion-item>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
 </ion-content>

@@ -1,35 +1,27 @@
-<ion-row style="height: 100%;" class="bg-light">
-  <ion-col size-lg="4" class="ion-hide-md-down ion-no-padding">
-    <c-guide-slides></c-guide-slides>
-  </ion-col>
+<ion-tabs>
 
-  <ion-col size-lg="8">
-    <ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Trang chủ</ion-label>
+    </ion-tab-button>
 
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="home">
-          <ion-icon name="home"></ion-icon>
-          <ion-label>Trang chủ</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="request-management">
-          <ion-icon name="list-box"></ion-icon>
-          <ion-label>Yêu cầu</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="request-management">
+      <ion-icon name="list-box"></ion-icon>
+      <ion-label>Yêu cầu</ion-label>
+    </ion-tab-button>
 
 
-        <ion-tab-button tab="notifications">
-          <ion-icon name="notifications"></ion-icon>
-          <ion-label>Thông báo</ion-label>
-          <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
-        </ion-tab-button>
+    <ion-tab-button tab="notifications" class="ion-hide-lg-up">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-label>Thông báo</ion-label>
+      <ion-badge *ngIf="(counterNoti | async) > 0" color="danger">{{ counterNoti | async}}</ion-badge>
+    </ion-tab-button>
 
-        <ion-tab-button tab="tab3">
-          <ion-icon name="person"></ion-icon>
-          <ion-label>Tài khoản</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Tài khoản</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 
-    </ion-tabs>
-  </ion-col>
-</ion-row>
+</ion-tabs>

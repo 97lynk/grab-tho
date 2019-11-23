@@ -17,12 +17,13 @@ export class TabsPage implements OnInit, OnDestroy {
 
   counterNoti: BehaviorSubject<number>;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Repairer/Tabs');
 
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-    private messagingService: MessagingService) {
+    private messagingService: MessagingService
+    ) {
     this.counterNoti = notificationService.unseenCount;
   }
 

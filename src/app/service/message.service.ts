@@ -40,7 +40,6 @@ export class MessagingService {
     private angularFireMessaging: AngularFireMessaging) {
 
     const messaging = firebase.messaging();
-
     // if (firebase.messaging.isSupported()) {
     this.subscriptions.push(
       this.angularFireMessaging.messaging.subscribe(

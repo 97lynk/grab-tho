@@ -45,7 +45,7 @@ export class RequestManagementPage implements OnInit {
 
   loadingData = false;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Tabs/Request-management');
 
   constructor(
     private requestService: RequestService

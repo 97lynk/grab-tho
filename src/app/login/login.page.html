@@ -1,45 +1,53 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding login-bg">
   <ion-row class="ion-align-items-center" style="height: 100%; max-width: 400px; margin: auto;">
     <ion-col>
-      <h1 class="ion-text-center" color="secondary">Đăng nhập GrabThợ</h1>
+      <div class="ion-text-center primary-color" style="margin-bottom: 50px;">Đăng nhập <span class="logo"
+          style="margin: 0;">GrabTho</span></div>
+
       <div style="height: 3px;">
         <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
       </div>
       <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
-        <ion-item style="--padding-start: 8px">
+        <ion-item style="--padding-start: 8px; --background: transparent;">
           <ion-label color="primary" position="floating">Tài khoản</ion-label>
           <ion-input name="username" id="loginField" type="text" required [(ngModel)]="username"></ion-input>
         </ion-item>
 
-        <ion-item style="--padding-start: 8px">
+        <ion-item style="--padding-start: 8px; --background: transparent;">
           <ion-label color="primary" position="floating">Mật khẩu</ion-label>
           <ion-input name="password" id="passwordField" type="password" required [(ngModel)]="password"></ion-input>
         </ion-item>
 
-        <ion-item lines="none" style="--padding-start: 8px">
+        <ion-item lines="none" style="--padding-start: 8px; --background: transparent;">
           <ion-text *ngIf="error" color="danger">
             <small>{{error}}</small>
           </ion-text>
         </ion-item>
 
-        <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid || loading">
+        <ion-button color="light" fill="outline" style="width: 100%;" type="submit"
+          [disabled]="!loginForm.form.valid || loading">
           Đăng nhập
         </ion-button>
       </form>
 
-      <ion-button expand="full" type="submit" class="btn-google" [disabled]="loading">
-        <ion-icon name="logo-google" class="ion-margin-end"></ion-icon> Đăng nhập với Google
-      </ion-button>
+      <div class="divider ion-vertical-padding">
+        <span class="inner-divider" style="color: white;">hoặc Đăng nhập với</span>
+      </div>
 
-      <ion-button expand="full" type="submit" (click)="loginWithFacebook()"
-       class="btn-facebook" [disabled]="loading">
-        <ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon> Đăng nhập với Facebook
-      </ion-button>
-
-      <ion-button expand="full" type="submit" (click)="loginWithMockToken()"
-       color="medium" [disabled]="loading">
-        <ion-icon name="aperture" class="ion-margin-end"></ion-icon> Đăng nhập với MockToken
-      </ion-button>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" class="btn-google" [disabled]="loading">
+            <ion-icon name="logo-google" class="ion-margin-end"></ion-icon> Google
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" (click)="loginWithFacebook()" class="btn-facebook" [disabled]="loading">
+            <ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon> Facebook
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-button expand="full" type="submit" routerLink="/register" color="medium" [disabled]="loading">
+        <ion-icon name="aperture" class="ion-margin-end"></ion-icon> Đăng kí</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

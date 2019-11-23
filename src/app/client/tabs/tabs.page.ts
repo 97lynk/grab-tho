@@ -14,7 +14,7 @@ export class TabsPage implements OnInit, OnDestroy {
 
   counterNoti: BehaviorSubject<number>;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Tabs');
 
   constructor(
     private authService: AuthService,

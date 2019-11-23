@@ -30,7 +30,7 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   repairer: Repairer;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Customer/Repairer-info');
 
   rate: {
     data: {

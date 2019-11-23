@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {AsyncPipe, CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab3Page } from './tab3.page';
+import { ClientProfilePage } from './profile.page';
 import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireModule} from '@angular/fire';
@@ -23,9 +23,9 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
     // AngularFireMessagingModule,
     // AngularFireAuthModule,
     // AngularFireFunctionsModule,
-    RouterModule.forChild([{ path: '', component: Tab3Page }])
+    RouterModule.forChild([{ path: '', component: ClientProfilePage }])
   ],
   // providers: [AsyncPipe],
-  declarations: [Tab3Page]
+  declarations: [ClientProfilePage]
 })
-export class Tab3PageModule {}
+export class ClientProfilePageModule {}

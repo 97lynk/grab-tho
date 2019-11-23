@@ -43,7 +43,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   statusToStyling = ['QUOTED', 'ACCEPTED'];
   statusToQuote = ['POSTED', 'RECEIVED', 'QUOTED'];
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Repairer/Request-detail');
 
   status = {
     color: 'primary',

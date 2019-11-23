@@ -18,7 +18,7 @@ export class JobsPage implements OnInit, OnDestroy {
 
   imageHost = imageHost;
 
-  gc = new GarbageCollector();
+  gc = new GarbageCollector('Repairer/Tabs/Jobs');
 
   filterStatuses = ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'];
 
