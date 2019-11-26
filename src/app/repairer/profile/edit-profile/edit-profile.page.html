@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">Hủy</ion-button>
+    </ion-buttons>
+    <ion-title>Thông tin cá nhân</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">Lưu</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-vertical">
+  <ion-list lines="none">
+
+    <ion-item>
+      <ion-label position="stacked">Tên tài khoản</ion-label>
+      <ion-input value="#{{ profile?.username }}" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Thợ</ion-label>
+      <ion-input [value]="repairer?.major" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Họ và tên</ion-label>
+      <ion-input [(ngModel)]="profile.fullName" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Số điện thoại</ion-label>
+      <ion-input type="tel" inputmode="tel" [(ngModel)]="profile.phone" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" inputmode="email" [(ngModel)]="profile.email" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Địa chỉ</ion-label>
+      <ion-textarea rows="2" [(ngModel)]="profile.address" clearInput></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>

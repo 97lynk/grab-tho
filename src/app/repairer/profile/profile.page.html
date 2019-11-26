@@ -1,95 +1,134 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-button (click)="goBack()">
-        <ion-icon name="arrow-back"></ion-icon> Trở lại
-      </ion-button>
-    </ion-buttons>
+<ion-content class="bg-light" fullscreen>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button>
+          <ion-icon name="arrow-back"></ion-icon> Trở lại
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Thông tin tài khoản</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-title>Thông tin thợ</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-row>
+  <!-- avatar -->
+  <ion-row class="bg-white ion-padding-top">
     <ion-col></ion-col>
     <ion-col>
       <ion-avatar class="profile-avatar">
-        <img
-          src="https://www.tinygraphs.com/labs/isogrids/hexa16/tinygraphs?theme=seascape&numcolors=2&size=220&fmt=svg"
-          alt="">
+        <img [src]="profile?.avatar" alt="">
       </ion-avatar>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
-  <ion-row>
+
+  <!-- fullname & major -->
+  <ion-row class="bg-white">
     <ion-col>
       <div class="profile-info ion-text-center">
-        <div class="fullname">{{ repairer?.fullName }}</div>
-        <div class="major">{{ repairer?.major }}</div>
+        <div class="fullname">{{ profile?.fullName }}</div>
+        <div class="major ion-text-wrap">{{ repairer?.major }}</div>
       </div>
     </ion-col>
   </ion-row>
 
+  <!-- infomation -->
+  <ion-row class="bg-white">
+    <ion-col>
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="call" slot="start"></ion-icon>
+        <ion-label>Số điện thoại
+          <b *ngIf="profile.phone">{{ profile.phone }}</b>
+          <b *ngIf="!profile.phone">---</b>
+        </ion-label>
+      </ion-item>
 
-  <ion-row class="ion-padding-horizontal">
-    <ion-col>
-      <div class="text-light-color ion-text-center">
-        <span style="margin-bottom: 8px; display: inline-block;">
-          <ion-icon name="male"></ion-icon> Nam - 26 tuổi
-        </span>
-        &nbsp;&#8729;&nbsp;
-        <span style="margin-bottom: 8px; display: inline-block;">
-          <ion-icon name="call"></ion-icon> 0909897586
-        </span>
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label>Địa chỉ
+          <b *ngIf="profile.address">{{ profile.address }}</b>
+          <b *ngIf="!profile.address">---</b>
+        </ion-label>
+      </ion-item>
 
-      </div>
-      <div class="text-light-color ion-text-center">
-        <span style="display: inline-block;">
-          <ion-icon name="pin"></ion-icon>&nbsp;73 Tô Hiến Thành,
-        </span>
-        <span style="display: inline-block;">&nbsp;Phường 4,</span>
-        <span style="display: inline-block;">&nbsp;Quận 10,</span>
-        <span style="display: inline-block;">&nbsp;TP HCM</span>
-      </div>
-    </ion-col>
-  </ion-row>
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label>Email
+          <b *ngIf="profile.email">{{ profile.email }}</b>
+          <b *ngIf="!profile.email">---</b>
+        </ion-label>
+      </ion-item>
 
-  <ion-row class="text-light-color">
-    <ion-col>
-      <div class="summary-info" (click)="selectedTab = 1" [class.primary-color]="selectedTab === 1">
-        <div class="value">
-          {{ repairer?.rating | number:'1.1-1' }} <ion-icon name="star-outline"></ion-icon>
-        </div>
-        <div class="title">Đánh giá</div>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="summary-info" (click)="selectedTab = 2" [class.primary-color]="selectedTab === 2">
-        <div class="value">
-          {{ repairer?.completedJob }} <ion-icon name="build" mode="md"></ion-icon>
-        </div>
-        <div class="title">Công trình</div>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="summary-info no-border" (click)="likeRepairer()" [class.primary-color]="liked">
-        <div class="value">
-          {{ countLike | async }} <ion-icon name="heart-empty"></ion-icon>
-        </div>
-        <div class="title"> Yêu thích </div>
+      <div class="ion-padding-horizontal">
+        <ion-chip (click)="showEditInfo()" color="primary" style="width: 100%; border-radius: 10px;"
+          class="ion-justify-content-center">
+          <ion-icon mode="md" name="create"></ion-icon>
+          <ion-label>Chỉnh sửa thông tin</ion-label>
+        </ion-chip>
       </div>
     </ion-col>
   </ion-row>
 
   <ion-item-divider></ion-item-divider>
-  
-  <div class="ion-text-center" style="background: #f2f2f2;" *ngIf="loading">
-    <ion-spinner name="lines-small" color="primary"></ion-spinner>
-  </div>
 
-  <c-reviews *ngIf="selectedTab === 1 && !loading" [repairer]="repairer" [rate]="rate" [requests]="requests">
-  </c-reviews>
-  <c-histories *ngIf="selectedTab === 2" [requests]="requests"></c-histories>
+  <!-- xeng -->
+  <ion-item class="text-dark-color" lines="full" style="--pading-end: 20px;">
+    <ion-label>
+      Số dư trong ví
+    </ion-label>
+    <ion-note class="text-dark-color">
+      <b>{{ repairer?.xeng }}</b>
+      <ion-icon name="logo-bitcoin" style="color: goldenrod;"></ion-icon>
+    </ion-note>
+  </ion-item>
+
+  <ion-list inset style="margin: 0;">
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false" (click)="showTransHistories()">
+      <ion-icon name="clipboard" slot="start"></ion-icon>
+      <ion-label>Lịch sử giao dịch</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false">
+      <ion-icon name="card" slot="start"></ion-icon>
+      <ion-label>Nạp xèng</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- reviews & histories -->
+  <ion-list inset style="margin: 0;">
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false" (click)="showReviews()">
+      <ion-icon name="star-outline" slot="start"></ion-icon>
+      <ion-label>Đánh giá</ion-label>
+      <ion-badge slot="end" color="primary" *ngIf="repairer?.rating > 0">{{ repairer?.reviews }}</ion-badge>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false" (click)="showHistories()">
+      <ion-icon name="heart-empty" slot="start"></ion-icon>
+      <ion-label>Yêu thích</ion-label>
+      <ion-badge slot="end" color="primary" *ngIf="(counter | async) > 0">{{ counter | async }}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- account setting -->
+  <ion-list inset style="margin: 0;">
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false">
+      <ion-icon name="camera" slot="start"></ion-icon>
+      <ion-label>Thay đổi ảnh đại diện</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false">
+      <ion-icon name="lock" slot="start"></ion-icon>
+      <ion-label>Đổi mật khẩu</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" button="true" detail="false">
+      <ion-icon name="settings" slot="start"></ion-icon>
+      <ion-label>Cài đặt</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" (click)="logout()" button="true" detail="false">
+      <ion-icon name="log-out" slot="start"></ion-icon>
+      <ion-label>Đăng xuất</ion-label>
+    </ion-item>
+  </ion-list>
+
 
 </ion-content>

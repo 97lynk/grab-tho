@@ -6,7 +6,6 @@
     </ion-buttons>
 
     <ion-buttons slot="end" style="font-size: 24px;">
-      <ion-icon class="ion-margin-end" name="notifications-outline"></ion-icon>
       <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
@@ -198,84 +197,53 @@
       </div>
     </ng-container>
 
-    <div *ngFor="let data of recentRequest" routerDirection="root" [routerLink]="['/requests', data.id]"
-      style="border-bottom: 1px solid #c8c7cc;">
-      <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="data?.userAvatar" alt="avatar">
-        </ion-avatar>
-        <ion-label>
-          <div class="primary-color">{{ data?.userFullName }}</div>
-          <div class="post-time">{{ data?.createAt | vdatetime }}</div>
-        </ion-label>
-      </ion-item>
+    <ng-container *ngFor="let data of recentRequest">
+      <div routerDirection="root" [routerLink]="['/requests', data.id]" style="border-bottom: 1px solid #c8c7cc;">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="data?.userAvatar" alt="avatar">
+          </ion-avatar>
+          <ion-label>
+            <div class="primary-color">{{ data?.userFullName }}</div>
+            <div class="post-time">{{ data?.createAt | vdatetime }}</div>
+          </ion-label>
+        </ion-item>
 
-      <ion-item lines="none" class="ion-margin-bottom">
-        <ion-label>
-          <ion-text class="description" style="display: block;">
-            {{ data?.textDescription | truncateText: 150 : true }}
-          </ion-text>
-        </ion-label>
-      </ion-item>
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-label>
+            <ion-text class="description" style="display: block;">
+              {{ data?.textDescription | truncateText: 150 : true }}
+            </ion-text>
+          </ion-label>
+        </ion-item>
 
-      <!-- images -->
-      <div [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + data.imagesDescription[0]"
-        class="post-image" style="border: none;">
+        <!-- images -->
+        <div [defaultImage]="'/assets/no-image.svg'" [lazyLoad]="imageHost + '' + data.imagesDescription[0]"
+          class="post-image" style="border: none;">
+        </div>
+        <ion-row *ngIf="data.imagesDescription.length >= 4">
+          <ng-container *ngFor="let src of data.imagesDescription; let i = index">
+            <ion-col class="ion-text-center" *ngIf="i > 0 && i <= 4 ">
+              <img [defaultImage]="'/assets/no-image.svg'" style="height: 100px;"
+                [lazyLoad]="imageHost + '' + src + '?q=0.2'">
+            </ion-col>
+          </ng-container>
+        </ion-row>
+
+        <div class="ion-text-right ion-padding">
+          <span class="post-sumary" *ngIf="data.noQuote > 0">{{ data?.noQuote }} Báo giá</span>
+          <span class="post-sumary" *ngIf="data.noReceiver > 0">
+            &nbsp;&#8729;&nbsp;{{ data?.noReceiver }} Xem yêu cầu
+          </span>
+          <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
+            Chưa có thợ xem yêu cầu</span>
+        </div>
       </div>
-      <ion-row *ngIf="data.imagesDescription.length >= 4">
-        <ng-container *ngFor="let src of data.imagesDescription; let i = index">
-          <ion-col class="ion-text-center" *ngIf="i > 0 && i <= 4 ">
-            <img [defaultImage]="'/assets/no-image.svg'" style="height: 100px;"
-              [lazyLoad]="imageHost + '' + src + '?q=0.2'">
-          </ion-col>
-        </ng-container>
-      </ion-row>
 
-      <div class="ion-text-right ion-padding">
-        <span class="post-sumary" *ngIf="data.noQuote > 0">{{ data?.noQuote }} Báo giá</span>
-        <span class="post-sumary" *ngIf="data.noReceiver > 0">
-          &nbsp;&#8729;&nbsp;{{ data?.noReceiver }} Xem yêu cầu
-        </span>
-        <span class="post-sumary" *ngIf="data.noReceiver === 0 && data.noQuote === 0">
-          Chưa có thợ xem yêu cầu</span>
-      </div>
-    </div>
+      <ion-item-divider></ion-item-divider>
+    </ng-container>
   </div>
 
-  <!-- <ion-slides *ngIf="!loadingData" pager="true" [options]="options">
-    <ion-slide *ngFor="let req of recentRequest">
-      <ion-card [routerLink]="['/requests', req?.id]" class="recently-request">
-        <img [src]="imageHost + '' + req.imagesDescription[0]" />
-        <ion-card-header>
-          <ion-label>
-            <p class="address">
-              <ion-icon name="pin"></ion-icon>
-              {{ req.address }}
-            </p>
-            <p class="time">
-              <ion-icon name="time"></ion-icon>
-              {{ req.createAt | vdatetime }}
-            </p>
-          </ion-label>
-        </ion-card-header>
-
-        <div class="ion-padding-horizontal">
-          <ion-chip color="success">
-            <ion-label><b>{{ req.noQuote }}</b> thợ báo giá</ion-label>
-          </ion-chip>
-          <ion-chip color="primary">
-            <ion-label><b>{{ req.noReceiver }}</b> thợ xem yêu cầu</ion-label>
-          </ion-chip>
-        </div>
-
-        <ion-card-content>
-          <div class="description">
-            {{ req.textDescription | truncateText: 50 : true }}
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
-  </ion-slides> -->
 
   <ion-item-divider></ion-item-divider>
 

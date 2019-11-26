@@ -1,17 +1,19 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header> -->
+<ion-header no-border>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button routerLink="/login">Đăng nhập</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content class="ion-padding login-bg">
+<ion-content class="ion-padding register-bg">
   <ion-row class="ion-align-items-center" style="height: 100%; max-width: 400px; margin: auto;">
     <ion-col>
       <div class="ion-text-center primary-color" style="margin-bottom: 50px;">Đăng kí <span class="logo"
           style="margin: 0;">GrabTho</span></div>
 
       <div style="height: 3px;">
-        <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+        <ion-progress-bar  type="indeterminate"></ion-progress-bar>
       </div>
       <form #registerForm="ngForm" autocomplete="off">
         <!-- email -->

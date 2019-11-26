@@ -80,9 +80,9 @@
 <!-- summary -->
 <ion-row class="ion-margin-horizontal" *ngIf="request">
   <ion-col size="6" class="ion-text-left">
-    <ion-chip [color]="status?.color" size="small">
-      <ion-label>{{ status?.name }}</ion-label>
-    </ion-chip>
+    <ion-text [color]="status?.color" size="small">
+      <ion-label style="font-size: 14px;">{{ status?.name }}</ion-label>
+    </ion-text>
   </ion-col>
   <ion-col size="6" style="margin: auto;" class="ion-text-right">
     <span class="post-sumary" *ngIf="request?.noQuote > 0">{{ request?.noQuote }} Báo giá</span>

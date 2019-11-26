@@ -45,12 +45,14 @@ export class HomePage implements OnInit, OnDestroy {
 
   gc = new GarbageCollector('Repairer/Tabs/Home');
 
+  seletedTab = 'recent';
+
   constructor(
     private likeService: LikeService,
     private authService: AuthService,
     private requestService: RequestService,
     private repairerService: RepairerService,
-    public navController: NavController,
+    public navController: NavController
   ) { }
 
 

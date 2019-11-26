@@ -26,9 +26,9 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'profile',
         children: [
-          { path: '', loadChildren: '../../client/profile/profile.module#ClientProfilePageModule' }
+          { path: '', loadChildren: '../profile/profile.module#RepairerProfilePageModule' }
         ]
       },
       {

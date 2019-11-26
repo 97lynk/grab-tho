@@ -1,40 +1,35 @@
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
-import { ProfilePage } from './profile.page';
-import { PipeModule } from 'src/app/pipe/pipe.module';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { RatingModule } from 'ng-starrating';
-import { ReviewsComponent } from './reviews/reviews.component';
-import { HistoriesComponent } from './histories/histories.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ProfilePage,
-    // children: [
-    //   {
-    //     path: 'reviews',
-    //     loadChildren: './reviews/reviews.module#ReviewsModule'
-    //   }
-    // ]
-  }
-];
+import { RepairerProfilePage } from './profile.page';
+import { EditProfilePage } from './edit-profile/edit-profile.page';
+import { TransactionHistoriesPage } from './transaction-histories/transaction-histories.page';
+import { ReviewsComponentModule } from '../private-profile/reviews/reviews.module';
+import { HistoriesComponentModule } from '../private-profile/histories/histories.module';
+import { HistoriesPage } from './histories/histories.page';
+import { ReviewsPage } from './reviews/reviews.page';
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
     FormsModule,
-    IonicModule,
-    PipeModule,
-    LazyLoadImageModule,
-    RatingModule,
-    RouterModule.forChild(routes)
+    ReviewsComponentModule,
+    HistoriesComponentModule,
+    RouterModule.forChild([{ path: '', component: RepairerProfilePage }])
   ],
-  declarations: [ProfilePage, ReviewsComponent, HistoriesComponent]
+  declarations: [
+    RepairerProfilePage,
+    EditProfilePage,
+    TransactionHistoriesPage,
+    HistoriesPage,
+    ReviewsPage],
+  entryComponents: [
+    EditProfilePage,
+    TransactionHistoriesPage,
+    HistoriesPage,
+    ReviewsPage]
 })
-export class ProfilePageModule { }
+export class RepairerProfilePageModule { }

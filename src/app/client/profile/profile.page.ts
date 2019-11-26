@@ -1,13 +1,10 @@
 import { AfterViewInit, Component, OnInit, OnDestroy } from '@angular/core';
 import { Plugins } from '@capacitor/core';
-import { MessagingService } from '../../service/message.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthService } from '../../service/authentication.service';
 import { Profile } from '../../dto/profile';
-import { environment } from '../../../environments/environment';
 import { GarbageCollector } from 'src/app/util/garbage.collector';
+import { NavController } from '@ionic/angular';
 
-const { LocalNotifications, PushNotifications, Device, OAuth2Client } = Plugins;
 
 
 @Component({
@@ -22,8 +19,8 @@ export class ClientProfilePage implements OnInit, OnDestroy, AfterViewInit {
   profile: Profile;
 
   constructor(
-    private messagingService: MessagingService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    public navController: NavController) {
   }
 
   async ngOnInit() {
@@ -36,6 +33,11 @@ export class ClientProfilePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async ngAfterViewInit() {
+  }
+
+  logout() {
+    this.authService.logout();
+    this.navController.navigateRoot('/login');
   }
 
 }

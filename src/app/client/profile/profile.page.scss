@@ -1,3 +1,10 @@
+.profile-avatar {
+  max-width: 120px;
+  margin: auto;
+  width: 100%;
+  height: auto;
+}
+
 .profile-info {
   margin: 0;
   // text-align: center;
@@ -11,3 +18,13 @@
     color: var(--ion-color-step-600, #666) !important;
   }
 }
+
+// .change-avatar {
+//   display: block;
+//   position: absolute;
+//   top: calc(75% - 20px);
+//   left: calc(75% - 20px);
+//   --padding-start: 8px;
+//   --padding-end: 8px;
+//   height: 40px;
+// }

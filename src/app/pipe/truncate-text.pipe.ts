@@ -14,8 +14,7 @@ export class TruncateTextPipe implements PipeTransform {
         if (text.length < lengthCharacter) { ellipsis = false; }
 
         text = text.slice(0, lengthCharacter);
-        const indexOfLastSpace = text.lastIndexOf(' ');
-        return text.slice(0, indexOfLastSpace) + (ellipsis ? '...' : '');
+        return text + (ellipsis ? '...' : '');
     }
 
 }

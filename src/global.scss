@@ -192,5 +192,18 @@ hr.divider {
 }
 
 ion-item-divider {
+  min-height: 10px;
   z-index: 9;
+}
+
+.link {
+  color: var(--ion-color-primary);
+  border-width: 0;
+  background: transparent;
+  color: #3880ff;
+}
+
+.link:hover, .link:active {
+  color: #3880ff;
+  opacity: 0.6;
 }

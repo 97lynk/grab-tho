@@ -21,6 +21,8 @@ export interface Repairer {
     major: string;
 
     completedJob: number;
+
+    xeng: number;
 }
 
 export interface JoinedRepairer {

@@ -7,3 +7,25 @@
 .invalid-wrapper {
   height: 30px;
 }
+
+
+
+// @media (min-width: 634px) {
+//   .register-bg {
+//     --background: linear-gradient(
+//       170deg,
+//       rgb(232, 240, 247) 14%,
+//       rgb(189, 215, 236) 37%,
+//       rgb(129, 179, 219) 57%,
+//       rgb(19, 114, 169) 80%,
+//       rgb(9, 80, 136) 97%
+//     );
+//   }
+// }
+
+// @media (max-width: 634px) {
+//   .register-bg {
+//     --background: url("/assets/login-background.jpg") no-repeat center;
+//     background-size: cover;
+//   }
+// }

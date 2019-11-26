@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   redirectUri: 'http://localhost:8100',
-  serviceUrl: 'http://localhost:8080',
+  serviceUrl: 'http://192.168.1.10:8080',
   // serviceUrl: 'https://grabtho.tk',
   authSsl: false,
   tag: 'dev',

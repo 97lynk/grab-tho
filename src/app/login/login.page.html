@@ -1,3 +1,11 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/register">Đăng kí</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding login-bg">
   <ion-row class="ion-align-items-center" style="height: 100%; max-width: 400px; margin: auto;">
     <ion-col>
@@ -48,9 +56,6 @@
           </ion-button>
         </ion-col>
       </ion-row>
-      <ion-button expand="full" type="submit" routerLink="/register" color="medium" [disabled]="loading">
-        <ion-icon name="aperture" class="ion-margin-end"></ion-icon> Đăng kí
-      </ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

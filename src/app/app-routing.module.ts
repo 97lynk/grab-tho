@@ -44,9 +44,9 @@ const routes: Routes = [
   {
     path: 'repairers/:repairerId',
     canActivate: [AuthGuard],
-    loadChildren: './repairer/profile/profile.module#ProfilePageModule'
-  },  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-
+    loadChildren: './repairer/private-profile/private-profile.module#PrivateProfilePageModule'
+  },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
 
 
 ];

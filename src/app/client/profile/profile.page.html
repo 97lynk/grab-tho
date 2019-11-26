@@ -1,20 +1,103 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Demo</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="bg-light" fullscreen>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button>
+          <ion-icon name="arrow-back"></ion-icon> Trở lại
+        </ion-button>
+      </ion-buttons>
 
-<ion-content>
-  <div style="background: white" class="ion-padding-vertical">
+      <ion-title>Thông tin cá nhân</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-item>
-      <ion-thumbnail slot="start" style="--border-radius: 3px">
-        <img [src]="profile?.avatar">
-      </ion-thumbnail>
-      <ion-label class="profile-info">
-        <h1 class="fullname">{{ profile?.fullName }}</h1>
-        <span class="text-light-color"> @{{ profile?.username }}</span>
-      </ion-label>
+  <ion-row class="bg-white ion-padding-top">
+    <ion-col></ion-col>
+    <ion-col>
+      <ion-avatar class="profile-avatar">
+        <img [src]="profile?.avatar" alt="">
+      </ion-avatar>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row class="bg-white">
+    <ion-col>
+      <div class="profile-info ion-text-center">
+        <div class="fullname">{{ profile?.fullName }}</div>
+        <div class="text-light-color">@{{ profile?.username }}</div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="bg-white">
+    <ion-col>
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="call" slot="start"></ion-icon>
+        <ion-label>Số điện thoại
+          <b *ngIf="profile.phone">{{ profile.phone }}</b>
+          <b *ngIf="!profile.phone">---</b>
+        </ion-label>
+      </ion-item>
+
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label>Địa chỉ
+          <b *ngIf="profile.address">{{ profile.address }}</b>
+          <b *ngIf="!profile.address">---</b>
+        </ion-label>
+      </ion-item>
+
+      <ion-item class="text-dark-color" lines="none">
+        <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label>Email
+          <b *ngIf="profile.email">{{ profile.email }}</b>
+          <b *ngIf="!profile.email">---</b>
+        </ion-label>
+      </ion-item>
+
+      <div class="ion-padding-horizontal">
+        <ion-chip color="primary" style="width: 100%; border-radius: 10px;" class="ion-justify-content-center">
+          <ion-icon mode="md" name="create"></ion-icon>
+          <ion-label>Chỉnh sửa thông tin</ion-label>
+        </ion-chip>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-list inset style="margin: 0;">
+    <ion-item lines="full" class="text-dark-color">
+      <ion-icon name="star-outline" slot="start"></ion-icon>
+      <ion-label>Đánh giá thợ</ion-label>
+      <ion-badge slot="end" color="primary">11</ion-badge>
     </ion-item>
-  </div>
+    <ion-item lines="full" class="text-dark-color">
+      <ion-icon name="heart-empty" slot="start"></ion-icon>
+      <ion-label>Thợ yêu thích</ion-label>
+      <ion-badge slot="end" color="primary">11</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-list inset style="margin: 0;">
+    <ion-item lines="full" class="text-dark-color">
+      <ion-icon name="camera" slot="start"></ion-icon>
+      <ion-label>Thay đổi ảnh đại diện</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color">
+      <ion-icon name="lock" slot="start"></ion-icon>
+      <ion-label>Đổi mật khẩu</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color">
+      <ion-icon name="settings" slot="start"></ion-icon>
+      <ion-label>Cài đặt</ion-label>
+    </ion-item>
+    <ion-item lines="full" class="text-dark-color" (click)="logout()">
+      <ion-icon name="log-out" slot="start"></ion-icon>
+      <ion-label>Đăng xuất</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

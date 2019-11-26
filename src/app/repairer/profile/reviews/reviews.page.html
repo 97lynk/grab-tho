@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar translucent>
+    <ion-segment class="ion-padding" style="padding: 5px;" [value]="selectedTab"
+      (ionChange)="selectedTab = $event.target.value">
+      <ion-segment-button value="1">
+        <ion-label>Đánh giá</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label>Công trình</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Xong</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="loading">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <div class="primary-color">
+          <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+        </div>
+        <div class="post-time">
+          <ion-skeleton-text animated width="50px" style="display: inline-block; margin-right: 5px;"></ion-skeleton-text>
+          <ion-skeleton-text animated width="50px" style="display: inline-block;"></ion-skeleton-text>
+        </div>
+      </ion-label>
+    </ion-item>
+    <div>
+      <div class="review-comment">
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated width="150px"></ion-skeleton-text>
+      </div>
+    </div>
+  </ng-container>
+
+  <c-reviews *ngIf="selectedTab === '1' && !loading" [repairer]="repairer" [rate]="rate" [requests]="requests">
+  </c-reviews>
+
+  <c-histories *ngIf="selectedTab === '2'" [requests]="requests"></c-histories>
+</ion-content>

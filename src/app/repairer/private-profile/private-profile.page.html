@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon> Trở lại
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Thông tin thợ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+      <ion-avatar class="profile-avatar">
+        <img
+          src="https://www.tinygraphs.com/labs/isogrids/hexa16/tinygraphs?theme=seascape&numcolors=2&size=220&fmt=svg"
+          alt="">
+      </ion-avatar>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div class="profile-info ion-text-center">
+        <div class="fullname">{{ repairer?.fullName }}</div>
+        <div class="major">{{ repairer?.major }}</div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+  <div class="contact-group ion-margin-vertical">
+    <div class="contact">
+      <ion-fab-button color="light" href="tel:{{ repairer?.phone }}">
+        <ion-icon name="call"></ion-icon>
+      </ion-fab-button>
+      <div class="title">Gọi</div>
+    </div>
+    <div class="contact">
+      <ion-fab-button color="light" href="sms:{{ repairer?.phone }}">
+        <ion-icon name="chatbubbles"></ion-icon>
+      </ion-fab-button>
+      <div class="title">Nhắn tin</div>
+    </div>
+    <div class="contact">
+      <ion-fab-button color="light" href="https://zalo.me/{{ repairer?.phone }}" target="_blank">
+        <ion-icon src="/assets/zalo-icon.svg"></ion-icon>
+      </ion-fab-button>
+      <div class="title">Zalo</div>
+    </div>
+  </div>
+
+  <ion-row class="ion-padding-horizontal">
+    <ion-col>
+      <div class="text-light-color ion-text-center">
+        <span style="margin-bottom: 8px; display: inline-block;">
+          <ion-icon name="male"></ion-icon> Nam - 26 tuổi
+        </span>
+        &nbsp;&#8729;&nbsp;
+        <span style="margin-bottom: 8px; display: inline-block;">
+          <ion-icon name="call"></ion-icon> {{ repairer?.phone }}
+        </span>
+
+      </div>
+      <div class="text-light-color ion-text-center">
+        <span style="display: inline-block;">
+          <ion-icon name="pin"></ion-icon> {{ repairer?.address }}
+        </span>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="text-light-color">
+    <ion-col>
+      <div class="summary-info" (click)="selectedTab = 1" [class.primary-color]="selectedTab === 1">
+        <div class="value">
+          {{ repairer?.rating | number:'1.1-1' }} <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div class="title">Đánh giá</div>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="summary-info" (click)="selectedTab = 2" [class.primary-color]="selectedTab === 2">
+        <div class="value">
+          {{ repairer?.completedJob }} <ion-icon name="build" mode="md"></ion-icon>
+        </div>
+        <div class="title">Công trình</div>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="summary-info no-border" (click)="likeRepairer()" [class.primary-color]="liked">
+        <div class="value">
+          {{ countLike | async }} <ion-icon name="heart-empty"></ion-icon>
+        </div>
+        <div class="title"> Yêu thích </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-item-divider></ion-item-divider>
+
+  <div class="ion-text-center" style="background: #f2f2f2;" *ngIf="loading">
+    <ion-spinner name="lines-small" color="primary"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="selectedTab === 1 && !loading">
+    <ion-row class="ion-padding-horizontal ion-padding-top"
+      style="color: var(--ion-color-theme-shade); font-size: 16px;">
+      Đánh giá
+    </ion-row>
+    <c-reviews [repairer]="repairer" [rate]="rate" [requests]="requests">
+    </c-reviews>
+  </ng-container>
+
+  <ng-container *ngIf="selectedTab === 2">
+    <ion-row class="ion-padding-horizontal ion-padding-top"
+      style="color: var(--ion-color-theme-shade); font-size: 16px;">
+      Lịch sử
+    </ion-row>
+    <c-histories [requests]="requests"></c-histories>
+  </ng-container>
+  
+</ion-content>

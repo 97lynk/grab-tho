@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { StorageService } from './storage.service';
-import { dataURItoBlob } from '../util/file.util';
-import { RecentRequest } from '../dto/request';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { Repairer } from '../dto/repairer';
 
 const REQUEST_API = `${environment.serviceUrl}/requests`;
 const REPAIRER_API = `${environment.serviceUrl}/repairers`;
 const HISTORIES_API = `${environment.serviceUrl}/histories`;
+const ACCOUNTS_API = `${environment.serviceUrl}/accounts`;
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +44,9 @@ export class RepairerService {
         requestId: requestId.join(',')
       }
     });
+  }
+
+  updateProfile(repairerId: number, profile: any) {
+    return this.http.put(`${ACCOUNTS_API}/${repairerId}`, profile);
   }
 }
