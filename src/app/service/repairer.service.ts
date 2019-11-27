@@ -49,4 +49,9 @@ export class RepairerService {
   updateProfile(repairerId: number, profile: any) {
     return this.http.put(`${ACCOUNTS_API}/${repairerId}`, profile);
   }
+
+  getTransactionHistories(repairerId: number) {
+    return this.http.get(`${REPAIRER_API}/${repairerId}/wallet-histories`);
+  }
+  
 }

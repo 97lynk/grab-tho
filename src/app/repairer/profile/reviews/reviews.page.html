@@ -1,5 +1,9 @@
 <ion-header>
   <ion-toolbar translucent>
+    <ion-buttons slot="start">
+      <ion-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+    </ion-buttons>
+
     <ion-segment class="ion-padding" style="padding: 5px;" [value]="selectedTab"
       (ionChange)="selectedTab = $event.target.value">
       <ion-segment-button value="1">
@@ -28,7 +32,8 @@
           <ion-skeleton-text animated width="150px"></ion-skeleton-text>
         </div>
         <div class="post-time">
-          <ion-skeleton-text animated width="50px" style="display: inline-block; margin-right: 5px;"></ion-skeleton-text>
+          <ion-skeleton-text animated width="50px" style="display: inline-block; margin-right: 5px;">
+          </ion-skeleton-text>
           <ion-skeleton-text animated width="50px" style="display: inline-block;"></ion-skeleton-text>
         </div>
       </ion-label>

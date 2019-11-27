@@ -98,7 +98,12 @@ export class RepairerProfilePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async showTransHistories() {
-    const transModal = await this.modalController.create({ component: TransactionHistoriesPage });
+    const transModal = await this.modalController.create({
+      component: TransactionHistoriesPage,
+      componentProps: {
+        repairerId: this.profile.id
+      }
+    });
     transModal.present();
   }
 
