@@ -1,25 +1,13 @@
-<ion-header translucent no-border>
+<ion-content class="ion-padding-bottom bg-light">
+  <!-- Quick start -->
+  <!-- <div class="bg-white"> -->
   <ion-toolbar translucent>
-
     <ion-buttons slot="start">
       <span class="logo"><span class="ion-hide-lg-up">GrabTho</span>&nbsp;</span>
     </ion-buttons>
-
-    <ion-buttons slot="end" style="font-size: 24px;">
-      <ion-icon class="ion-margin-end" (click)="logout()" name="power"></ion-icon>
-    </ion-buttons>
   </ion-toolbar>
-
-</ion-header>
-
-<ion-content class="ion-padding-vertical bg-light">
-
-  <!-- Quick start -->
-  <div class="bg-white">
-    <ion-row class="ion-padding list-header">
-      Tạo yêu cầu
-    </ion-row>
-    <ion-item lines="full" style="--padding-bottom: 8px;  --padding-top: 8px;">
+  <ion-item-divider sticky class="bg-white ion-no-padding" style="z-index: 10; --inner-padding-end: 0;">
+    <ion-item lines="full" style="--padding-bottom: 8px; --padding-top: 8px; width: 100%;">
       <ion-avatar slot="start">
         <img [src]="profile?.avatar">
       </ion-avatar>
@@ -27,7 +15,8 @@
         <div class="quickstart-box">Tạo yêu cầu</div>
       </div>
     </ion-item>
-  </div>
+  </ion-item-divider>
+  <!-- </div> -->
 
   <div class="bg-white">
     <ion-slides [options]="optionsForGuide">

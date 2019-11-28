@@ -18,7 +18,7 @@
       <ion-input value="#{{ profile?.username }}" disabled></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="repairer">
       <ion-label position="stacked">Thợ</ion-label>
       <ion-input [value]="repairer?.major" disabled></ion-input>
     </ion-item>

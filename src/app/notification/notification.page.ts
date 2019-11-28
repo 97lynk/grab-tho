@@ -22,6 +22,8 @@ export class NotificationPage implements OnInit, OnDestroy {
   profile: Profile;
   loading = false;
   gc = new GarbageCollector('Tabs/Notifications');
+  isRepairer = true;
+
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
 
 
@@ -34,6 +36,7 @@ export class NotificationPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.loading = true;
+    this.isRepairer = !this.authService.isClient();
     this.gc.collect('profile', this.authService.registerSubscriber().subscribe((profile: Profile) => {
       if (!profile) {
         this.loading = false;
@@ -77,7 +80,7 @@ export class NotificationPage implements OnInit, OnDestroy {
     }
   }
 
-  markReadAll(){
+  markReadAll() {
     this.notificationService.seenAll(this.profile.username);
   }
 

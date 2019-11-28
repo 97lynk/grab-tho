@@ -1,16 +1,9 @@
-<ion-header translucent noborder>
+<ion-content class="ion-padding-bottom">
   <ion-toolbar translucent>
     <ion-buttons slot="start">
       <span class="logo"><span class="ion-hide-lg-up">GrabTho</span>&nbsp;</span>
     </ion-buttons>
-    <ion-buttons slot="end" style="font-size: 24px;">
-      <ion-icon class="ion-margin-end" (click)="logout()" name="power" fill="clear" color="primary"></ion-icon>
-    </ion-buttons>
   </ion-toolbar>
-
-</ion-header>
-
-<ion-content class="ion-padding-bottom">
 
   <div class="ion-padding-vertical" *ngIf="repairer">
     <ion-item lines="none">
@@ -52,7 +45,7 @@
     Xem yêu cầu
   </ion-row>
   <ion-item-divider sticky class="bg-white" style="z-index: 10;">
-    <ion-toolbar>
+    <ion-toolbar translucent>
       <ion-segment class="ion-padding" style="padding: 5px;" (ionChange)="seletedTab = $event.target.value"
         [value]="seletedTab">
         <ion-segment-button value="recent">

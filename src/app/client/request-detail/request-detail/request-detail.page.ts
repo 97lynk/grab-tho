@@ -6,7 +6,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { Repairer, JoinedRepairer } from 'src/app/dto/repairer';
 import { RepairerService } from 'src/app/service/repairer.service';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ActionSheetController } from '@ionic/angular';
 
 import * as FastAverageColor from 'fast-average-color/dist';
 import { AuthService } from 'src/app/service/authentication.service';
@@ -33,9 +33,11 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   showRepairerSection = true;
   showReviewSection = false;
   showJoinedRepairer = false;
-  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK'];
-  statusToShowReview = ['COMPLETED', 'FEEDBACK', 'CLOSED'];
+  showCloseButton = false;
+  statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK', 'CLOSED'];
+  statusToShowReview = ['COMPLETED', 'FEEDBACK'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
+  statusToShoCloseButton = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED'];
 
   poster: Profile;
 
@@ -71,7 +73,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     private repairerService: RepairerService,
     private navController: NavController,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private asController: ActionSheetController
   ) { }
 
   ionViewWillEnter() {
@@ -90,7 +93,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.gc.collect('requestService.getRequest-repairerService.getRepairerJoinedRequest',
       forkJoin([
         this.requestService.getRequest(requestId),
-        this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK'])])
+        this.repairerService.getRepairerJoinedRequest(requestId, ['RECEIVE', 'QUOTE', 'ACCEPT', 'COMPLETE', 'FEEDBACK', 'CLOSE'])])
         .subscribe((results: any[]) => {
           ///
           this.request = results[0];
@@ -110,6 +113,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.showRepairerSection = this.statusToLoadRepairer.includes(status);
     this.showReviewSection = this.statusToShowReview.includes(status);
     this.showJoinedRepairer = this.statusToShowJoinedRepairer.includes(status);
+    this.showCloseButton = this.statusToShoCloseButton.includes(status);
 
     switch (status) {
       case 'QUOTED':
@@ -151,9 +155,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
       message: 'Đánh giá thợ sửa chữa'
     });
 
-    const alert = await this.alertController.create({
-      header: 'Xác nhận',
-      message: 'Gửi đánh giá?',
+    const alert = await this.asController.create({
+      header: 'Gửi đánh giá',
       buttons: [
         {
           text: 'Hủy',
@@ -179,14 +182,13 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   }
 
   async acceptQuote(repairer: JoinedRepairer) {
-    console.log('handle ', repairer);
     const loading = await this.loadingController.create({
-      message: `Đang chấp nhận giá ${repairer.point} của ${repairer.fullName}`
+      message: `Đang chấp nhận giá ${repairer.point} VND của ${repairer.fullName}`
     });
 
     const alert = await this.alertController.create({
       header: 'Xác nhận',
-      message: `Chấp nhận giá ${repairer.point} của ${repairer.fullName}?`,
+      message: `Chấp nhận giá ${repairer.point} VND của ${repairer.fullName}?`,
       buttons: [
         {
           text: 'Hủy',
@@ -212,4 +214,33 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     alert.present();
   }
 
+
+  async closeRequest() {
+    const loading = await this.loadingController.create({
+      message: 'Đang đóng yêu cầu...',
+      spinner: 'lines-small'
+    });
+
+    const as = await this.asController.create({
+      header: 'Đóng yêu cầu',
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel'
+        },
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            loading.present();
+            this.repairerService.closeRequest(this.request.id).subscribe(data => {
+              loading.dismiss();
+              this.loadData(this.request.id);
+            }, error => loading.dismiss());
+          }
+        }
+      ]
+    });
+
+    as.present();
+  }
 }

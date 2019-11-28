@@ -65,4 +65,9 @@ export class RepairerService {
   getFeedback() {
     return this.http.get(`${HISTORIES_API}/feedback`);
   }
+
+  closeRequest(requestId: number | string) {
+    return this.http.delete(`${HISTORIES_API}?requestId=${requestId}`);
+  }
+
 }

@@ -15,16 +15,22 @@
 
   <c-post [poster]="poster" [request]="request"></c-post>
 
+  <div class="ion-text-center" *ngIf="showCloseButton">
+    <ion-button mode="ios" class="ion-margin" (click)="closeRequest()" fill="outline" color="danger">
+        <ion-icon name="close-circle-outline"></ion-icon>&nbsp;Đóng yêu cầu
+    </ion-button>
+  </div>
+
   <!-- review -->
   <ion-item lines="full" *ngIf="showReviewSection && !request?.feedBack">
     <ion-avatar slot="start">
       <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="poster?.avatar" alt="avatar">
     </ion-avatar>
     <div style="width: 100%;">
-      <ion-textarea (ionChange)="request.comment = $event.target.value"  autoGrow="true" placeholder="Viết đánh giá" rows="3"
-        class="post-comment ion-margin-top" style="--padding-top: 0; --padding-bottom: 0;"></ion-textarea>
-      <star-rating (rate)="request.rate = $event.newValue" value="0" checkedcolor="gold" uncheckedcolor="gray" size="24px"
-        readonly="false">
+      <ion-textarea (ionChange)="request.comment = $event.target.value" autoGrow="true" placeholder="Viết đánh giá"
+        rows="3" class="post-comment ion-margin-top" style="--padding-top: 0; --padding-bottom: 0;"></ion-textarea>
+      <star-rating (rate)="request.rate = $event.newValue" value="0" checkedcolor="gold" uncheckedcolor="gray"
+        size="24px" readonly="false">
       </star-rating>
     </div>
     <div slot="end" class="ion-padding-vertical" style="height: 100%">
@@ -35,8 +41,7 @@
   </ion-item>
 
   <c-repairer-list *ngIf="showRepairerSection" [repairers]="repairers" [highlightComment]="highlightComment"
-    [request]="request" [itemClickable]="true" [poster]="poster"
-    (acceptQuote)="acceptQuote($event)">
+    [request]="request" [itemClickable]="true" [poster]="poster" (acceptQuote)="acceptQuote($event)">
   </c-repairer-list>
 
 </ion-content>

@@ -52,7 +52,7 @@
         <ion-label>
           <span class="post-comment">
             <span class="link" (click)="clickItem(r.id)">{{ r.fullName }}</span>&nbsp;&nbsp;
-            <span>báo giá <strong>{{ r.point }}</strong></span>
+            <span>báo giá <strong>{{ r.point }} VND</strong></span>
           </span>
           <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
         </ion-label>
@@ -84,8 +84,22 @@
       <ion-label>
         <span class="post-comment">
           <span class="primary-color">{{ poster?.fullName }}</span>&nbsp;&nbsp;
-          <span> chấp nhận với giá <strong class="primary-color">{{ r.point }}</strong> của thợ
+          <span> chấp nhận với giá <strong>{{ r.point }} VND</strong> của thợ
             <span class="link" (click)="clickItem(r.id)">@{{ r.fullName }}</span>
+          </span>
+        </span>
+        <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="r.status === 'CLOSE'" lines="none" detail="false">
+      <ion-avatar slot="start">
+        <img [defaultImage]="'/assets/no-avatar.svg'" [lazyLoad]="poster?.avatar">
+      </ion-avatar>
+      <ion-label>
+        <span class="post-comment">
+          <span class="primary-color">{{ poster?.fullName }}</span>&nbsp;&nbsp;
+          <span> đã đóng yêu cầu
           </span>
         </span>
         <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>

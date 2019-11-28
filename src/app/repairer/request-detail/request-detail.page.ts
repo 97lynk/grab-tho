@@ -3,7 +3,7 @@ import { imageHost } from 'src/app/util/file.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/service/request.service';
 import { RepairerService } from 'src/app/service/repairer.service';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ActionSheetController } from '@ionic/angular';
 import { NAME_STATUS, COLOR_STATUS } from 'src/app/util/color-status';
 import { Request } from 'src/app/dto/request';
 import * as FastAverageColor from 'fast-average-color/dist';
@@ -61,6 +61,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     }
   };
 
+  price = 0;
+
   loadingPopup: any;
 
   constructor(
@@ -70,7 +72,8 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     private navController: NavController,
     private alertController: AlertController,
     private authService: AuthService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private asController: ActionSheetController
   ) { }
 
   async ionViewWillEnter() {
@@ -149,7 +152,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     this.loadRequest(requestId);
     const alert = await this.alertController.create({
       header: 'Báo giá',
-      message: 'Bạn đã báo giá thành công với giá ' + price,
+      message: `Bạn đã báo giá thành công với giá ${price} VND`,
       buttons: [
         { text: 'Xong' }
       ]
@@ -158,6 +161,23 @@ export class RequestDetailPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
+  async showConfirm(price) {
+    const actionSheet = await this.asController.create({
+      header: 'Báo giá',
+      buttons: [
+        {
+          text: 'Đồng ý',
+          handler: () => {
+            this.submitQuotePrice(price);
+          }
+        },
+        {
+          text: 'Hủy',
+          role: 'cancel'
+        }]
+    });
+    await actionSheet.present();
+  }
 
   submitQuotePrice(price) {
     this.loadingPopup.present();
@@ -176,14 +196,12 @@ export class RequestDetailPage implements OnInit, OnDestroy {
       message: 'Xác nhận hoàn thành công việc'
     });
 
-    const alert = await this.alertController.create({
-      header: 'Xác nhận',
-      message: 'Xác nhận hoàn thành công việc?',
+    const alert = await this.asController.create({
+      header: 'Hoàn thành công việc',
       buttons: [
         {
           text: 'Hủy',
-          role: 'cancel',
-          cssClass: 'secondary'
+          role: 'cancel'
         },
         {
           text: 'Đồng ý',

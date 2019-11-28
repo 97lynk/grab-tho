@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/authentication.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'c-guide-slides',
@@ -8,10 +9,23 @@ import { AuthService } from '../service/authentication.service';
 })
 export class GuideSlidesComponent implements OnInit {
 
+
   constructor(
-    public authService: AuthService
-  ) { }
+    public authService: AuthService,
+    private navController: NavController
+  ) {
 
-  ngOnInit() {}
+  }
 
+  ngOnInit() { }
+
+  clickLogo() {
+    if (this.authService.isAuthenticated()) {
+      if (this.authService.isClient()) {
+        this.navController.navigateRoot('/tabs/home');
+      } else {
+        this.navController.navigateRoot('/r/tabs/home');
+      }
+    }
+  }
 }

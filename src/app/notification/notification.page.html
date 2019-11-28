@@ -11,8 +11,16 @@
   <div style="padding: 8px 16px !important; text-align: right; font-size: 14px;">
     <span class="primary-color link" (click)="markReadAll()">Đánh dấu đã đọc</span>
     <span>&nbsp;&#8729;&nbsp;</span>
-    <span class="primary-color link" [routerLink]="['/tabs/profile']" [queryParams]="{setting: 'open'}">Cài đặt</span>
+    <span class="primary-color link" [routerLink]="[(isRepairer? '/r/tabs/profile':'/tabs/profile')]"
+      [queryParams]="{setting: 'open'}">Cài đặt</span>
   </div>
+
+  <ion-item-divider *ngIf="!profile?.notification" sticky>
+    <ion-label>
+      Thông báo mới sẽ không được nhận <br>
+      <small>(Tài khoản > Cài đặt > Bật Nhận thông báo )</small>
+    </ion-label>
+  </ion-item-divider>
 
   <ion-list>
     <ion-item-sliding *ngFor="let noti of notifications">
