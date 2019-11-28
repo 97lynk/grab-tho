@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class NotificationService {
 
   unseenCount = new BehaviorSubject<number>(0);
+  unseenNoti: string[] = [];
 
   total = 0;
 
@@ -17,8 +18,9 @@ export class NotificationService {
   }
 
   countUnseen(username: string) {
-    this.angularFireDB.list(`${environment.tag}/notifications/${username}`).valueChanges().subscribe((data: any[]) => {
-      this.unseenCount.next(data.filter(d => !d.seen).length);
+    this.angularFireDB.list(`${environment.tag}/notifications/${username}`).snapshotChanges().subscribe((data: any[]) => {
+      this.unseenNoti = data.filter(d => !d.payload.val().seen).map(d => d.key);
+      this.unseenCount.next(this.unseenNoti.length);
       this.total = data.length;
     });
   }
@@ -33,6 +35,17 @@ export class NotificationService {
     this.angularFireDB.object(`${environment.tag}/notifications/${username}/${key}`)
       .update({
         seen: true
+      });
+  }
+
+  async seenAll(username: string) {
+    this.angularFireDB.database.ref(`${environment.tag}/notifications/${username}`)
+      .once("value", function (snapshot) {
+        snapshot.forEach(function (child) {
+          child.ref.update({
+            seen: true
+          });
+        });
       });
   }
 

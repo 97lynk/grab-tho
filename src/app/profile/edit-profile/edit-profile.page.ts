@@ -1,18 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { Repairer } from 'src/app/dto/repairer';
 import { Profile } from 'src/app/dto/profile';
 import { RepairerService } from 'src/app/service/repairer.service';
+import { GarbageCollector } from 'src/app/util/garbage.collector';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
   styleUrls: ['./edit-profile.page.scss'],
 })
-export class EditProfilePage implements OnInit {
+export class EditProfilePage implements OnInit, OnDestroy {
 
   @Input() profile: Profile;
   @Input() repairer: Repairer;
+
+  gc = new GarbageCollector('Repairer/Tabs/Profile/Edit-Profile')
 
   constructor(
     private repairerService: RepairerService,
@@ -22,6 +25,10 @@ export class EditProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.gc.clearAll();
   }
 
   close() {
@@ -39,24 +46,25 @@ export class EditProfilePage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Lưu thay đổi',
-      message: 'Thông tin cá nhân thất bại!',
+      message: 'Thay đổi thông tin cá nhân thất bại!',
       buttons: ['Xong']
     });
 
-    this.repairerService.updateProfile(this.profile.id, {
-      email: this.profile.email,
-      fullName: this.profile.fullName,
-      address: this.profile.address,
-      phone: this.profile.phone
-    }).subscribe(data => {
-      loading.dismiss();
-      this.modalController.dismiss({
-        status: 'SUCCESS'
-      });
-    }, error => {
-      loading.dismiss();
-      alert.present();
-    });
+    this.gc.collect('repairerService.updateProfile',
+      this.repairerService.updateProfile(this.profile.id, {
+        email: this.profile.email,
+        fullName: this.profile.fullName,
+        address: this.profile.address,
+        phone: this.profile.phone
+      }).subscribe(data => {
+        loading.dismiss();
+        this.modalController.dismiss({
+          status: 'SUCCESS'
+        });
+      }, error => {
+        loading.dismiss();
+        alert.present();
+      }));
   }
 
 }

@@ -32,17 +32,20 @@ export class LikeService {
     return this.angularFireDB.list(`${environment.tag}/likes/${repairer}`).snapshotChanges();
   }
 
-  like(repairer: string, customerUsername: string, customerFullName: string) {
-    this.angularFireDB.list(`${environment.tag}/likes/${repairer}`)
-      .push({
-        username: customerUsername,
-        fullName: customerFullName,
-        likeAt: new Date().getTime()
-      });
+  like(repairer: string, repairerFullname: string, customerUsername: string, customerFullName: string) {
+    const data = {
+      username: customerUsername,
+      fullName: customerFullName,
+      likeAt: new Date().getTime(),
+      repairer: repairerFullname
+    };
+    this.angularFireDB.list(`${environment.tag}/likes/${repairer}`).push(data);
+    this.angularFireDB.object(`${environment.tag}/likes/${customerUsername}/${repairer}`).set(data);
   }
 
-  unlike(repairer: string, key: string) {
+  unlike(repairer: string, customerUsername: string, key: string) {
     this.angularFireDB.object(`${environment.tag}/likes/${repairer}/${key}`).remove();
+    this.angularFireDB.object(`${environment.tag}/likes/${customerUsername}/${repairer}`).remove();
   }
 
 }

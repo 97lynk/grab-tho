@@ -107,9 +107,9 @@ export class PrivateProfilePage implements OnInit, OnDestroy {
 
   async likeRepairer() {
     if (!this.liked) {
-      this.likeService.like(this.repairer.username, this.me.username, this.me.fullName);
+      this.likeService.like(this.repairer.username, this.repairer.fullName, this.me.username, this.me.fullName);
     } else {
-      this.likeService.unlike(this.repairer.username, this.liked.key);
+      this.likeService.unlike(this.repairer.username, this.me.username, this.liked.key);
     }
   }
 

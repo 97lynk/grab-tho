@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Yêu thích</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Xong</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let u of users">
+      <ion-icon name="heart-empty" slot="start" color="secondary"></ion-icon>
+      <ion-label *ngIf="!isRepairer"><span class="primary-color">{{ u.fullName }}</span> đã thích thợ <span
+          class="primary-color">{{ u.repairer }}</span>
+        <div><small class="text-light-color">{{u.likeAt | vdatetime }}</small></div>
+      </ion-label>
+
+      <ion-label *ngIf="isRepairer" color="primary">{{ u.fullName }}
+        <div><small class="text-light-color">{{u.likeAt | vdatetime }}</small></div>
+      </ion-label>
+      <ion-note class="text-dark-color">+1</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

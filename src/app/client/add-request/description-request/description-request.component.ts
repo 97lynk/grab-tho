@@ -47,15 +47,12 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectImage(event: any) {
-    this.gc.collect('imageProvider.selectImage',
-      this.imageProvider
-        .selectImage(event)
-        .subscribe((data: string) => {
-          this.sources.push({ src: data });
-          console.log('image form input');
-        })
-    );
+  async selectImage(event: any) {
+    for (var i = 0; i < event.target.files.length; i++) {
+      const data = await this.imageProvider.selectImage(event, i).toPromise();
+      this.sources.push({ src: data });
+      console.log('image form input ');
+    }
   }
 
   ngOnDestroy() {

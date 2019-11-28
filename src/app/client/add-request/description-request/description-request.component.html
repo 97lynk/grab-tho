@@ -50,7 +50,7 @@
     </ion-grid>
   </div>
 
-  <input [hidden]="true" class="file-upload-button" type="file" accept="image/*" (change)="selectImage($event)"
+  <input [hidden]="true" class="file-upload-button" type="file" accept="image/*" multiple (change)="selectImage($event)"
     #inputPhoto>
 
   <div class="footer primary ion-no-padding">

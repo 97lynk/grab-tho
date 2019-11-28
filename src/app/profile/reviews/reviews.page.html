@@ -4,7 +4,7 @@
       <ion-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
     </ion-buttons>
 
-    <ion-segment class="ion-padding" style="padding: 5px;" [value]="selectedTab"
+    <ion-segment *ngIf="isRepairer" class="ion-padding" style="padding: 5px;" [value]="selectedTab"
       (ionChange)="selectedTab = $event.target.value">
       <ion-segment-button value="1">
         <ion-label>Đánh giá</ion-label>
@@ -13,6 +13,8 @@
         <ion-label>Công trình</ion-label>
       </ion-segment-button>
     </ion-segment>
+
+    <ion-title *ngIf="!isRepairer">Đánh giá thợ</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="close()">Xong</ion-button>

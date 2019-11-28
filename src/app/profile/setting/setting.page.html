@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">Hủy</ion-button>
+    </ion-buttons>
+    <ion-title>Cài đặt</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">Lưu</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-label>
+      <div>Nhận thông báo</div>
+      <small>Thông báo được gửi trong ứng dụng</small>
+    </ion-label>
+    <ion-toggle [(ngModel)]="profile.pushNotification"></ion-toggle>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label>
+      <div>Nhận thông báo đẩy</div>
+      <small>Thông báo được gửi ngay cả khi đóng ứng dụng</small>
+    </ion-label>
+    <ion-toggle [(ngModel)]="profile.notification"></ion-toggle>
+  </ion-item>
+</ion-content>

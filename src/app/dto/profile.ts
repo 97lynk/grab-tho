@@ -18,4 +18,8 @@ export interface Profile {
 
     roles?: string[];
 
+    pushNotification?: boolean;
+
+    notification?: boolean;
+
 }

@@ -57,10 +57,14 @@ export class RequestService {
       // this.uploadSingle(file);
       formData.append('images', file);
     });
-    const imagesDescription = await this.http.post<string[]>(`${REQUEST_API}/description-images`, formData).toPromise();
+    const imagesDescription = await this.uploadImage(formData).toPromise();
     updatePercent(0.8, 0.9, 'pin', 'Tạo yêu cầu...');
     request.imagesDescription = imagesDescription;
     return this.http.post(REQUEST_API, request).toPromise();
+  }
+
+  uploadImage(formData) {
+    return this.http.post<string[]>(`${REQUEST_API}/description-images`, formData);
   }
 
   async restoreRequestFromStorage() {

@@ -93,7 +93,8 @@
     <ion-col>
       <div class="summary-info no-border" (click)="likeRepairer()" [class.primary-color]="liked">
         <div class="value">
-          {{ countLike | async }} <ion-icon name="heart-empty"></ion-icon>
+          {{ countLike | async }} <ion-icon name="heart-empty" *ngIf="!liked"></ion-icon>
+          <ion-icon name="heart-empty" *ngIf="liked"></ion-icon>
         </div>
         <div class="title"> Yêu thích </div>
       </div>

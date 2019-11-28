@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Page } from 'src/app/dto/page';
 import { RepairerService } from 'src/app/service/repairer.service';
+import { NavController, ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'c-reviews',
@@ -29,7 +31,11 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     count: number
   };
 
-  constructor() { }
+  constructor(
+    private navController: NavController,
+    private modalController: ModalController,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
   }
@@ -37,4 +43,13 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+  async clickItem(reqId: number) {
+    const modal = await this.modalController.getTop();
+    console.log(modal);
+    if (modal) this.modalController.dismiss();
+    if (!this.authService.isClient())
+      this.navController.navigateRoot(['r', 'requests', reqId]);
+    else
+      this.navController.navigateRoot(['requests', reqId]);
+  }
 }

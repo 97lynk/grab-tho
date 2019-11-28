@@ -37,7 +37,7 @@
 
 <ion-list class="ion-padding-vertical">
   <ng-container *ngFor="let req of requests">
-    <ion-item lines="none" *ngIf="req.feedBack">
+    <ion-item lines="none" *ngIf="req.feedBack" button="true" (click)="clickItem(req.id)">
       <ion-avatar slot="start">
         <img [src]="req.userAvatar" alt="avatar">
       </ion-avatar>
@@ -48,15 +48,14 @@
             size="12px" readonly="true">
           </star-rating> {{ req.createAt | vdatetime }}
         </div>
+        <div class="text-dark-color"> {{ req.comment }}</div>
       </ion-label>
     </ion-item>
-    <div>
-      <div class="review-comment">{{ req.comment }}</div>
-    </div>
+
   </ng-container>
 </ion-list>
 
-<div *ngIf="!(rate && rate?.count > 0)" class="ion-text-center">
+<div *ngIf="!(rate && rate?.count > 0) && requests.length <= 0" class="ion-text-center">
   <img src="/assets/empty-box.svg" alt="Chưa có đánh giá">
   <div class="text-light-color">Chưa có đánh giá</div>
 </div>

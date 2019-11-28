@@ -122,9 +122,9 @@ export class ImageProvider {
      * @method selectImage
      * @params event {any}
      */
-    selectImage(event) {
+    selectImage(event, index) {
         return new Observable((observer) => {
-            this.handleImageSelection(event)
+            this.handleImageSelection(event, index)
                 .subscribe((res) => {
                     observer.next(res);
                     observer.complete();
@@ -144,8 +144,8 @@ export class ImageProvider {
      * @params event  {any}
      *
      */
-    handleImageSelection(event: any) {
-        const file: any = event.target.files[0];
+    handleImageSelection(event: any, index: number) {
+        const file: any = event.target.files[index];
 
         this._READER.readAsDataURL(file);
         return new Observable((observer) => {

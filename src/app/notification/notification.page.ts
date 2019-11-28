@@ -55,13 +55,12 @@ export class NotificationPage implements OnInit, OnDestroy {
     data.forEach(d => {
       const noti: Notification = d.payload.val();
       noti.key = d.key;
-      noti.thumbnail = noti.thumbnail.replace("192.168.1.10", "localhost");
+      // noti.thumbnail = noti.thumbnail.replace("192.168.1.10", "localhost");
       this.notifications.push(noti);
     });
 
     this.notifications.reverse();
     this.loading = false;
-    console.log('notifications ', this.notifications);
   }
 
   ngOnDestroy(): void {
@@ -76,6 +75,10 @@ export class NotificationPage implements OnInit, OnDestroy {
     } else {
       this.navController.navigateRoot(['/r/requests', id]);
     }
+  }
+
+  markReadAll(){
+    this.notificationService.seenAll(this.profile.username);
   }
 
   removeNotification(key: string) {

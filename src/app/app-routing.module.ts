@@ -49,6 +49,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
 
 
+
 ];
 @NgModule({
   imports: [

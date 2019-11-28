@@ -30,11 +30,7 @@ const routes: Routes = [
       {
         path: 'profile',
         children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../profile/profile.module').then(m => m.ClientProfilePageModule)
-          }
+          { path: '', loadChildren: '../../profile/profile.module#RepairerProfilePageModule' }
         ]
       },
       {

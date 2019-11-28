@@ -167,4 +167,11 @@ export class AuthService {
             username, email, password
         });
     }
+
+    forceLoadProfile() {
+        this.oauthService.loadUserProfile().then(profile => {
+            this.publishChangeProfile(profile);
+            console.log('OAuth2: load profile success (request api)');
+        }).catch(error => console.log(`OAuth2: load profile failed (${error})`));
+    }
 }

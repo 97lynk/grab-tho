@@ -50,8 +50,19 @@ export class RepairerService {
     return this.http.put(`${ACCOUNTS_API}/${repairerId}`, profile);
   }
 
+  updateAvatar(repairerId: number, avatarUrl: string) {
+    return this.http.put(`${ACCOUNTS_API}/${repairerId}/avatar`, avatarUrl);
+  }
+
+  updateSetting(userId: number, setting: any) {
+    return this.http.put(`${ACCOUNTS_API}/${userId}/setting`, setting);
+  }
+
   getTransactionHistories(repairerId: number) {
     return this.http.get(`${REPAIRER_API}/${repairerId}/wallet-histories`);
   }
-  
+
+  getFeedback() {
+    return this.http.get(`${HISTORIES_API}/feedback`);
+  }
 }

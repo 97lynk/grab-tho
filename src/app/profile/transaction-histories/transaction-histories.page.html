@@ -12,24 +12,30 @@
     <ng-container *ngFor="let h of histories">
       <ion-item *ngIf="h.action === 'QUOTE'">
         <ion-icon name="remove-circle-outline" style="color: var(--ion-color-danger)" slot="start"></ion-icon>
-        <ion-label>Báo giá </ion-label>
-        <ion-note slot="end">{{ h.xeng }}
+        <ion-label>Báo giá
+          <div><small class="text-light-color">{{ h.createAt | vdatetime }}</small></div>
+        </ion-label>
+        <ion-note class="text-dark-color" slot="end">{{ h.xeng }}
           <ion-icon name="logo-bitcoin" style="color: goldenrod;"></ion-icon>
         </ion-note>
       </ion-item>
 
       <ion-item *ngIf="h.action === 'RECHARGE'">
         <ion-icon name="add-circle-outline" style="color: var(--ion-color-success)" slot="start"></ion-icon>
-        <ion-label>Nạp xèng </ion-label>
-        <ion-note slot="end">+{{ h.xeng }}
+        <ion-label>Nạp xèng
+          <div><small class="text-light-color">{{ h.createAt | vdatetime }}</small></div>
+        </ion-label>
+        <ion-note class="text-dark-color" slot="end">+{{ h.xeng }}
           <ion-icon name="logo-bitcoin" style="color: goldenrod;"></ion-icon>
         </ion-note>
       </ion-item>
-      
+
       <ion-item *ngIf="h.action === 'REFUND_QUOTE'">
         <ion-icon name="add-circle-outline" style="color: var(--ion-color-success)" slot="start"></ion-icon>
-        <ion-label>Hoàn tiền do báo giá thất bại </ion-label>
-        <ion-note slot="end">+{{ h.xeng }}
+        <ion-label>Hoàn tiền do báo giá thất bại
+          <div><small class="text-light-color">{{ h.createAt | vdatetime }}</small></div>
+        </ion-label>
+        <ion-note class="text-dark-color" slot="end">+{{ h.xeng }}
           <ion-icon name="logo-bitcoin" style="color: goldenrod;"></ion-icon>
         </ion-note>
       </ion-item>
