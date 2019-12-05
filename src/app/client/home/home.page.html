@@ -24,7 +24,7 @@
         <ion-item lines="none">
           <ion-icon name="camera" mode="ios" style="color: #4caf50"></ion-icon>
           <ion-label class="text-dark-color">
-            Viết mô tả kèm hình ảnh
+            Bước 1: Viết mô tả kèm hình ảnh
           </ion-label>
         </ion-item>
       </ion-slide>
@@ -33,7 +33,7 @@
         <ion-item lines="none">
           <ion-icon name="pin" style="color: #f44336"></ion-icon>
           <ion-label class="text-dark-color">
-            Xác định địa chỉ
+            Bước 2: Xác định địa chỉ
           </ion-label>
         </ion-item>
       </ion-slide>
@@ -42,7 +42,7 @@
         <ion-item lines="none">
           <ion-icon name="send" mode="ios" style="color: #2196f3"></ion-icon>
           <ion-label class="text-dark-color">
-            Gửi yêu cầu và chờ thợ báo giá
+            Bước 3: Gửi yêu cầu và chờ thợ báo giá
           </ion-label>
         </ion-item>
       </ion-slide>
@@ -231,57 +231,15 @@
 
       <ion-item-divider></ion-item-divider>
     </ng-container>
-  </div>
 
+    <ng-container *ngIf="!loadingData && recentRequest.length === 0">
+      <div class="ion-text-center ion-padding">
+        <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+        <div class="text-light-color">Chưa có yêu cầu</div>
+      </div>
+    </ng-container>
+  </div>
 
   <ion-item-divider></ion-item-divider>
-
-  <!-- News -->
-
-  <div class="bg-white">
-    <ion-row class="ion-padding list-header">
-      Tin tức
-    </ion-row>
-    <ion-slides>
-
-      <ion-slide>
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img
-              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-          </ion-thumbnail>
-          <ion-label>
-            <h2>H2 Title Text</h2>
-            <p>Button on right</p>
-          </ion-label>
-        </ion-item>
-      </ion-slide>
-
-      <ion-slide>
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img src="https://www.w3schools.com/w3css/img_lights.jpg">
-          </ion-thumbnail>
-          <ion-label>
-            <h2>H2 Title Text</h2>
-            <p>Button on right</p>
-          </ion-label>
-        </ion-item>
-      </ion-slide>
-
-      <ion-slide>
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img
-              src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-          </ion-thumbnail>
-          <ion-label>
-            <h2>H2 Title Text</h2>
-            <p>Button on right</p>
-          </ion-label>
-        </ion-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
 
 </ion-content>

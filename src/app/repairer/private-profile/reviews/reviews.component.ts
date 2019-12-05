@@ -45,7 +45,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
 
   async clickItem(reqId: number) {
     const modal = await this.modalController.getTop();
-    console.log(modal);
+    // console.log(modal);
     if (modal) this.modalController.dismiss();
     if (!this.authService.isClient())
       this.navController.navigateRoot(['r', 'requests', reqId]);

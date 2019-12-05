@@ -70,4 +70,8 @@ export class RepairerService {
     return this.http.delete(`${HISTORIES_API}?requestId=${requestId}`);
   }
 
+  changePassword(oldPassword, newPassword, userId) {
+    return this.http.post(`${ACCOUNTS_API}/${userId}/password?=${oldPassword}&password=${newPassword}`, {});
+  }
+
 }

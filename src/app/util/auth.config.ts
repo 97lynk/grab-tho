@@ -10,7 +10,7 @@ export const authConfig: AuthConfig = {
     userinfoEndpoint: `${apiHost}/accounts/me`,
     logoutUrl: '/login',
     loginUrl: '/login',
-    showDebugInformation: true,
+    showDebugInformation: !environment.production,
     scope: '',
     useHttpBasicAuthForPasswordFlow: true,
     oidc: false,

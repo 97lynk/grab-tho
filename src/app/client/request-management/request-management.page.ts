@@ -62,7 +62,7 @@ export class RequestManagementPage implements OnInit {
   }
 
   changeTab(tabIndex) {
-    console.log('change tab ', tabIndex);
+    // console.log('change tab ', tabIndex);
     switch (tabIndex) {
       case 'recent':
         {

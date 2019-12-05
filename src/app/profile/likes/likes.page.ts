@@ -33,7 +33,7 @@ export class LikesPage implements OnInit, OnDestroy {
     this.isRepairer = !this.authService.isClient();
     this.gc.collect('requestService.getRequestOfRepairer',
       this.likeService.getLiker(this.profile.username).subscribe((data: any[]) => {
-        console.log('data  >>> ', data);
+        // console.log('data  >>> ', data);
         this.users = data.map(d => d.payload.val());
       }));
   }

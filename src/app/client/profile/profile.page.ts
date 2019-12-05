@@ -24,7 +24,7 @@ export class ClientProfilePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async ngOnInit() {
-    console.log('ngOnit tab3');
+    // console.log('ngOnit tab3');
     this.gc.collect('profile', this.authService.registerSubscriber().subscribe(p => this.profile = p))
   }
 

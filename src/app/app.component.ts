@@ -22,8 +22,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      console.log('show ', SplashScreen);
-      SplashScreen.show();
+      // console.log('show ', SplashScreen);
+      SplashScreen.hide();
     });
   }
 }

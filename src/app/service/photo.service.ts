@@ -16,7 +16,7 @@
 //   photos: any[];
 
 //   constructor() {
-//     console.log('platform ', Capacitor.platform);
+//     // console.log('platform ', Capacitor.platform);
 //     if (Capacitor.platform === 'ios' || Capacitor.platform === 'android') {
 //       this.storage = CapacitorDataStorageSqlite;
 //     } else {

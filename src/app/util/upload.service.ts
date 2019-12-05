@@ -26,7 +26,7 @@ export class UploadService {
             },
             (error) => {
                 // upload failed
-                console.log(error)
+                // console.log(error)
             },
             () => {
                 // upload success

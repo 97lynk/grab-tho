@@ -169,7 +169,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
             loading.present();
             this.requestService.postReview(this.request.id, this.request.comment, this.request.rate)
               .subscribe(data => {
-                console.log('post review ', data);
+                // console.log('post review ', data);
                 loading.dismiss();
                 this.loadData(requestId);
               });
@@ -199,7 +199,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
           text: 'Đồng ý',
           handler: () => {
             loading.present();
-            this.requestService.acceptRepairerForRequest(this.request.id, repairer.id)
+            this.requestService.acceptRepairerForRequest(this.request.id, repairer.uid)
               .subscribe(data => {
                 loading.dismiss();
                 this.ionViewWillEnter();

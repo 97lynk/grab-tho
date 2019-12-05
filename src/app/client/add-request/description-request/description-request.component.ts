@@ -32,7 +32,7 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
     private imageProvider: ImageProvider,
     public navController: NavController,
     private storageService: StorageService) {
-    console.log('available ', Capacitor.isPluginAvailable('Camera'));
+    // console.log('available ', Capacitor.isPluginAvailable('Camera'));
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
     for (var i = 0; i < event.target.files.length; i++) {
       const data = await this.imageProvider.selectImage(event, i).toPromise();
       this.sources.push({ src: data });
-      console.log('image form input ');
+      // console.log('image form input ');
     }
   }
 
@@ -75,7 +75,7 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
         this.imageProvider
           .takePicture()
           .then((url: string) => {
-            console.log('image form camera');
+            // console.log('image form camera');
             this.sources.push({ src: url });
           })
           .catch((error) => {
@@ -92,11 +92,11 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
           this.imageProvider
             .selectPhoto()
             .then((data) => {
-              console.log('image form library');
+              // console.log('image form library');
               this.sources.push({ src: data });
             })
             .catch((error) => {
-              console.log('ERROR - Returning the selectPhoto method data in a Promise');
+              // console.log('ERROR - Returning the selectPhoto method data in a Promise');
               console.dir(error);
               this.displayErrorWarning(error);
             });
@@ -125,7 +125,7 @@ export class DescriptionRequestComponent implements OnInit, OnDestroy {
         {
           text: 'Cancel',
           handler: () => {
-            console.log('Cancelled');
+            // console.log('Cancelled');
           }
         }
       ]

@@ -2,17 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { take, tap } from 'rxjs/operators';
-import { BehaviorSubject, from, Subscription } from 'rxjs';
-import { ToastController } from '@ionic/angular';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ToastController, Platform } from '@ionic/angular';
 
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/messaging';
 import * as firebase from 'firebase/app';
 import { environment } from '../../environments/environment';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 
 firebase.initializeApp(environment.firebase);
@@ -36,20 +34,22 @@ export class MessagingService {
     private toastController: ToastController,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
+    private platform: Platform,
     private router: Router,
     private angularFireMessaging: AngularFireMessaging) {
 
-    const messaging = firebase.messaging();
-    // if (firebase.messaging.isSupported()) {
-    this.subscriptions.push(
-      this.angularFireMessaging.messaging.subscribe(
-        (_messaging) => {
-          _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-          _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
-        }
-      )
-    );
-    // }
+
+    // console.log('messaging service ', platform.platforms(), firebase.messaging.isSupported());
+    if (!platform.is('ios') && firebase.messaging.isSupported()) {
+      this.subscriptions.push(
+        this.angularFireMessaging.messaging.subscribe(
+          (_messaging) => {
+            _messaging.onMessage = _messaging.onMessage.bind(_messaging);
+            _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+          }
+        )
+      );
+    }
   }
 
   /**
@@ -79,7 +79,7 @@ export class MessagingService {
     this.isCustomer = isCustomer;
     return this.angularFireMessaging.requestToken.subscribe(
       (token) => {
-        console.log(this.current, token);
+        // console.log(this.current, token);
         this.currentMessage.next(token);
         this.updateToken(userId, token);
       },
@@ -94,7 +94,7 @@ export class MessagingService {
    */
   receiveMessage() {
     return this.angularFireMessaging.messages.subscribe((payload) => {
-      console.log('new message received. ', this.current, payload);
+      // console.log('new message received. ', this.current, payload);
       this.currentMessage.next(payload);
       this.makeToast(payload);
     });

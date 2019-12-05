@@ -89,7 +89,7 @@ export class GetMyLocationComponent implements OnInit {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           };
-          console.log('decode place id ', this.myLocation);
+          // console.log('decode place id ', this.myLocation);
         }
       });
     });
@@ -113,7 +113,7 @@ export class GetMyLocationComponent implements OnInit {
       });
 
     }, (err: PositionError) => {
-      console.log('error : ' + err.message);
+      // console.log('error : ' + err.message);
     });
   }
 

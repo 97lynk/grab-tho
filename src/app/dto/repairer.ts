@@ -29,6 +29,8 @@ export interface JoinedRepairer {
 
     id: number;
 
+    uid: number;
+
     username: string;
 
     email: string;
@@ -48,5 +50,7 @@ export interface JoinedRepairer {
     point: number;
 
     createAt: Date;
+
+    hide: boolean;
 }
 

@@ -103,7 +103,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ionViewWillLeave() {
-    console.log('unsubscribe hoem repairer ', this.gc.subscriptions.length);
+    // console.log('unsubscribe hoem repairer ', this.gc.subscriptions.length);
     this.gc.clearAll();
   }
 

@@ -99,7 +99,7 @@ export class ChangeAvatarPage implements OnInit {
         this.imageProvider
           .takePicture()
           .then((url: string) => {
-            console.log('image form camera');
+            // console.log('image form camera');
             this.profile.avatar = url;
             this.change = true;
           })
@@ -117,12 +117,12 @@ export class ChangeAvatarPage implements OnInit {
           this.imageProvider
             .selectPhoto()
             .then((data) => {
-              console.log('image form library');
+              // console.log('image form library');
               this.profile.avatar = data;
               this.change = true;
             })
             .catch((error) => {
-              console.log('ERROR - Returning the selectPhoto method data in a Promise');
+              // console.log('ERROR - Returning the selectPhoto method data in a Promise');
               console.dir(error);
               this.displayErrorWarning(error);
             });
@@ -151,7 +151,7 @@ export class ChangeAvatarPage implements OnInit {
         {
           text: 'Cancel',
           handler: () => {
-            console.log('Cancelled');
+            // console.log('Cancelled');
           }
         }
       ]
@@ -174,7 +174,7 @@ export class ChangeAvatarPage implements OnInit {
       const data = await this.imageProvider.selectImage(event, i).toPromise();
       this.profile.avatar = data + '';
       this.change = true;
-      console.log('image form input ');
+      // console.log('image form input ');
     }
   }
 

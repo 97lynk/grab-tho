@@ -21,10 +21,9 @@ export class AuthService {
     constructor(
         private oauthService: OAuthService,
         private http: HttpClient) {
-
         registerWebPlugin(OAuth2);
 
-        console.log('constructor auth service');
+        // console.log('constructor auth service');
 
         // set up OAuth service
         this.oauthService.configure(authConfig);
@@ -42,18 +41,18 @@ export class AuthService {
 
         // handle all event relate token
         this.oauthService.events.subscribe(e => {
-            console.log('Oauth/oidc Event', e);
+            // console.log('Oauth/oidc Event', e);
             // refresh token then load profile
             switch (e.type) {
                 case 'token_expires':
-                    console.log('OAuth2: refresh new token request');
+                    // console.log('OAuth2: refresh new token request');
                     this.oauthService.refreshToken()
                         .then(value => {
-                            console.log('OAuth2: refresh new token success');
+                            // console.log('OAuth2: refresh new token success');
                             this.loadProfile();
                         })
                         .catch(error => {
-                            console.log('OAuth2: refresh new token failed', error);
+                            // console.log('OAuth2: refresh new token failed', error);
                             this.oauthService.logOut();
                         });
                     break;
@@ -77,11 +76,11 @@ export class AuthService {
 
     async refreshToken() {
         this.oauthService.refreshToken().then(data => {
-            console.log('OAuth2: refresh new token success');
+            // console.log('OAuth2: refresh new token success');
             this.loadProfile();
 
         }).catch(error => {
-            console.log('OAuth2: refresh new token failed ', error);
+            // console.log('OAuth2: refresh new token failed ', error);
         });
     }
 
@@ -90,18 +89,18 @@ export class AuthService {
     }
 
     loadProfile = () => {
-        console.log('OAuth2: load profile request');
+        // console.log('OAuth2: load profile request');
         // contains access token and valid
         if (this.oauthService.hasValidAccessToken()) {
-            console.log('OAuth2: token still valid');
+            // console.log('OAuth2: token still valid');
             // already exist claims
             if (this.oauthService.getIdentityClaims()) {
                 this.publishChangeProfile(this.oauthService.getIdentityClaims());
-                console.log('OAuth2: load profile success (extract from claim token)');
+                // console.log('OAuth2: load profile success (extract from claim token)');
             } else {
                 this.oauthService.loadUserProfile().then(profile => {
                     this.publishChangeProfile(profile);
-                    console.log('OAuth2: load profile success (request api)');
+                    // console.log('OAuth2: load profile success (request api)');
                 }).catch(error => console.log(`OAuth2: load profile failed (${error})`));
             }
         } else {
@@ -110,19 +109,19 @@ export class AuthService {
     }
 
     async loginWithUsernameAndPassword(username: string, password: string) {
-        console.log('OAuth2: request login');
+        // console.log('OAuth2: request login');
         await this.oauthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password);
     }
 
     async loginWithFacebook() {
         const resourceUrlResponse = await this.facebookLogin();
-        console.log(resourceUrlResponse);
+        // console.log(resourceUrlResponse);
         const accessToken = await this.http.post(`${environment.serviceUrl}/login/facebook?token=${resourceUrlResponse['access_token']}`,
             {}).toPromise();
         localStorage.setItem('refresh_token', accessToken['refresh_token']);
     }
 
-    private facebookLogin() {
+    public facebookLogin() {
         return OAuth2Client.authenticate({
             appId: environment.fbAppId,
             authorizationBaseUrl: `https://www.facebook.com/v${fbApiVersion}/dialog/oauth`,
@@ -141,6 +140,35 @@ export class AuthService {
         });
     }
 
+    // googleLogin() {
+    //     OAuth2Client.authenticate({
+    //         appId: environment.google.web.client_id,
+    //         authorizationBaseUrl: "https://accounts.google.com/o/oauth2/auth",
+    //         accessTokenEndpoint: "https://www.googleapis.com/oauth2/v4/token",
+    //         scope: "email profile",
+    //         resourceUrl: "https://www.googleapis.com/userinfo/v2/me",
+    //         web: {
+    //             redirectUrl: "http://localhost:8100",
+    //             windowOptions: "height=600,left=0,top=0"
+    //         },
+    //         android: {
+    //             appId: environment.google.web.client_id,
+    //             responseType: "code", // if you configured a android app in google dev console the value must be "code"
+    //             customScheme: "com.companyname.appname:/" // package name from google dev console
+    //         },
+    //         ios: {
+    //             appId: environment.google.web.client_id,
+    //             responseType: "code", // if you configured a ios app in google dev console the value must be "code"
+    //             customScheme: "com.companyname.appname:/" // Bundle ID from google dev console
+    //         }
+    //     }).then(resourceUrlResponse => {
+    //         // console.log(resourceUrlResponse);
+    //         // do sth e.g. check with your backend
+    //     }).catch(reason => {
+    //         console.error("Google OAuth rejected", reason);
+    //     });
+    // }
+
     logout = () => {
         this.oauthService.logOut(false);
     }
@@ -148,15 +176,15 @@ export class AuthService {
     isAuthenticated = () => this.oauthService.hasValidAccessToken();
 
     loggingCurrentToken = () => {
-        console.log(`OAuth2: Access token is exist(${this.oauthService.getAccessToken() != null})`);
-        console.log(`OAuth2:      expire: ${(new Date(this.oauthService.getAccessTokenExpiration()).toLocaleTimeString())}`);
-        console.log(`OAuth2:       valid: ${this.oauthService.hasValidAccessToken()}`);
-        console.log(`OAuth2: Refresh token is exist(${this.oauthService.getRefreshToken() != null})`);
+        // console.log(`OAuth2: Access token is exist(${this.oauthService.getAccessToken() != null})`);
+        // console.log(`OAuth2:      expire: ${(new Date(this.oauthService.getAccessTokenExpiration()).toLocaleTimeString())}`);
+        // console.log(`OAuth2:       valid: ${this.oauthService.hasValidAccessToken()}`);
+        // console.log(`OAuth2: Refresh token is exist(${this.oauthService.getRefreshToken() != null})`);
     }
 
     isClient() {
         const roles = jwtDecode(this.oauthService.getAccessToken()).authorities as string[];
-        console.log('roles ', roles);
+        // console.log('roles ', roles);
         return roles.includes('ROLE_CUSTOMER');
     }
 
@@ -171,7 +199,7 @@ export class AuthService {
     forceLoadProfile() {
         this.oauthService.loadUserProfile().then(profile => {
             this.publishChangeProfile(profile);
-            console.log('OAuth2: load profile success (request api)');
+            // console.log('OAuth2: load profile success (request api)');
         }).catch(error => console.log(`OAuth2: load profile failed (${error})`));
     }
 }

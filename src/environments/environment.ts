@@ -20,7 +20,21 @@ export const environment = {
     appId: '1:1057320092912:web:9547c36138d417b2f32e35',
     measurementId: 'G-8708DW0VS2',
     vapidKey: 'BO9CR3msZHQiVuhiCQMyTaqmdvt2mxdeYivo1Ha-GpCIf_ik6BT011ykjA0ACYbhJLYYJnilV9zUhVow726-Hic'
-  }
+  },
+
+  // google: {
+  //   web: {
+  //     client_id: '465204587316-63u6mahvm6j20t7p349uasg7bsrdir7r.apps.googleusercontent.com',
+  //     project_id: 'grab-tho-1573464997495',
+  //     auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+  //     token_uri: 'https://oauth2.googleapis.com/token',
+  //     auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+  //     client_secret: '3GlQ9lzAwqkYk7MUSc8MsB1t',
+  //     javascript_origins: [
+  //       'http://localhost:8100'
+  //     ]
+  //   }
+  // }
 };
 
 /*

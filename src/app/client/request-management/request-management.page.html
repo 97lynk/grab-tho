@@ -31,6 +31,13 @@
 
       <item-recent *ngFor="let req of recentRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
 
+      <ng-container *ngIf="!loadingData && recentRequest.length === 0">
+        <div class="ion-text-center ion-padding">
+          <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+          <div class="text-light-color">Chưa có yêu cầu</div>
+        </div>
+      </ng-container>
+
       <div class="ion-padding-bottom"></div>
 
       <ion-list-header class="bg-light">
@@ -40,6 +47,13 @@
       <ng-container *ngTemplateOutlet="skeletonTemplate"></ng-container>
 
       <item-recent *ngFor="let req of quotedRequest" [routerLink]="['/requests', req.id]" [data]="req"></item-recent>
+
+      <ng-container *ngIf="!loadingData && quotedRequest.length === 0">
+        <div class="ion-text-center ion-padding">
+          <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+          <div class="text-light-color">Chưa có yêu cầu</div>
+        </div>
+      </ng-container>
 
     </ion-list>
   </ng-container>
@@ -56,6 +70,13 @@
       <item-accepted *ngFor="let req of acceptedRequest" [routerLink]="['/requests', req.id]" [data]="req"
         [config]="acceptedItemConfig"></item-accepted>
 
+      <ng-container *ngIf="!loadingData && acceptedRequest.length === 0">
+        <div class="ion-text-center ion-padding">
+          <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+          <div class="text-light-color">Chưa có yêu cầu</div>
+        </div>
+      </ng-container>
+
     </ion-list>
   </ng-container>
 
@@ -71,6 +92,13 @@
       <item-complete *ngFor="let req of completedRequest" [routerLink]="['/requests', req.id]" [data]="req"
         [config]="completedItemConfig"></item-complete>
 
+      <ng-container *ngIf="!loadingData && completedRequest.length === 0">
+        <div class="ion-text-center ion-padding">
+          <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+          <div class="text-light-color">Chưa có yêu cầu</div>
+        </div>
+      </ng-container>
+
       <div class="ion-padding-bottom"></div>
 
       <ion-list-header class="bg-light">
@@ -81,6 +109,13 @@
 
       <item-closed *ngFor="let req of closedRequest" [routerLink]="['/requests', req.id]" [data]="req"
         [config]="closedItemConfig"></item-closed>
+
+      <ng-container *ngIf="!loadingData && closedRequest.length === 0">
+        <div class="ion-text-center ion-padding">
+          <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+          <div class="text-light-color">Chưa có yêu cầu</div>
+        </div>
+      </ng-container>
     </ion-list>
   </ng-container>
 

@@ -25,7 +25,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
-import { TabsPage } from './repairer/tabs/tabs.page';
 import { TabsRepairerPageModule } from './repairer/tabs/tabs.module';
 import { GuideSlidesModule } from './guide-slides/guide-sildes.module';
 

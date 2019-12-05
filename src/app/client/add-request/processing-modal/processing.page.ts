@@ -56,7 +56,7 @@ export class ProcessingModal implements OnInit {
     this.status = this.STATUS.processing;
     this.requestService.postRequest(this.updateProgessBar)
       .then((data: Request) => {
-        console.log('Post a request success ', data);
+        // console.log('Post a request success ', data);
         this.updateProgessBar(1.0, 1.0, 'cloud-upload', 'Các thợ sẽ xem yêu cầu và cùng với bạn thương lượng để chốt chi phí');
         this.status = this.STATUS.success;
         this.id = data.id;
@@ -66,7 +66,7 @@ export class ProcessingModal implements OnInit {
         this.updateProgessBar(this.value, 1.0, this.iconName, 'Đã có lỗi xảy ra trong quá trình gửi yêu cầu!');
         // this.color = 'danger';
         this.status = this.STATUS.error;
-        console.log('Failed to post request ', error);
+        // console.log('Failed to post request ', error);
         this.id = null;
         this.storageService.remove('imagesDescription');
         this.storageService.remove('textDescription');

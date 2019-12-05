@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import * as CapacitorSQLPlugin from 'capacitor-data-storage-sqlite';
 
 import { Plugins } from '@capacitor/core';
+import { Platform } from '@ionic/angular';
 const { CapacitorDataStorageSqlite, Capacitor } = Plugins;
 
 @Injectable({
@@ -12,9 +13,8 @@ export class StorageService {
 
     storage: any = {};
 
-    constructor() {
-        console.log('platform ', Capacitor.platform);
-        if (Capacitor.platform === 'ios' || Capacitor.platform === 'android') {
+    constructor(private platform: Platform) {
+        if (platform.is('ios') || platform.is('android')) {
             this.storage = CapacitorDataStorageSqlite;
         } else {
             this.storage = CapacitorSQLPlugin.CapacitorDataStorageSqlite;

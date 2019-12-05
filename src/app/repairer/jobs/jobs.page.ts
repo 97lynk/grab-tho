@@ -98,12 +98,12 @@ export class JobsPage implements OnInit, OnDestroy {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
+            // console.log('Confirm Cancel');
           }
         }, {
           text: 'Đồng ý',
           handler: (data) => {
-            console.log('Confirm Ok ', data);
+            // console.log('Confirm Ok ', data);
             this.filterStatuses = [...data];
             this.loadData();
           }

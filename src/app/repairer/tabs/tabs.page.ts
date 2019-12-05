@@ -7,6 +7,7 @@ import { mergeMap } from 'rxjs/operators';
 import { MessagingService } from 'src/app/service/message.service';
 import { auth } from 'firebase';
 import { GarbageCollector } from 'src/app/util/garbage.collector';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'repairer-app-tabs',
@@ -22,19 +23,22 @@ export class TabsPage implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-    private messagingService: MessagingService
-    ) {
+    private messagingService: MessagingService,
+    private platform: Platform
+  ) {
     this.counterNoti = notificationService.unseenCount;
   }
 
   ngOnInit() {
-    console.log('tabs init');
+    // console.log('tabs init');
     this.gc.collect('profile', this.authService.registerSubscriber().subscribe(profile => {
       if (!profile) return;
-      console.log('tabs profile');
-      this.gc.collect('messagingService.requestPermission', this.messagingService.requestPermission(profile.username, this.authService.isClient()));
-      this.gc.collect('messagingService.receiveMessage', this.messagingService.receiveMessage());
+      // console.log('tabs profile');
 
+      if (!this.platform.is('ios')) {
+        this.gc.collect('messagingService.requestPermission', this.messagingService.requestPermission(profile.username, this.authService.isClient()));
+        this.gc.collect('messagingService.receiveMessage', this.messagingService.receiveMessage());
+      }
       this.notificationService.countUnseen(profile.username);
     }));
   }

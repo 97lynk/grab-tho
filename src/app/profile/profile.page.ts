@@ -49,7 +49,7 @@ export class RepairerProfilePage implements OnInit, OnDestroy, AfterViewInit {
 
   async ngOnInit() {
 
-    console.log('ngOnit tab3 ');
+    // console.log('ngOnit tab3 ');
     this.counter = this.likeService.counter;
 
     this.gc.collect('profile', this.authService.registerSubscriber().subscribe(p => {
@@ -168,7 +168,7 @@ export class RepairerProfilePage implements OnInit, OnDestroy, AfterViewInit {
         }, {
           text: 'Đồng ý',
           handler: () => {
-            console.log('Confirm Ok');
+            // console.log('Confirm Ok');
           }
         }
       ]
@@ -211,6 +211,68 @@ export class RepairerProfilePage implements OnInit, OnDestroy, AfterViewInit {
     changeAvatarModal.present();
   }
 
+  async showChangePassword() {
+    const failedAlert = await this.alertController.create({
+      header: 'Đổi mật khẩu thất bại',
+      message: 'Mật khẩu có độ dài 8 kí tự và bao gồm các kí tự chữ cái hoặc số',
+      buttons: [
+        {
+          text: 'Xong',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }
+      ]
+    });
+
+    const rechargeAlert = await this.alertController.create({
+      header: 'Đổi mật khẩu',
+      // subHeader: 'Mã thẻ gồm 12 chữ số',
+      inputs: [
+        {
+          placeholder: 'Mật khẩu mới',
+          name: 'password',
+          type: 'password'
+        },
+        {
+          placeholder: 'Xác nhận mật khẩu',
+          name: 'confirmPassword',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Hủy',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Đồng ý',
+          handler: (data) => {
+            // console.log('Confirm Ok ', data);
+
+            if (!/[a-zA-Z0-9]{8,}/.test(data.password)) {
+              failedAlert.present();
+            } else if (data.password !== data.confirmPassword) {
+              failedAlert.message = 'Mật khẩu mới và xác nhận mật khẩu không giống nhau';
+              failedAlert.present();
+            } else {
+              this.gc.collect('changePassword',
+                this.repairerService.changePassword('123', data.password, this.profile.id).subscribe(d => {
+                  failedAlert.header = 'Đổi mật khẩu';
+                  failedAlert.message = 'Thay đổi mật khẩu thành công';
+                  failedAlert.present();
+                }, error => {
+                  failedAlert.message = 'Có lỗi xảy ra';
+                  failedAlert.present();
+                }));
+            }
+          }
+        }
+      ]
+    });
+
+    await rechargeAlert.present();
+  }
+
   async showSetting() {
     const toast = await this.toastController.create({
       message: 'Cài đặt đã được thay đổi',
@@ -234,6 +296,7 @@ export class RepairerProfilePage implements OnInit, OnDestroy, AfterViewInit {
     settingModal.onDidDismiss().then(modalData => {
       if (modalData.data && modalData.data.status === 'SUCCESS') {
         this.authService.forceLoadProfile();
+        this.navController.navigateForward((this.isRepairer ? '/r/tabs/profile' : '/tabs/profile'));
         toast.present();
       }
     });

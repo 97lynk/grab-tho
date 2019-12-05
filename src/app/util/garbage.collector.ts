@@ -24,9 +24,9 @@ export class GarbageCollector {
     }
 
     clearAll() {
-        console.log('Garbage collector', this.name, 'is clearing ',
-            '\n', this.subscriptions.map(s => s.name)
-        );
+        // console.log('Garbage collector', this.name, 'is clearing ',
+        //    '\n', this.subscriptions.map(s => s.name)
+        //);
         this.subscriptions.forEach(s => s.sub.unsubscribe());
         this.subscriptions = [];
     }

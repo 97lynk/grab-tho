@@ -69,7 +69,7 @@ export class HomePage implements OnInit, OnDestroy {
 
     this.gc.collect('profile',
       this.authService.registerSubscriber().subscribe((profile: Profile) => {
-        console.log('OAuth2: authenticated, receive profile in home ', profile);
+        // console.log('OAuth2: authenticated, receive profile in home ', profile);
         this.profile = profile;
       }, () => console.log('Header: receive profile fail'))
     );
