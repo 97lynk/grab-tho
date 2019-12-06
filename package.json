@@ -1,8 +1,8 @@
 {
   "name": "grab-tho-ionic",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "97lynk",
+  "homepage": "https://grabtho.tk",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

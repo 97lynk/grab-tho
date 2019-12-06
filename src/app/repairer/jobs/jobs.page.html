@@ -12,6 +12,11 @@
     </ion-button>
   </div>
 
+  <div *ngIf="requests.length === 0" class="ion-text-center ion-margin-vertical">
+    <img src="/assets/empty-box.svg" alt="Chưa có yêu cầu">
+    <div class="text-light-color">Chưa có yêu cầu</div>
+  </div>
+
   <div *ngFor="let data of requests" [routerLink]="['/r','requests', data.id]">
     <ion-item lines="none">
       <ion-avatar slot="start">

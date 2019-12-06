@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "GrabThợ - Ứng dụng đặt thợ",
+  "short_name": "apGrabThợ",
   "theme_color": "#1976d2",
   "background_color": "#03befc",
   "display": "standalone",

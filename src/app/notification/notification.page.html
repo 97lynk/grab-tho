@@ -45,6 +45,11 @@
     </ion-item-sliding>
   </ion-list>
 
+  <div *ngIf="notifications?.length === 0" class="ion-text-center ion-margin-vertical">
+    <img src="/assets/empty-box.svg" alt="Chưa có thông báo">
+    <div class="text-light-color">Chưa có thông báo</div>
+  </div>
+
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="!loading">
     <ion-infinite-scroll-content loadingSpinner="lines" loadingText="Đang tải thêm thông báo...">
     </ion-infinite-scroll-content>

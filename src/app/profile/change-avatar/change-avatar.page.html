@@ -20,7 +20,9 @@
 
   <!-- preview 1 -->
   <ion-row class="bg-white ion-padding-top">
-    <ion-col size="1"></ion-col>
+    <ion-col size="1">
+      <span class="ion-padding-start primary-color">Xem trước</span>
+    </ion-col>
     <ion-col>
       <ion-avatar class="profile-avatar">
         <img [src]="profile?.avatar" alt="">
@@ -42,6 +44,7 @@
   <ion-item-divider *ngIf="repairer"></ion-item-divider>
 
   <!-- preview 2 -->
+  <span class="ion-padding-start primary-color" *ngIf="repairer">Xem trước</span>
   <ion-item lines="none" class="ion-padding-vertical" *ngIf="repairer">
     <ion-avatar slot="start" style="border: 2px solid var(--ion-color-primary-shade); width: 48px; height: 48px;">
       <img [src]="profile?.avatar">
@@ -61,6 +64,7 @@
   <ion-item-divider></ion-item-divider>
 
   <!-- preview 3 -->
+  <span class="ion-padding-start primary-color">Xem trước</span>
   <ion-item lines="none" detail="false">
     <ion-avatar slot="start">
       <img [src]="profile?.avatar">
