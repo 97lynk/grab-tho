@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { NavController, IonItemSliding } from '@ionic/angular';
 import { JoinedRepairer } from 'src/app/dto/repairer';
 import { Profile } from 'src/app/dto/profile';
 import { ActivatedRoute } from '@angular/router';
@@ -11,12 +11,13 @@ import { Request } from '../dto/request';
   templateUrl: './repairer-list.component.html',
   styleUrls: ['./repairer-list.component.scss'],
 })
-export class RepairerListComponent implements OnInit {
+export class RepairerListComponent implements OnInit, AfterViewChecked {
 
   repairers: JoinedRepairer[] = null;
 
-  @Output() acceptQuote = new EventEmitter<JoinedRepairer>();
+  // @ViewChildren('item') components:QueryList<IonItemSliding>;
 
+  @Output() acceptQuote = new EventEmitter<JoinedRepairer>();
 
   @Input() poster: Profile;
 
@@ -42,8 +43,14 @@ export class RepairerListComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
+
+  ngAfterViewChecked(): void {
+    
+    // console.log(this.components.toArray());
+    // this.components.toArray().forEach((c: IonItemSliding) => c.open('end'));
+  }
+
 
   clickItem(repairerId: number) {
     if (this.itemClickable) {

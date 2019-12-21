@@ -35,7 +35,7 @@ export class RequestDetailPage implements OnInit, OnDestroy {
   showJoinedRepairer = false;
   showCloseButton = false;
   statusToLoadRepairer = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED', 'COMPLETED', 'FEEDBACK', 'CLOSED'];
-  statusToShowReview = ['COMPLETED', 'FEEDBACK'];
+  statusToShowReview = ['COMPLETED', 'FEEDBACK', 'ACCEPTED'];
   statusToShowJoinedRepairer = [...this.statusToShowReview, 'ACCEPTED', 'WAITING'];
   statusToShoCloseButton = ['POSTED', 'RECEIVED', 'QUOTED', 'ACCEPTED'];
 
