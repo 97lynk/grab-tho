@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { Plugins, CameraResultType, CameraSource, CameraDirection } from '@capacitor/core';
 import { Observable } from 'rxjs';
 
 
@@ -62,7 +62,9 @@ export class ImageProvider {
             quality: 90,
             allowEditing: true,
             resultType: CameraResultType.DataUrl,
-            source: CameraSource.Camera
+            source: CameraSource.Camera,
+            direction: CameraDirection.Rear,
+            // correctOrientation
         });
 
 
@@ -95,7 +97,8 @@ export class ImageProvider {
             quality: 90,
             allowEditing: false,
             resultType: CameraResultType.Uri,
-            source: CameraSource.Photos
+            source: CameraSource.Photos,
+            direction: CameraDirection.Rear
         });
 
 

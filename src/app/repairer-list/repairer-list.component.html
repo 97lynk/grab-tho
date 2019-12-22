@@ -55,7 +55,11 @@
             <span class="link" (click)="clickItem(r.uid)">{{ r.fullName }}</span>&nbsp;&nbsp;
             <span>báo giá <strong>{{ r.point }} VND</strong></span>
           </span>
-          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+          <div style="margin-left: 10px;" class="post-time">
+            <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span>{{ r.createAt | vdatetime }}</span>
+          </div>
         </ion-label>
         <ion-button *ngIf="request?.status === 'QUOTED'" slot="end" (click)="acceptQuote.emit(r)">
           Đặt thợ
@@ -76,7 +80,11 @@
             <span class="link" (click)="clickItem(r.uid)">{{ r.fullName }}</span>&nbsp;&nbsp;
             <span>xem yêu cầu</span>
           </span>
-          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+          <div style="margin-left: 10px;" class="post-time">
+            <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span>{{ r.createAt | vdatetime }}</span>
+          </div>
         </ion-label>
       </ion-item>
 
@@ -120,7 +128,11 @@
             <span class="link" (click)="clickItem(r.uid)">{{ r.fullName }}</span>&nbsp;&nbsp;
             <span> đã xác nhận hoàn thành công việc</span>
           </span>
-          <div style="margin-left: 10px;" class="post-time">{{ r.createAt | vdatetime }}</div>
+          <div style="margin-left: 10px;" class="post-time">
+            <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span>{{ r.createAt | vdatetime }}</span>
+          </div>
         </ion-label>
       </ion-item>
 
