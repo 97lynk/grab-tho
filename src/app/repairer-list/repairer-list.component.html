@@ -57,11 +57,11 @@
           </span>
           <div style="margin-left: 10px;" class="post-time">
             <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
-            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate | number: '1.1-1' }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
             <span>{{ r.createAt | vdatetime }}</span>
           </div>
         </ion-label>
-        <ion-button *ngIf="request?.status === 'QUOTED'" slot="end" (click)="acceptQuote.emit(r)">
+        <ion-button *ngIf="request?.status === 'QUOTED' && itemClickable" slot="end" (click)="acceptQuote.emit(r)">
           Đặt thợ
         </ion-button>
       </ion-item>
@@ -82,7 +82,7 @@
           </span>
           <div style="margin-left: 10px;" class="post-time">
             <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
-            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate | number: '1.1-1' }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
             <span>{{ r.createAt | vdatetime }}</span>
           </div>
         </ion-label>
@@ -130,7 +130,7 @@
           </span>
           <div style="margin-left: 10px;" class="post-time">
             <span *ngIf="r.major">{{ r.major }}&nbsp;&#8729;&nbsp;</span>
-            <span *ngIf="r.rate">{{ r.rate }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
+            <span *ngIf="r.rate">{{ r.rate | number: '1.1-1' }} <ion-icon name="star"></ion-icon>&nbsp;&#8729;&nbsp;</span>
             <span>{{ r.createAt | vdatetime }}</span>
           </div>
         </ion-label>
